@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace E_LearningSite.API.DTOs
 {
-    public class Document
+    public class DocumentDTO
     {
-        public int Id { get; set; }
         [Required]
         public string Documentation { get; set; }
         public string Link { get; set; }

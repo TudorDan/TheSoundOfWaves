@@ -305,6 +305,77 @@ namespace E_LearningSite.API.Controllers
             return NoContent();
         }
 
+        // Course Materials
+        [HttpGet("{schoolId}/courses/{courseId}/documents")]
+        public IActionResult GetDocuments(int schoolId, int courseId)
+        {
+            return Ok(_schoolRepository.GetAllDocuments(schoolId, courseId));
+        }
+
+        [HttpGet("{schoolId}/courses/{courseId}/documents/{documentId}", Name = "GetDocument")]
+        public IActionResult GetDocument(int schoolId, int courseId, int documentId)
+        {
+            Document document = _schoolRepository.GetDocument(documentId, schoolId, courseId);
+            if (document == null)
+            {
+                return NotFound();
+            }
+            return Ok(document);
+        }
+
+        [HttpPost("{schoolId}/courses/{courseId}/documents/")]
+        public IActionResult CreateDocument(int schoolId, int courseId, 
+            [FromBody] DocumentDTO documentDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            int maxDocumentId = _schoolRepository.GetAllDocuments(schoolId, courseId).Max(d => d.Id);
+            Document document = new Document()
+            {
+                Id = ++maxDocumentId,
+                Documentation = documentDTO.Documentation,
+                Link = documentDTO.Link
+            };
+            _schoolRepository.AddDocument(document, schoolId, courseId);
+            return CreatedAtRoute("GetDocument", new { schoolId, courseId, documentId = document.Id }, document);
+        }
+
+        [HttpPut("{schoolId}/courses/{courseId}/documents/{documentId}")]
+        public IActionResult UpdateDocument(int schoolId, int courseId, int documentId, 
+            [FromBody] DocumentDTO documentDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            Document document = _schoolRepository.GetDocument(documentId, schoolId, courseId);
+            if (document == null)
+            {
+                return NotFound();
+            }
+            document.Documentation = documentDTO.Documentation;
+            document.Link = documentDTO.Link;
+            return NoContent();
+        }
+
+        [HttpDelete("{schoolId}/courses/{courseId}/documents/{documentId}")]
+        public IActionResult DeleteDocument(int schoolId, int courseId, int documentId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            Document document = _schoolRepository.GetDocument(documentId, schoolId, courseId);
+            if (document == null)
+            {
+                return NotFound();
+            }
+            _schoolRepository.GetAllDocuments(schoolId, courseId).Remove(document);
+            return NoContent();
+        }
+
         // Catalogues
         [HttpGet("{schoolId}/catalogues")]
         public IActionResult GetCatalogues(int schoolId)

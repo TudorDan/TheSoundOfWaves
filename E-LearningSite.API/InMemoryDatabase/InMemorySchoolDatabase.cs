@@ -71,14 +71,14 @@ namespace E_LearningSite.API.DTOs
                                 new Document()
                                 {
                                     Id = 1,
-                                    Documentation = "Bla bla",
-                                    Link = ""
+                                    Documentation = "Cuantum Physics doc 1",
+                                    Link = "Cuantum Physics link 1"
                                 },
                                 new Document()
                                 {
                                     Id = 2,
-                                    Documentation = "Blu blu",
-                                    Link = ""
+                                    Documentation = "Cuantum Physics doc 2",
+                                    Link = "Cuantum Physics link 2"
                                 }
                             }
                         },
@@ -93,14 +93,14 @@ namespace E_LearningSite.API.DTOs
                                 new Document()
                                 {
                                     Id = 3,
-                                    Documentation = "Ble ble",
-                                    Link = ""
+                                    Documentation = "Prolegomene doc 1",
+                                    Link = "Prolegomene link 1"
                                 },
                                 new Document()
                                 {
                                     Id = 4,
-                                    Documentation = "Ble ble",
-                                    Link = ""
+                                    Documentation = "Prolegomene doc 2",
+                                    Link = "Prolegomene link 2"
                                 }
                             }
                         }
@@ -176,14 +176,14 @@ namespace E_LearningSite.API.DTOs
                                 new Document()
                                 {
                                     Id = 1,
-                                    Documentation = "Bli bli",
-                                    Link = ""
+                                    Documentation = "DOT NET doc 1",
+                                    Link = "DOT NET link 1"
                                 },
                                 new Document()
                                 {
                                     Id = 2,
-                                    Documentation = "1 + 1 = 3",
-                                    Link = ""
+                                    Documentation = "DOT NET doc 2",
+                                    Link = "DOT NET link 2"
                                 }
                             }
                         },
@@ -198,14 +198,14 @@ namespace E_LearningSite.API.DTOs
                                 new Document()
                                 {
                                     Id = 3,
-                                    Documentation = "Blq blq",
-                                    Link = ""
+                                    Documentation = "istoriografice doc 1",
+                                    Link = "istoriografice link 1"
                                 },
                                 new Document()
                                 {
                                     Id = 4,
-                                    Documentation = "agfhdh",
-                                    Link = ""
+                                    Documentation = "istoriografice doc 2",
+                                    Link = "istoriografice link 2"
                                 }
                             }
                         }
@@ -301,6 +301,29 @@ namespace E_LearningSite.API.DTOs
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             return school.CoursesList;
+        }
+
+        // Documents
+        public Document AddDocument(Document document, int schoolId, int courseId)
+        {
+            School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
+            Course course = school.CoursesList.FirstOrDefault(c => c.Id == courseId);
+            course.CourseMaterials.Add(document);
+            return document;
+        }
+
+        public Document GetDocument(int id, int schoolId, int courseId)
+        {
+            School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
+            Course course = school.CoursesList.FirstOrDefault(c => c.Id == courseId);
+            return course.CourseMaterials.FirstOrDefault(d => d.Id == id);
+        }
+
+        public ICollection<Document> GetAllDocuments(int schoolId, int courseId)
+        {
+            School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
+            Course course = school.CoursesList.FirstOrDefault(c => c.Id == courseId);
+            return course.CourseMaterials;
         }
 
         // Catalogues
