@@ -20,6 +20,7 @@ namespace E_LearningSite.API
         {
             services.AddMvc(option => option.EnableEndpointRouting = false);
             services.AddSingleton<ISchoolRepository, InMemorySchoolDatabase>();
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -29,6 +30,12 @@ namespace E_LearningSite.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "E-learning Site API");
+            });
 
             app.UseMvc();
             app.UseRouting();
