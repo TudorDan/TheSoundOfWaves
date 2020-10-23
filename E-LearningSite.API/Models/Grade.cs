@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace E_LearningSite.API.DTOs
 {
-    public struct Grade
+    public class Grade
     {
         public int Id { get; set; }
         public Student Student { get; set; }

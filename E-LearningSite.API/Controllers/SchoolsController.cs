@@ -141,7 +141,7 @@ namespace E_LearningSite.API.Controllers
             }
             mentor.Name = personDTO.Name;
             mentor.BirthDate = personDTO.BirthDate;
-            mentor.AccessRights = personDTO.AccessRights;
+            mentor.AccessRights = personDTO.AccessRights;            
             return NoContent();
         }
 
@@ -450,5 +450,38 @@ namespace E_LearningSite.API.Controllers
             _schoolRepository.GetAllCatalogues(schoolId).Remove(catalogue);
             return NoContent();
         }
+
+        // Catalogue Mentors
+        [HttpGet("{schoolId}/catalogues/{catalogueId}/mentors")]
+        public IActionResult GetCatalogueMentors(int schoolId, int catalogueId)
+        {
+            return Ok(_schoolRepository.GetALLCatalogueMentors(schoolId, catalogueId));
+        }
+
+        [HttpGet("{schoolId}/catalogues/{catalogueId}/mentors/{mentorId}", Name = "GetCatalogueMentor")]
+        public IActionResult GetCatalogueMentor(int schoolId, int catalogueId, int mentorId)
+        {
+            Mentor mentor = _schoolRepository.GetCatalogueMentor(mentorId, schoolId, catalogueId);
+            if (mentor == null)
+            {
+                return NotFound();
+            }
+            return Ok(mentor);
+        }
+
+        [HttpPost("{schoolId}/catalogues/{catalogueId}/mentors")]
+        public IActionResult CreateCatalogueMentor(int schoolId, int catalogueId, [FromBody] int mentorId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            Mentor mentor = _schoolRepository.GetMentor(mentorId, schoolId);
+            Catalogue catalogue = _schoolRepository.GetCatalogue(catalogueId, schoolId);
+            catalogue.ClassMentors.Add(mentor);
+            return CreatedAtRoute("GetCatalogueMentor", new { schoolId, catalogueId, mentorId }, mentor);
+        }
+
+
     }
 }
