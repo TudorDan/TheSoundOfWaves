@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace E_LearningSite.API.DTOs
 {
-    public class Grade
+    public class GradeDTO
     {
-        public int Id { get; set; }
         [Required]
         public Student Student { get; set; }
         [Required]

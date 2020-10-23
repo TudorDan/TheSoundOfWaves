@@ -158,6 +158,7 @@ namespace E_LearningSite.API.Controllers
                 return NotFound();
             }
             _schoolRepository.GetAllMentors(schoolId).Remove(mentor);
+            _schoolRepository.GetSchool(schoolId).CataloguesList.ForEach(c => c.ClassMentors.Remove(mentor));
             return NoContent();
         }
 
@@ -229,6 +230,7 @@ namespace E_LearningSite.API.Controllers
                 return NotFound();
             }
             _schoolRepository.GetAllStudents(schoolId).Remove(student);
+            _schoolRepository.GetSchool(schoolId).CataloguesList.ForEach(c => c.ClassStudents.Remove(student));
             return NoContent();
         }
 
@@ -302,6 +304,7 @@ namespace E_LearningSite.API.Controllers
                 return NotFound();
             }
             _schoolRepository.GetAllCourses(schoolId).Remove(course);
+            _schoolRepository.GetSchool(schoolId).CataloguesList.ForEach(c => c.ClassCourses.Remove(course));
             return NoContent();
         }
 
@@ -373,6 +376,8 @@ namespace E_LearningSite.API.Controllers
                 return NotFound();
             }
             _schoolRepository.GetAllDocuments(schoolId, courseId).Remove(document);
+            _schoolRepository.GetSchool(schoolId).CataloguesList.ForEach(
+                c => c.ClassCourses.ForEach(cs => cs.CourseMaterials.Remove(document)));
             return NoContent();
         }
 
@@ -482,6 +487,198 @@ namespace E_LearningSite.API.Controllers
             return CreatedAtRoute("GetCatalogueMentor", new { schoolId, catalogueId, mentorId }, mentor);
         }
 
+        [HttpDelete("{schoolId}/catalogues/{catalogueId}/mentors/{mentorId}")]
+        public IActionResult DeleteCatalogueMentor(int schoolId, int catalogueId, int mentorId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            Mentor mentor = _schoolRepository.GetCatalogueMentor(mentorId, schoolId, catalogueId);
+            if (mentor == null)
+            {
+                return NotFound();
+            }
+            _schoolRepository.GetCatalogue(catalogueId, schoolId).ClassMentors.Remove(mentor);
+            return NoContent();
+        }
 
+        // Catalogue Students
+        [HttpGet("{schoolId}/catalogues/{catalogueId}/students")]
+        public IActionResult GetCatalogueStudents(int schoolId, int catalogueId)
+        {
+            return Ok(_schoolRepository.GetAllCatalogueStudents(schoolId, catalogueId));
+        }
+
+        [HttpGet("{schoolId}/catalogues/{catalogueId}/students/{studentId}", Name = "GetCatalogueStudent")]
+        public IActionResult GetCatalogueStudent(int schoolId, int catalogueId, int studentId)
+        {
+            Student student = _schoolRepository.GetCatalogueStudent(studentId, schoolId, catalogueId);
+            if (student == null)
+            {
+                return NotFound();
+            }
+            return Ok(student);
+        }
+
+        [HttpPost("{schoolId}/catalogues/{catalogueId}/students")]
+        public IActionResult CreateCatalogueStudent(int schoolId, int catalogueId, [FromBody] int studentId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            Student student = _schoolRepository.GetStudent(studentId, schoolId);
+            Catalogue catalogue = _schoolRepository.GetCatalogue(catalogueId, schoolId);
+            catalogue.ClassStudents.Add(student);
+            return CreatedAtRoute("GetCatalogueStudent", new { schoolId, catalogueId, studentId }, student);
+        }
+
+        [HttpDelete("{schoolId}/catalogues/{catalogueId}/students/{studentId}")]
+        public IActionResult DeleteCatalogueStudent(int schoolId, int catalogueId, int studentId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            Student student = _schoolRepository.GetCatalogueStudent(studentId, schoolId, catalogueId);
+            if (student == null)
+            {
+                return NotFound();
+            }
+            _schoolRepository.GetCatalogue(catalogueId, schoolId).ClassStudents.Remove(student);
+            return NoContent();
+        }
+
+        // Catalogue Courses
+        [HttpGet("{schoolId}/catalogues/{catalogueId}/courses")]
+        public IActionResult GetCatalogueCourses(int schoolId, int catalogueId)
+        {
+            return Ok(_schoolRepository.GetAllCatalogueCourses(schoolId, catalogueId));
+        }
+
+        [HttpGet("{schoolId}/catalogues/{catalogueId}/courses/{courseId}", Name = "GetCatalogueCourse")]
+        public IActionResult GetCatalogueCourse(int schoolId, int catalogueId, int courseId)
+        {
+            Course course = _schoolRepository.GetCatalogueCourse(courseId, schoolId, catalogueId);
+            if (course == null)
+            {
+                return NotFound();
+            }
+            return Ok(course);
+        }
+
+        [HttpPost("{schoolId}/catalogues/{catalogueId}/courses")]
+        public IActionResult CreateCatalogueCourse(int schoolId, int catalogueId, [FromBody] int courseId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            Course course = _schoolRepository.GetCourse(courseId, schoolId);
+            Catalogue catalogue = _schoolRepository.GetCatalogue(catalogueId, schoolId);
+            catalogue.ClassCourses.Add(course);
+            return CreatedAtRoute("GetCatalogueCourse", new { schoolId, catalogueId, courseId }, course);
+        }
+
+        [HttpDelete("{schoolId}/catalogues/{catalogueId}/courses/{courseId}")]
+        public IActionResult DeleteCatalogueCourse(int schoolId, int catalogueId, int courseId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            Course course = _schoolRepository.GetCatalogueCourse(courseId, schoolId, catalogueId);
+            if (course == null)
+            {
+                return NotFound();
+            }
+            _schoolRepository.GetAllCatalogueCourses(schoolId, catalogueId).Remove(course);
+            return NoContent();
+        }
+
+        // Catalogue Grades
+        [HttpGet("{schoolId}/catalogues/{catalogueId}/grades")]
+        public IActionResult GetCatalogueGrades(int schoolId, int catalogueId)
+        {
+            return Ok(_schoolRepository.GetAllCatalogueGrades(schoolId, catalogueId));
+        }
+
+        [HttpGet("{schoolId}/catalogues/{catalogueId}/grades/{gradeId}", Name = "GetCatalogueGrade")]
+        public IActionResult GetCatalogueGrade(int schoolId, int catalogueId, int gradeId)
+        {
+            Grade grade = _schoolRepository.GetCatalogueGrade(gradeId, schoolId, catalogueId);
+            if (grade == null)
+            {
+                return NotFound();
+            }
+            return Ok(grade);
+        }
+
+        [HttpPost("{schoolId}/catalogues/{catalogueId}/grades")]
+        public IActionResult CreateCatalogueGrade(int schoolId, int catalogueId, [FromBody] GradeDTO gradeDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            int maxGradeId;
+            try
+            {
+                maxGradeId = _schoolRepository.GetAllCatalogueGrades(schoolId, catalogueId).Max(g => g.Id);
+            }
+            catch (InvalidOperationException e)
+            {
+                maxGradeId = 0;
+                Console.WriteLine("{0} Exception caught.", e);
+            }
+            Grade grade = new Grade()
+            {
+                Id = ++maxGradeId,
+                Student = gradeDTO.Student,
+                Mark = gradeDTO.Mark,
+                Course = gradeDTO.Course,
+                Mentor = gradeDTO.Mentor
+            };
+            _schoolRepository.AddCatalogueGrade(grade, schoolId, catalogueId);
+            return CreatedAtRoute("GetCatalogueGrade", 
+                new { schoolId, catalogueId, gradeId = grade.Id }, grade);
+        }
+
+        [HttpPut("{schoolId}/catalogues/{catalogueId}/grades/{gradeId}")]
+        public IActionResult UpdateCatalogueGrade(int schoolId, int catalogueId, int gradeId,
+            [FromBody] GradeDTO gradeDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            Grade grade = _schoolRepository.GetCatalogueGrade(gradeId, schoolId, catalogueId);
+            if (grade == null)
+            {
+                return NotFound();
+            }
+            grade.Student = gradeDTO.Student;
+            grade.Mark = gradeDTO.Mark;
+            grade.Course = gradeDTO.Course;
+            grade.Mentor = gradeDTO.Mentor;
+            return NoContent();
+        }
+
+        [HttpDelete("{schoolId}/catalogues/{catalogueId}/grades/{gradeId}")]
+        public IActionResult DeleteCatalogueGrade(int schoolId, int catalogueId, int gradeId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            Grade grade = _schoolRepository.GetCatalogueGrade(gradeId, schoolId, catalogueId);
+            if (grade == null)
+            {
+                return NotFound();
+            }
+            _schoolRepository.GetAllCatalogueGrades(schoolId, catalogueId).Remove(grade);
+            return NoContent();
+        }
     }
 }
