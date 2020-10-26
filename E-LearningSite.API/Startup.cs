@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Reflection;
+using System.IO;
 
 namespace E_LearningSite.API
 {
@@ -20,6 +22,18 @@ namespace E_LearningSite.API
         {
             services.AddMvc(option => option.EnableEndpointRouting = false);
             services.AddSingleton<ISchoolRepository, InMemorySchoolDatabase>();
+
+            services.AddSwaggerGen(setupAction => 
+            { 
+                setupAction.SwaggerDoc(
+                    "E-LearningSiteOpenAPISpecification", 
+                    new Microsoft.OpenApi.Models.OpenApiInfo() { Title = "E-Learning Site API", Version = "1" }
+                    );
+                var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
+
+                setupAction.IncludeXmlComments(xmlCommentsFullPath);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -29,6 +43,14 @@ namespace E_LearningSite.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(setupAction => 
+            {
+                setupAction.SwaggerEndpoint(
+                    "/swagger/E-LearningSiteOpenAPISpecification/swagger.json", "E-Learning Site API");
+                setupAction.RoutePrefix = "";
+            });
 
             app.UseMvc();
             app.UseRouting();

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>E-LearningSite.API</name>
+    </assembly>
+    <members>
+        <member name="M:E_LearningSite.API.Controllers.SchoolsController.GetSchools">
+            <summary>
+            Get all schools available in the app
+            </summary>
+            <returns>A list of school objects</returns>
+        </member>
+    </members>
+</doc>

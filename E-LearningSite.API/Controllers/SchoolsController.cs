@@ -18,6 +18,10 @@ namespace E_LearningSite.API.Controllers
             _schoolRepository = schoolRepository;
         }
 
+        /// <summary>
+        /// Get all schools available in the app
+        /// </summary>
+        /// <returns>A list of school objects</returns>
         [HttpGet]
         public IActionResult GetSchools()
         {
