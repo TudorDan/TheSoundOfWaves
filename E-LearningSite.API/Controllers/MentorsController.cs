@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 namespace E_LearningSite.API.Controllers
 {
     [ApiController]
-    [Route("api/schools/{schoolId}/[controller]")]
-    public class MentorsController : SchoolsController
+    [Route("api/schools/{schoolId}/mentors")]
+    public class MentorsController : ControllerBase
     {
         private readonly ISchoolRepository _schoolRepository;
-        public MentorsController(ISchoolRepository schoolRepository) : base(schoolRepository)
+        public MentorsController(ISchoolRepository schoolRepository)
         {
             _schoolRepository = schoolRepository;
         }
@@ -72,7 +72,7 @@ namespace E_LearningSite.API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{schoolId}/mentors/{mentorId}")]
+        [HttpDelete("{mentorId}")]
         public IActionResult DeleteMentor(int schoolId, int mentorId)
         {
             if (!ModelState.IsValid)
