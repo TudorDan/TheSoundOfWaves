@@ -1,14 +1,13 @@
 ﻿using E_LearningSite.API.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Web.Http.Cors;
 
 namespace E_LearningSite.API.Controllers
 {
+    [EnableCors(origins: "http://localhost:3000", headers: "*", methods: "*")]
     [ApiController]
-    [Route("api/schools/{schoolId}/mentors")]
+    [Route("api/schools/{schoolId}/[controller]")]
     public class MentorsController : ControllerBase
     {
         private readonly ISchoolRepository _schoolRepository;
