@@ -37,6 +37,8 @@ namespace E_LearningSite.API
                .AllowAnyHeader()
                .AllowCredentials());
 
+            app.UseStaticFiles();
+
             app.UseMvc();
             app.UseRouting();
 

@@ -11,6 +11,7 @@ namespace E_LearningSite.API.DTOs
         [Required]
         [MaxLength(50, ErrorMessage = "Name cannot exceed 50 characters")]
         public string Name { get; set; }
+        public string Photo { get; set; }
         [Required]
         public DateTime BirthDate { get; set; }
         [Required]

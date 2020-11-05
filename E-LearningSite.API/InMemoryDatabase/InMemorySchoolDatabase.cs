@@ -17,10 +17,12 @@ namespace E_LearningSite.API.DTOs
                 {
                     Id = 1,
                     Name = "Weed Health Institute",
+                    Photo = "http://localhost:54719/images/school1.jpg",
                     Principal = new Principal()
                     {
                         Id = 1,
                         Name = "Miss Danger",
+                        Photo = "http://localhost:54719/images/principal1.jpg",
                         BirthDate = new DateTime(1950, 12, 13),
                         AccessRights = AccessRights.FORPRINCIPALS
                     },
@@ -30,6 +32,7 @@ namespace E_LearningSite.API.DTOs
                         {
                             Id = 2,
                             Name = "Tyrone Shotgun",
+                            Photo = "http://localhost:54719/images/mentor11.jpg",
                             BirthDate = new DateTime(1960, 6, 6),
                             AccessRights = AccessRights.FORMENTORS
                         },
@@ -37,6 +40,7 @@ namespace E_LearningSite.API.DTOs
                         {
                             Id = 3,
                             Name = "Johnny 3Fingers",
+                            Photo = "http://localhost:54719/images/mentor12.jpg",
                             BirthDate = new DateTime(1970, 1, 4),
                             AccessRights = AccessRights.FORMENTORS
                         }
@@ -48,12 +52,14 @@ namespace E_LearningSite.API.DTOs
                             Id = 4,
                             Name = "Sister Switchblades",
                             BirthDate = new DateTime(1999, 5, 4),
+                            Photo = "http://localhost:54719/images/student11.jpg",
                             AccessRights = AccessRights.FORSTUDENTS
                         },
                         new Student()
                         {
                             Id = 5,
                             Name = "Jamal Gangsta LeeRoy",
+                            Photo = "http://localhost:54719/images/student12.jpg",
                             BirthDate = new DateTime(2000, 1, 1),
                             AccessRights = AccessRights.FORSTUDENTS
                         }
@@ -131,10 +137,12 @@ namespace E_LearningSite.API.DTOs
                 {
                     Id = 2,
                     Name = "Universidad Técnica de Buenas Maneras y Pistoleros",
+                    Photo = "http://localhost:54719/images/school2.jpg",
                     Principal = new Principal()
                     {
                         Id = 6,
                         Name = "Don Guzman",
+                        Photo = "http://localhost:54719/images/principal2.jpg",
                         BirthDate = new DateTime(1967, 1, 3),
                         AccessRights = AccessRights.FORPRINCIPALS
                     },
