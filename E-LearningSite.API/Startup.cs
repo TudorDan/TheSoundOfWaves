@@ -20,7 +20,16 @@ namespace E_LearningSite.API
         {
             services.AddCors();
             services.AddMvc(option => option.EnableEndpointRouting = false);
-            services.AddSingleton<ISchoolRepository, InMemorySchoolDatabase>();            
+            services.AddSingleton<ISchoolRepository, InMemorySchoolDatabase>();
+
+            services.AddSwaggerGen(setupAction =>
+            {
+                setupAction.SwaggerDoc(
+                    "E-LearningSiteOpenAPISpecification", 
+                    new Microsoft.OpenApi.Models.OpenApiInfo() { 
+                        Title = "E-Learning Site API", Version = "1.1"
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,7 +44,14 @@ namespace E_LearningSite.API
                .WithOrigins("http://localhost:3000")
                .AllowAnyMethod()
                .AllowAnyHeader()
-               .AllowCredentials());
+               .AllowCredentials());            
+
+            app.UseSwagger();
+            app.UseSwaggerUI(setupAction => {
+                setupAction.SwaggerEndpoint(
+                    "/swagger/E-LearningSiteOpenAPISpecification/swagger.json", "E-Learning Site API");
+                setupAction.RoutePrefix = "";
+            });
 
             app.UseStaticFiles();
 
