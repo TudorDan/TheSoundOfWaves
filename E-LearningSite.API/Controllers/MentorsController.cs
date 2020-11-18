@@ -1,11 +1,11 @@
 ﻿using E_LearningSite.API.DTOs;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using System.Web.Http.Cors;
 
 namespace E_LearningSite.API.Controllers
 {
-    [EnableCors(origins: "http://localhost:3000", headers: "*", methods: "*")]
+    [EnableCors("ReactApp")]
     [ApiController]
     [Route("api/schools/{schoolId}/[controller]")]
     public class MentorsController : ControllerBase

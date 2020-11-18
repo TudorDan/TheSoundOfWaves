@@ -18,16 +18,25 @@ namespace E_LearningSite.API
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("ReactApp",
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:3000");
+                    });
+            });
             services.AddMvc(option => option.EnableEndpointRouting = false);
             services.AddSingleton<ISchoolRepository, InMemorySchoolDatabase>();
 
             services.AddSwaggerGen(setupAction =>
             {
                 setupAction.SwaggerDoc(
-                    "E-LearningSiteOpenAPISpecification", 
-                    new Microsoft.OpenApi.Models.OpenApiInfo() { 
-                        Title = "E-Learning Site API", Version = "1.1"
+                    "E-LearningSiteOpenAPISpecification",
+                    new Microsoft.OpenApi.Models.OpenApiInfo()
+                    {
+                        Title = "E-Learning Site API",
+                        Version = "1.1"
                     });
             });
         }
@@ -44,10 +53,11 @@ namespace E_LearningSite.API
                .WithOrigins("http://localhost:3000")
                .AllowAnyMethod()
                .AllowAnyHeader()
-               .AllowCredentials());            
+               .AllowCredentials());
 
             app.UseSwagger();
-            app.UseSwaggerUI(setupAction => {
+            app.UseSwaggerUI(setupAction =>
+            {
                 setupAction.SwaggerEndpoint(
                     "/swagger/E-LearningSiteOpenAPISpecification/swagger.json", "E-Learning Site API");
                 setupAction.RoutePrefix = "";

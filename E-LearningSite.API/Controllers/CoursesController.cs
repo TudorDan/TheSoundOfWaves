@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web.Http.Cors;
+﻿using System.Linq;
 using E_LearningSite.API.DTOs;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_LearningSite.API.Controllers
 {
-    [EnableCors(origins: "http://localhost:3000", headers: "*", methods: "*")]
+    [EnableCors("ReactApp")]
     [ApiController]
     [Route("api/schools/{schoolId}/[controller]")]
     public class CoursesController : ControllerBase
