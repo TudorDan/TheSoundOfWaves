@@ -4,14 +4,12 @@ using System.Text;
 
 namespace E_LearningSite.Domain
 {
-    public class Student : Person
+    public class CourseCatalogue
     {
-        public Student() : base()
-        {
-
-        }
-
-        public Catalogue Catalogue { get; set; }
+        public int CourseId { get; set; }
         public int CatalogueId { get; set; }
+
+        public Course Course { get; set; }
+        public Catalogue Catalogue { get; set; }
     }
 }

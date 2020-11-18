@@ -8,7 +8,10 @@ namespace E_LearningSite.Domain
     {
         public Catalogue()
         {
+            // initialized here, instead of school level
             ClassGrades = new List<Grade>();
+            MentorCatalogues = new List<MentorCatalogue>();
+            CourseCatalogues = new List<CourseCatalogue>();
         }
 
         public int Id { get; set; }
@@ -20,5 +23,8 @@ namespace E_LearningSite.Domain
 
         public School School { get; set; }
         public int SchoolId { get; set; }
+
+        public List<MentorCatalogue> MentorCatalogues { get; set; }
+        public List<CourseCatalogue> CourseCatalogues { get; set; }
     }
 }

@@ -9,5 +9,8 @@ namespace E_LearningSite.Domain
         public int Id { get; set; }
         public string Documentation { get; set; }
         public string Link { get; set; }
+
+        public Course Course { get; set; }
+        public int CourseId { get; set; }
     }
 }

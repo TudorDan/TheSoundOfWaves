@@ -9,6 +9,7 @@ namespace E_LearningSite.Domain
         public Course()
         {
             CourseMaterials = new List<Document>();
+            CourseCatalogues = new List<CourseCatalogue>();
         }
 
         public int Id { get; set; }
@@ -19,5 +20,7 @@ namespace E_LearningSite.Domain
 
         public School School { get; set; }
         public int SchoolId { get; set; }
+
+        public List<CourseCatalogue> CourseCatalogues { get; set; }
     }
 }

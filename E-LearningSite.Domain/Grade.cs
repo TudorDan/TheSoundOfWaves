@@ -11,5 +11,8 @@ namespace E_LearningSite.Domain
         public float Mark { get; set; }
         public Course Course { get; set; }
         public Mentor Mentor { get; set; }
+
+        public Catalogue Catalogue { get; set; }
+        public int CatalogueId { get; set; }
     }
 }

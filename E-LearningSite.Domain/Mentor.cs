@@ -8,6 +8,9 @@ namespace E_LearningSite.Domain
     {
         public Mentor() : base()
         {
+            MentorCatalogues = new List<MentorCatalogue>();
         }
+
+        public List<MentorCatalogue> MentorCatalogues { get; set; }
     }
 }
