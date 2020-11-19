@@ -41,12 +41,11 @@ namespace E_LearningSite.API.Controllers
             {
                 return BadRequest(ModelState);
             }
-            int maxStudentId = _schoolRepository.GetSchool(schoolId).StudentsList.Max(s => s.Id);
             Student student = new Student()
             {
-                Id = ++maxStudentId,
                 Name = personDTO.Name,
                 BirthDate = personDTO.BirthDate,
+                Photo = personDTO.Photo,
                 AccessRights = personDTO.AccessRights
             };
             _schoolRepository.AddStudent(student, schoolId);

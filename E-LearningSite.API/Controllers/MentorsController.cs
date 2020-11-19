@@ -41,11 +41,10 @@ namespace E_LearningSite.API.Controllers
             {
                 return BadRequest(ModelState);
             }
-            int maxMentorId = _schoolRepository.GetSchool(schoolId).MentorsList.Max(m => m.Id);
             Mentor mentor = new Mentor()
             {
-                Id = ++maxMentorId,
                 Name = personDTO.Name,
+                Photo = personDTO.Photo,
                 BirthDate = personDTO.BirthDate,
                 AccessRights = personDTO.AccessRights
             };

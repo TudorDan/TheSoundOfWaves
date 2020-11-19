@@ -41,10 +41,8 @@ namespace E_LearningSite.API.Controllers
             {
                 return BadRequest(ModelState);
             }
-            int maxCourseId = _schoolRepository.GetSchool(schoolId).CoursesList.Max(c => c.Id);
             Course course = new Course()
             {
-                Id = ++maxCourseId,
                 Name = courseDTO.Name,
                 Subject = courseDTO.Subject,
                 Description = courseDTO.Description,
@@ -116,10 +114,8 @@ namespace E_LearningSite.API.Controllers
             {
                 return BadRequest(ModelState);
             }
-            int maxDocumentId = _schoolRepository.GetAllDocuments(schoolId, courseId).Max(d => d.Id);
             Document document = new Document()
             {
-                Id = ++maxDocumentId,
                 Documentation = documentDTO.Documentation,
                 Link = documentDTO.Link
             };

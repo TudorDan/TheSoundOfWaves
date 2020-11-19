@@ -41,12 +41,11 @@ namespace E_LearningSite.API.Controllers
             {
                 return BadRequest(ModelState);
             }
-            int maxSchoolId = _schoolRepository.GetAllSchools().Max(s => s.Id);
             School school = new School()
             {
-                Id = ++maxSchoolId,
                 Name = schoolDTO.Name,
                 Principal = schoolDTO.Principal,
+                Photo = schoolDTO.Photo,
                 MentorsList = schoolDTO.MentorsList,
                 StudentsList = schoolDTO.StudentsList,
                 CoursesList = schoolDTO.CoursesList,

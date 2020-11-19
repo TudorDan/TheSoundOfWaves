@@ -42,10 +42,8 @@ namespace E_LearningSite.API.Controllers
             {
                 return BadRequest(ModelState);
             }
-            int maxCatalogueId = _schoolRepository.GetSchool(schoolId).CataloguesList.Max(c => c.Id);
             Catalogue catalogue = new Catalogue()
             {
-                Id = ++maxCatalogueId,
                 ClassName = catalogueDTO.ClassName,
                 ClassMentors = catalogueDTO.ClassMentors,
                 ClassStudents = catalogueDTO.ClassStudents,
@@ -258,19 +256,8 @@ namespace E_LearningSite.API.Controllers
             {
                 return BadRequest(ModelState);
             }
-            int maxGradeId;
-            try
-            {
-                maxGradeId = _schoolRepository.GetAllCatalogueGrades(schoolId, catalogueId).Max(g => g.Id);
-            }
-            catch (InvalidOperationException e)
-            {
-                maxGradeId = 0;
-                Console.WriteLine("{0} Exception caught.", e);
-            }
             Grade grade = new Grade()
             {
-                Id = ++maxGradeId,
                 Student = gradeDTO.Student,
                 Mark = gradeDTO.Mark,
                 Course = gradeDTO.Course,
