@@ -6,6 +6,11 @@ namespace E_LearningSite.Data
 {
     public class LearningContext : DbContext
     {
+        public LearningContext(DbContextOptions<LearningContext> options) : base(options)
+        {
+
+        }
+
         public DbSet<School> Schools { get; set; }
         public DbSet<Principal> Principals { get; set; }
         public DbSet<Mentor> Mentors { get; set; }
@@ -18,11 +23,12 @@ namespace E_LearningSite.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                .UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = LearningApp");
+                .UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = LearningApp",
+                b => b.MigrationsAssembly("E-LearningSite.API"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        {        
             modelBuilder.Entity<MentorCatalogue>().HasKey(m => new { m.MentorId, m.CatalogueId });
             modelBuilder.Entity<CourseCatalogue>().HasKey(c => new { c.CourseId, c.CatalogueId });
 
@@ -32,6 +38,8 @@ namespace E_LearningSite.Data
                 .WithOne(c => c.School).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<School>().HasMany(s => s.MentorsList)
                 .WithOne(m => m.School).OnDelete(DeleteBehavior.Restrict);
+
+            //modelBuilder.Seed();
         }
     }
 }

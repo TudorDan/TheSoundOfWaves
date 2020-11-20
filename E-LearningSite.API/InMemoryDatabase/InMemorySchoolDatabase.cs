@@ -7,7 +7,7 @@ namespace E_LearningSite.API.DTOs
 {
     public class InMemorySchoolDatabase : ISchoolRepository
     {
-        private List<School> _schoolDatabase;
+        private readonly List<School> _schoolDatabase;
 
         public InMemorySchoolDatabase()
         {
@@ -439,6 +439,7 @@ namespace E_LearningSite.API.DTOs
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             Catalogue catalogue = school.CataloguesList.FirstOrDefault(c => c.Id == catalogueId);
+            grade.Id = catalogue.ClassGrades.Max(g => g.Id) + 1;
             if (!catalogue.ClassGrades.Contains(grade))
             {
                 catalogue.ClassGrades.Add(grade);
