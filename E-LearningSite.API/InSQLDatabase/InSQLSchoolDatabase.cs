@@ -23,6 +23,18 @@ namespace E_LearningSite.API.SQLDatabase
         public ICollection<School> GetAllSchools()
         {
             List<Domain.School> schools = _context.Schools.OrderBy(s => s.Name).ToList();
+            foreach (Domain.School school in schools)
+            {
+                Domain.Principal principal = _context.Principals.FirstOrDefault(p => p.SchoolId == school.Id);
+                if (principal != null)
+                {
+                    school.Principal = principal;
+                }
+                else
+                {
+                    school.Principal = new Domain.Principal() { Name = "Unknown" };
+                }
+            }
             return (ICollection<School>)_mapper.Map<IEnumerable<School>>(schools);
         }
         public School GetSchool(int id)

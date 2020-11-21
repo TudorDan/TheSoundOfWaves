@@ -11,6 +11,7 @@ namespace E_LearningSite.API.Profiles
         public SchoolProfile()
         {
             CreateMap<Domain.School, DTOs.School>();
+            CreateMap<Domain.Principal, DTOs.Principal>();
         }
     }
 }
