@@ -183,5 +183,20 @@ namespace E_LearningSite.API.SQLDatabase
         {
             throw new NotImplementedException();
         }
+
+        public Subject AddSchoolSubject(Subject subject, int schoolId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Subject GetSubject(int id, int schoolId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICollection<Subject> GetAllSchoolSubjects(int schoolId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

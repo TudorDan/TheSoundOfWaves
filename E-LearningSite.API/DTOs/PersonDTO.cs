@@ -1,4 +1,5 @@
-﻿using System;
+﻿using E_LearningSite.API.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -16,5 +17,6 @@ namespace E_LearningSite.API.DTOs
         public DateTime BirthDate { get; set; }
         [Required]
         public AccessRights? AccessRights { get; set; }
+        public SubjectType SubjectType { get; internal set; }
     }
 }

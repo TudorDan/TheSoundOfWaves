@@ -46,5 +46,9 @@ namespace E_LearningSite.API.DTOs
         Grade AddCatalogueGrade(Grade grade, int schoolId, int catalogueId);
         Grade GetCatalogueGrade(int id, int schoolId, int catalogueId);
         ICollection<Grade> GetAllCatalogueGrades(int schoolId, int catalogueId);
+
+        Subject AddSubject(Subject subject, int schoolId);
+        Subject GetSubject(int id, int schoolId);
+        ICollection<Subject> GetAllSubjects(int schoolId);
     }
 }

@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace E_LearningSite.API.DTOs
 {
-    public class Subject
+    public class SubjectDTO
     {
-        public int Id { get; set; }
         public SubjectType SubjectType { get; set; }
     }
 }

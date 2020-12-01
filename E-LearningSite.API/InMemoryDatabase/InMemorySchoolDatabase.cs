@@ -1,4 +1,5 @@
-﻿using System;
+﻿using E_LearningSite.API.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -71,7 +72,7 @@ namespace E_LearningSite.API.DTOs
                         {
                             Id = 1,
                             Name = "Guessing Master of Science",
-                            Subject = Subject.ASTRONOMY,
+                            SubjectId = 3,
                             Description = "Pay for 1, you get 2",
                             CourseMaterials = new List<Document>()
                             {
@@ -93,7 +94,7 @@ namespace E_LearningSite.API.DTOs
                         {
                             Id = 2,
                             Name = "How to Watch Television",
-                            Subject = Subject.HISTORY,
+                            SubjectId = 1,
                             Description = "For advanced majors",
                             CourseMaterials = new List<Document>()
                             {
@@ -131,6 +132,24 @@ namespace E_LearningSite.API.DTOs
                             ClassStudents = new List<Student>() {},
                             ClassCourses = new List<Course>() {},
                             ClassGrades = new List<Grade>() {}
+                        }
+                    },
+                    Subjects = new List<Subject>()
+                    {
+                        new Subject()
+                        {
+                            Id= 1,
+                            SubjectType = SubjectType.ASTRONOMY
+                        },
+                        new Subject()
+                        {
+                            Id= 2,
+                            SubjectType = SubjectType.IT
+                        },
+                        new Subject()
+                        {
+                            Id= 3,
+                            SubjectType = SubjectType.HISTORY
                         }
                     }
                 },
@@ -191,7 +210,7 @@ namespace E_LearningSite.API.DTOs
                         {
                             Id = 1,
                             Name = "Hacking Ethics",
-                            Subject = Subject.IT,
+                            SubjectId = 1,
                             Description = "2nd edition",
                             CourseMaterials = new List<Document>()
                             {
@@ -213,7 +232,7 @@ namespace E_LearningSite.API.DTOs
                         {
                             Id = 2,
                             Name = "The Answer to Life, The Universe and Everything",
-                            Subject = Subject.HISTORY,
+                            SubjectId = 2,
                             Description = "42",
                             CourseMaterials = new List<Document>()
                             {
@@ -462,6 +481,27 @@ namespace E_LearningSite.API.DTOs
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             Catalogue catalogue = school.CataloguesList.FirstOrDefault(c => c.Id == catalogueId);
             return catalogue.ClassGrades;
+        }
+
+        // School Subjects
+        public Subject AddSubject(Subject subject, int schoolId)
+        {
+            School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
+            subject.Id = school.Subjects.Max(school => school.Id) + 1;
+            school.Subjects.Add(subject);
+            return subject;
+        }
+
+        public Subject GetSubject(int id, int schoolId)
+        {
+            School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
+            return school.Subjects.FirstOrDefault(s => s.Id == id);
+        }
+
+        public ICollection<Subject> GetAllSubjects(int schoolId)
+        {
+            School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
+            return school.Subjects;
         }
     }
 }
