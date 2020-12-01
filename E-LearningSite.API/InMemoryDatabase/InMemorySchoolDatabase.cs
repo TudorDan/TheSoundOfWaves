@@ -17,12 +17,12 @@ namespace E_LearningSite.API.DTOs
                 {
                     Id = 1,
                     Name = "Weed Health Institute",
-                    Photo = "http://localhost:54719/images/school1.jpg",
+                    Photo = "school1.jpg",
                     Principal = new Principal()
                     {
                         Id = 1,
                         Name = "Miss Danger",
-                        Photo = "http://localhost:54719/images/principal1.jpg",
+                        Photo = "principal1.jpg",
                         BirthDate = new DateTime(1950, 12, 13),
                         AccessRights = AccessRights.FORPRINCIPALS
                     },
@@ -32,7 +32,7 @@ namespace E_LearningSite.API.DTOs
                         {
                             Id = 2,
                             Name = "Tyrone Shotgun",
-                            Photo = "http://localhost:54719/images/mentor11.jpg",
+                            Photo = "mentor11.jpg",
                             BirthDate = new DateTime(1960, 6, 6),
                             AccessRights = AccessRights.FORMENTORS
                         },
@@ -40,7 +40,7 @@ namespace E_LearningSite.API.DTOs
                         {
                             Id = 3,
                             Name = "Johnny 3Fingers",
-                            Photo = "http://localhost:54719/images/mentor12.jpg",
+                            Photo = "mentor12.jpg",
                             BirthDate = new DateTime(1970, 1, 4),
                             AccessRights = AccessRights.FORMENTORS
                         }
@@ -52,14 +52,15 @@ namespace E_LearningSite.API.DTOs
                             Id = 4,
                             Name = "Sister Switchblades",
                             BirthDate = new DateTime(1999, 5, 4),
-                            Photo = "http://localhost:54719/images/student11.jpg",
+                            Photo = "student11.jpg",
+
                             AccessRights = AccessRights.FORSTUDENTS
                         },
                         new Student()
                         {
                             Id = 5,
                             Name = "Jamal Gangsta LeeRoy",
-                            Photo = "http://localhost:54719/images/student12.jpg",
+                            Photo = "student12.jpg",
                             BirthDate = new DateTime(2000, 1, 1),
                             AccessRights = AccessRights.FORSTUDENTS
                         }
@@ -116,7 +117,7 @@ namespace E_LearningSite.API.DTOs
                         new Catalogue()
                         {
                             Id = 1,
-                            ClassName = "Cannabis Ist Class",
+                            ClassName = "Steelers Ist Class",
                             ClassMentors = new List<Mentor>(){},
                             ClassStudents = new List<Student>() {},
                             ClassCourses = new List<Course>() {},
@@ -125,7 +126,7 @@ namespace E_LearningSite.API.DTOs
                         new Catalogue()
                         {
                             Id = 2,
-                            ClassName = "Fermentation IIIrd Class",
+                            ClassName = "Broncos IIIrd Class",
                             ClassMentors = new List<Mentor>(){},
                             ClassStudents = new List<Student>() {},
                             ClassCourses = new List<Course>() {},
@@ -137,12 +138,12 @@ namespace E_LearningSite.API.DTOs
                 {
                     Id = 2,
                     Name = "Universidad Técnica de Buenas Maneras y Pistoleros",
-                    Photo = "http://localhost:54719/images/school2.jpg",
+                    Photo = "school2.jpg",
                     Principal = new Principal()
                     {
                         Id = 6,
                         Name = "Don Guzman",
-                        Photo = "http://localhost:54719/images/principal2.jpg",
+                        Photo = "principal2.jpg",
                         BirthDate = new DateTime(1967, 1, 3),
                         AccessRights = AccessRights.FORPRINCIPALS
                     },
@@ -152,6 +153,7 @@ namespace E_LearningSite.API.DTOs
                         {
                             Id = 7,
                             Name = "Eric Blood Axe",
+                            Photo = "mentor21.jpg",
                             BirthDate = new DateTime(1964, 4, 16),
                             AccessRights = AccessRights.FORMENTORS
                         },
@@ -159,6 +161,7 @@ namespace E_LearningSite.API.DTOs
                         {
                             Id = 8,
                             Name = "Tommy Machine Gun",
+                            Photo = "mentor22.jpg",
                             BirthDate = new DateTime(1970, 1, 4),
                             AccessRights = AccessRights.FORMENTORS
                         }
@@ -169,6 +172,7 @@ namespace E_LearningSite.API.DTOs
                         {
                             Id = 9,
                             Name = "Donna Corason Intenso",
+                            Photo = "student21.jpg",
                             BirthDate = new DateTime(1989, 10, 24),
                             AccessRights = AccessRights.FORSTUDENTS
                         },
@@ -176,6 +180,7 @@ namespace E_LearningSite.API.DTOs
                         {
                             Id = 10,
                             Name = "The Sleeping Student",
+                            Photo = "student22.jpg",
                             BirthDate = new DateTime(2001, 10, 21),
                             AccessRights = AccessRights.FORSTUDENTS
                         }
@@ -232,7 +237,7 @@ namespace E_LearningSite.API.DTOs
                         new Catalogue()
                         {
                             Id = 1,
-                            ClassName = "2nd Class",
+                            ClassName = "Chargers 2nd Class",
                             ClassMentors = new List<Mentor>(){ },
                             ClassStudents = new List<Student>() {},
                             ClassCourses = new List<Course>() {},
