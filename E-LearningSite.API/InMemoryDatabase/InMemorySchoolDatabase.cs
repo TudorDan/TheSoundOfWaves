@@ -262,6 +262,24 @@ namespace E_LearningSite.API.DTOs
                             ClassCourses = new List<Course>() {},
                             ClassGrades = new List<Grade>() {}
                         }
+                    },
+                    Subjects = new List<Subject>()
+                    {
+                        new Subject()
+                        {
+                            Id= 1,
+                            SubjectType = SubjectType.ASTRONOMY
+                        },
+                        new Subject()
+                        {
+                            Id= 2,
+                            SubjectType = SubjectType.IT
+                        },
+                        new Subject()
+                        {
+                            Id= 3,
+                            SubjectType = SubjectType.HISTORY
+                        }
                     }
                 }
             };

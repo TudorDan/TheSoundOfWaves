@@ -24,9 +24,9 @@ namespace E_LearningSite.API.Controllers
         }
 
         [HttpGet("{subjectId}", Name = "GetSubject")]
-        public IActionResult GetSubject(int subjectId, int schoolId)
+        public IActionResult GetSubject(int schoolId, int subjectId)
         {
-            Subject subject = _schoolRepository.GetSubject(schoolId, subjectId);
+            Subject subject = _schoolRepository.GetSubject(subjectId, schoolId);
             if (subject == null)
             {
                 return NotFound();
@@ -50,7 +50,7 @@ namespace E_LearningSite.API.Controllers
         }
 
         [HttpPut("{subjectId}")]
-        public IActionResult UpdateSubject(int schoolId, [FromBody] PersonDTO subjectDTO, int subjectId)
+        public IActionResult UpdateSubject(int schoolId, [FromBody] SubjectDTO subjectDTO, int subjectId)
         {
             if (!ModelState.IsValid)
             {
@@ -77,7 +77,7 @@ namespace E_LearningSite.API.Controllers
             {
                 return NotFound();
             }
-            _schoolRepository.GetAllSubjects(subjectId).Remove(subject);
+            _schoolRepository.GetAllSubjects(schoolId).Remove(subject);
             // should delete all courses with specific subject
             //_schoolRepository.GetAllCourses(schoolId). .ForEach(c => c.ClassMentors.Remove(mentor));
             return NoContent();

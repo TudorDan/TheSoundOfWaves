@@ -9,6 +9,8 @@ namespace E_LearningSite.API.Models
     {
         HISTORY,
         IT,
-        ASTRONOMY
+        ASTRONOMY,
+        PHYSICS,
+        GEOGRAPHY
     } 
 }
