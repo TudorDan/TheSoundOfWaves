@@ -88,13 +88,18 @@ namespace E_LearningSite.API.DTOs
                                     Documentation = "Witchcraft doc 2",
                                     Link = "Witchcraft link 2"
                                 }
+                            },
+                            Subject = new Subject
+                            {
+                                Id = 3,
+                                SubjectType = SubjectType.ASTRONOMY
                             }
                         },
                         new Course()
                         {
                             Id = 2,
                             Name = "How to Watch Television",
-                            SubjectId = 1,
+                            SubjectId = 2,
                             Description = "For advanced majors",
                             CourseMaterials = new List<Document>()
                             {
@@ -110,6 +115,11 @@ namespace E_LearningSite.API.DTOs
                                     Documentation = "The art of walking doc 2",
                                     Link = "The art of walking link 2"
                                 }
+                            },
+                            Subject = new Subject
+                            {
+                                Id = 2,
+                                SubjectType = SubjectType.IT
                             }
                         }
                     },
@@ -139,7 +149,7 @@ namespace E_LearningSite.API.DTOs
                         new Subject()
                         {
                             Id= 1,
-                            SubjectType = SubjectType.ASTRONOMY
+                            SubjectType = SubjectType.HISTORY
                         },
                         new Subject()
                         {
@@ -149,7 +159,7 @@ namespace E_LearningSite.API.DTOs
                         new Subject()
                         {
                             Id= 3,
-                            SubjectType = SubjectType.HISTORY
+                            SubjectType = SubjectType.ASTRONOMY
                         }
                     }
                 },
@@ -210,7 +220,7 @@ namespace E_LearningSite.API.DTOs
                         {
                             Id = 1,
                             Name = "Hacking Ethics",
-                            SubjectId = 1,
+                            SubjectId = 2,
                             Description = "2nd edition",
                             CourseMaterials = new List<Document>()
                             {
@@ -226,13 +236,18 @@ namespace E_LearningSite.API.DTOs
                                     Documentation = "hacky doc 2",
                                     Link = "hacky link 2"
                                 }
+                            },
+                            Subject = new Subject()
+                            {
+                                Id = 2,
+                                SubjectType = SubjectType.IT
                             }
                         },
                         new Course()
                         {
                             Id = 2,
                             Name = "The Answer to Life, The Universe and Everything",
-                            SubjectId = 2,
+                            SubjectId = 1,
                             Description = "42",
                             CourseMaterials = new List<Document>()
                             {
@@ -248,6 +263,11 @@ namespace E_LearningSite.API.DTOs
                                     Documentation = " doc 2",
                                     Link = " link 2"
                                 }
+                            },
+                            Subject = new Subject()
+                            {
+                                Id = 1,
+                                SubjectType = SubjectType.HISTORY
                             }
                         }
                     },
@@ -268,7 +288,7 @@ namespace E_LearningSite.API.DTOs
                         new Subject()
                         {
                             Id= 1,
-                            SubjectType = SubjectType.ASTRONOMY
+                            SubjectType = SubjectType.HISTORY
                         },
                         new Subject()
                         {
@@ -278,7 +298,7 @@ namespace E_LearningSite.API.DTOs
                         new Subject()
                         {
                             Id= 3,
-                            SubjectType = SubjectType.HISTORY
+                            SubjectType = SubjectType.ASTRONOMY
                         }
                     }
                 }
