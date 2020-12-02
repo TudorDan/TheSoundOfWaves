@@ -19,6 +19,7 @@ namespace E_LearningSite.API.DTOs
 
         
         public int SubjectId { get; set; }
-        public Subject? Subject { get; set; }
+        [Required]
+        public Subject Subject { get; set; }
     }
 }
