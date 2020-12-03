@@ -65,6 +65,7 @@ namespace E_LearningSite.API.Controllers
                 return NotFound();
             }
             mentor.Name = personDTO.Name;
+            mentor.Photo = personDTO.Photo;
             mentor.BirthDate = personDTO.BirthDate;
             mentor.AccessRights = personDTO.AccessRights;
             return NoContent();
