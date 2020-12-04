@@ -109,16 +109,16 @@ namespace E_LearningSite.API.Controllers
         }
 
         [HttpPost("{catalogueId}/mentors")]
-        public IActionResult CreateCatalogueMentor(int schoolId, int catalogueId, [FromBody] int mentorId)
+        public IActionResult CreateCatalogueMentor(int schoolId, int catalogueId, [FromBody] CataloguePersonDTO cataloguePersonDTO)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            Mentor mentor = _schoolRepository.GetMentor(mentorId, schoolId);
+            Mentor mentor = _schoolRepository.GetMentor(cataloguePersonDTO.Id, schoolId);
             Catalogue catalogue = _schoolRepository.GetCatalogue(catalogueId, schoolId);
             catalogue.ClassMentors.Add(mentor);
-            return CreatedAtRoute("GetCatalogueMentor", new { schoolId, catalogueId, mentorId }, mentor);
+            return CreatedAtRoute("GetCatalogueMentor", new { schoolId, catalogueId, mentorId = mentor.Id }, mentor);
         }
 
         [HttpDelete("{catalogueId}/mentors/{mentorId}")]
