@@ -18,5 +18,6 @@ namespace E_LearningSite.API.DTOs
         public List<Student> StudentsList { get; set; }
         public List<Course> CoursesList { get; set; }
         public List<Catalogue> CataloguesList { get; set; }
+        public List<Subject> Subjects { get; set; }
     }
 }

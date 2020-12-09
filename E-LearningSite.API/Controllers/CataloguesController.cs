@@ -117,6 +117,13 @@ namespace E_LearningSite.API.Controllers
             }
             Mentor mentor = _schoolRepository.GetMentor(cataloguePersonDTO.Id, schoolId);
             Catalogue catalogue = _schoolRepository.GetCatalogue(catalogueId, schoolId);
+            foreach (Mentor ment in catalogue.ClassMentors)
+            {
+                if (ment.Id == mentor.Id)
+                {
+                    return Conflict(mentor.Name);
+                }
+            }
             catalogue.ClassMentors.Add(mentor);
             return CreatedAtRoute("GetCatalogueMentor", new { schoolId, catalogueId, mentorId = mentor.Id }, mentor);
         }

@@ -49,7 +49,8 @@ namespace E_LearningSite.API.Controllers
                 MentorsList = schoolDTO.MentorsList,
                 StudentsList = schoolDTO.StudentsList,
                 CoursesList = schoolDTO.CoursesList,
-                CataloguesList = schoolDTO.CataloguesList
+                CataloguesList = schoolDTO.CataloguesList,
+                Subjects = schoolDTO.Subjects
             };
             _schoolRepository.AddSchool(school);
             return CreatedAtRoute("GetSchool", new { schoolId = school.Id }, school);
