@@ -313,7 +313,7 @@ namespace E_LearningSite.API.DTOs
 
         public School AddSchool(School school)
         {
-            school.Id = _schoolDatabase.Max(s => s.Id) + 1;
+            school.Id = _schoolDatabase.DefaultIfEmpty().Max(s => s == null ? 0 : s.Id) + 1;
             _schoolDatabase.Add(school);
             return school;
         }
@@ -327,7 +327,7 @@ namespace E_LearningSite.API.DTOs
         public Mentor AddMentor(Mentor mentor, int schoolId)
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
-            mentor.Id = school.MentorsList.Max(m => m.Id) + 1;
+            mentor.Id = school.MentorsList.DefaultIfEmpty().Max(m => m == null ? 0 : m.Id) + 1;
             school.MentorsList.Add(mentor);
             return mentor;
         }
@@ -348,7 +348,7 @@ namespace E_LearningSite.API.DTOs
         public Student AddStudent(Student student, int schoolId)
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
-            student.Id = school.StudentsList.Max(m => m.Id) + 1;
+            student.Id = school.StudentsList.DefaultIfEmpty().Max(m => m == null ? 0 : m.Id) + 1;
             school.StudentsList.Add(student);
             return student;
         }
@@ -367,7 +367,7 @@ namespace E_LearningSite.API.DTOs
         public Course AddCourse(Course course, int schoolId)
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
-            course.Id = school.CoursesList.Max(c => c.Id) + 1;
+            course.Id = school.CoursesList.DefaultIfEmpty().Max(c => c == null ? 0 : c.Id) + 1;
             school.CoursesList.Add(course);
             return course;
         }
@@ -387,6 +387,7 @@ namespace E_LearningSite.API.DTOs
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             Course course = school.CoursesList.FirstOrDefault(c => c.Id == courseId);
+            document.Id = course.CourseMaterials.DefaultIfEmpty().Max(d => d == null ? 0 : d.Id) + 1;
             course.CourseMaterials.Add(document);
             return document;
         }
@@ -409,7 +410,7 @@ namespace E_LearningSite.API.DTOs
         public Catalogue AddCatalogue(Catalogue catalogue, int schoolId)
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
-            catalogue.Id = school.CataloguesList.Max(c => c.Id) + 1;
+            catalogue.Id = school.CataloguesList.DefaultIfEmpty().Max(c => c == null ? 0 : c.Id) + 1;
             school.CataloguesList.Add(catalogue);
             return catalogue;
         }
@@ -501,7 +502,7 @@ namespace E_LearningSite.API.DTOs
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             Catalogue catalogue = school.CataloguesList.FirstOrDefault(c => c.Id == catalogueId);
-            grade.Id = catalogue.ClassGrades.Max(g => g.Id) + 1;
+            grade.Id = catalogue.ClassGrades.DefaultIfEmpty().Max(g => g == null ? 0 : g.Id) + 1;
             if (!catalogue.ClassGrades.Contains(grade))
             {
                 catalogue.ClassGrades.Add(grade);
@@ -525,7 +526,7 @@ namespace E_LearningSite.API.DTOs
         public Subject AddSubject(Subject subject, int schoolId)
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
-            subject.Id = school.Subjects.Max(school => school.Id) + 1;
+            subject.Id = school.Subjects.DefaultIfEmpty().Max(school => school == null ? 0 : school.Id) + 1;
             school.Subjects.Add(subject);
             return subject;
         }
