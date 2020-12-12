@@ -163,16 +163,23 @@ namespace E_LearningSite.API.Controllers
         }
 
         [HttpPost("{catalogueId}/students")]
-        public IActionResult CreateCatalogueStudent(int schoolId, int catalogueId, [FromBody] int studentId)
+        public IActionResult CreateCatalogueStudent(int schoolId, int catalogueId, [FromBody] CataloguePersonDTO cataloguePersonDTO)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            Student student = _schoolRepository.GetStudent(studentId, schoolId);
+            Student student = _schoolRepository.GetStudent(cataloguePersonDTO.Id, schoolId);
             Catalogue catalogue = _schoolRepository.GetCatalogue(catalogueId, schoolId);
+            foreach (Student stud in catalogue.ClassStudents)
+            {
+                if (stud.Id == student.Id)
+                {
+                    return Conflict(student.Name);
+                }
+            }
             catalogue.ClassStudents.Add(student);
-            return CreatedAtRoute("GetCatalogueStudent", new { schoolId, catalogueId, studentId }, student);
+            return CreatedAtRoute("GetCatalogueStudent", new { schoolId, catalogueId, studentId = student.Id }, student);
         }
 
         [HttpDelete("{catalogueId}/students/{studentId}")]
