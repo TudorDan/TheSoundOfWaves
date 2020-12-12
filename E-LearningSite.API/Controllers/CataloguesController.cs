@@ -217,16 +217,23 @@ namespace E_LearningSite.API.Controllers
         }
 
         [HttpPost("{catalogueId}/courses")]
-        public IActionResult CreateCatalogueCourse(int schoolId, int catalogueId, [FromBody] int courseId)
+        public IActionResult CreateCatalogueCourse(int schoolId, int catalogueId, [FromBody] CataloguePersonDTO cataloguePersonDTO)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            Course course = _schoolRepository.GetCourse(courseId, schoolId);
+            Course course = _schoolRepository.GetCourse(cataloguePersonDTO.Id, schoolId);
             Catalogue catalogue = _schoolRepository.GetCatalogue(catalogueId, schoolId);
+            foreach (Course cour in catalogue.ClassCourses)
+            {
+                if (cour.Id == course.Id)
+                {
+                    return Conflict(course.Name);
+                }
+            }
             catalogue.ClassCourses.Add(course);
-            return CreatedAtRoute("GetCatalogueCourse", new { schoolId, catalogueId, courseId }, course);
+            return CreatedAtRoute("GetCatalogueCourse", new { schoolId, catalogueId, courseId = course.Id }, course);
         }
 
         [HttpDelete("{catalogueId}/courses/{courseId}")]
