@@ -11,6 +11,8 @@ namespace E_LearningSite.API.Models
         IT,
         ASTRONOMY,
         PHYSICS,
-        GEOGRAPHY
+        GEOGRAPHY,
+        MATHEMATICS,
+        SCIENCE
     } 
 }

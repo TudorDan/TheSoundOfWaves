@@ -1,4 +1,5 @@
-﻿using System;
+﻿using E_LearningSite.API.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -50,5 +51,7 @@ namespace E_LearningSite.API.DTOs
         Subject AddSubject(Subject subject, int schoolId);
         Subject GetSubject(int id, int schoolId);
         ICollection<Subject> GetAllSubjects(int schoolId);
+
+        List<EnumValue> GetValues<T>();
     }
 }

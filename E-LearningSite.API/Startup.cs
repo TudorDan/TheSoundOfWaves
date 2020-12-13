@@ -48,7 +48,7 @@ namespace E_LearningSite.API
                     new Microsoft.OpenApi.Models.OpenApiInfo()
                     {
                         Title = "E-Learning Site API",
-                        Version = "1.2"
+                        Version = "1.3"
                     });
             });
 

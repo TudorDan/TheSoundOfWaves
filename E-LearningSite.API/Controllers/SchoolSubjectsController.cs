@@ -1,6 +1,8 @@
 ﻿using E_LearningSite.API.DTOs;
+using E_LearningSite.API.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace E_LearningSite.API.Controllers
@@ -45,6 +47,14 @@ namespace E_LearningSite.API.Controllers
             {
                 SubjectType = subjectDTO.SubjectType,
             };
+            ICollection<Subject> schoolSubjects = _schoolRepository.GetAllSubjects(schoolId);
+            foreach (Subject subj in schoolSubjects)
+            {
+                if (subj.SubjectName == subject.SubjectName)
+                {
+                    return Conflict(subject.SubjectName);
+                }
+            }            
             _schoolRepository.AddSubject(subject, schoolId);
             return CreatedAtRoute("GetSubject", new { schoolId, subjectId = subject.Id }, subject);
         }
@@ -81,6 +91,13 @@ namespace E_LearningSite.API.Controllers
             // should delete all courses with specific subject
             //_schoolRepository.GetAllCourses(schoolId). .ForEach(c => c.ClassMentors.Remove(mentor));
             return NoContent();
+        }
+
+        // Subjects Types
+        [HttpGet("types")]
+        public IActionResult GetTypes()
+        {
+            return Ok(_schoolRepository.GetValues<SubjectType>());
         }
     }
 }

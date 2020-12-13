@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using E_LearningSite.API.DTOs;
+using E_LearningSite.API.Models;
 using E_LearningSite.Data;
 using System;
 using System.Collections.Generic;
@@ -184,27 +185,22 @@ namespace E_LearningSite.API.SQLDatabase
             throw new NotImplementedException();
         }
 
-        public Subject AddSchoolSubject(Subject subject, int schoolId)
+        // Subjects
+        public ICollection<Subject> GetAllSubjects(int schoolId)
         {
             throw new NotImplementedException();
         }
-
         public Subject GetSubject(int id, int schoolId)
         {
             throw new NotImplementedException();
         }
-
-        public ICollection<Subject> GetAllSchoolSubjects(int schoolId)
-        {
-            throw new NotImplementedException();
-        }
-
         public Subject AddSubject(Subject subject, int schoolId)
         {
             throw new NotImplementedException();
         }
 
-        public ICollection<Subject> GetAllSubjects(int schoolId)
+        // Enums
+        public List<EnumValue> GetValues<T>()
         {
             throw new NotImplementedException();
         }

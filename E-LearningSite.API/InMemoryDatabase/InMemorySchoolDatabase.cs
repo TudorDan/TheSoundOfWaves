@@ -530,17 +530,31 @@ namespace E_LearningSite.API.DTOs
             school.Subjects.Add(subject);
             return subject;
         }
-
         public Subject GetSubject(int id, int schoolId)
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             return school.Subjects.FirstOrDefault(s => s.Id == id);
         }
-
         public ICollection<Subject> GetAllSubjects(int schoolId)
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             return school.Subjects;
+        }
+
+        // Enums
+        public List<EnumValue> GetValues<T>()
+        {
+            List<EnumValue> values = new List<EnumValue>();
+            foreach(var itemType in Enum.GetValues(typeof(T)))
+            {
+                values.Add(new EnumValue() 
+                {
+                    Id = (int)itemType,
+                    Name = Enum.GetName(typeof(T), itemType)
+                });
+            }
+
+            return values;
         }
     }
 }
