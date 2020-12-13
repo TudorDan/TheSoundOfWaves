@@ -9,13 +9,15 @@ namespace E_LearningSite.API.DTOs
     public class GradeDTO
     {
         [Required]
-        public Student Student { get; set; }
+        public int StudentId { get; set; }
         [Required]
         [Range(1, 10, ErrorMessage = "Value for {0} must be between {1} and {2}.")]
         public float Mark { get; set; }
         [Required]
-        public Course Course { get; set; }
+        public int CourseId { get; set; }
         [Required]
-        public Mentor Mentor { get; set; }
+        public int MentorId { get; set; }
+        [Required]
+        public DateTime Date { get; set; }
     }
 }

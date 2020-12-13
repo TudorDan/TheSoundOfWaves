@@ -277,12 +277,16 @@ namespace E_LearningSite.API.Controllers
             {
                 return BadRequest(ModelState);
             }
+            Student student = _schoolRepository.GetStudent(gradeDTO.StudentId, schoolId);
+            Course course = _schoolRepository.GetCourse(gradeDTO.CourseId, schoolId);
+            Mentor mentor = _schoolRepository.GetMentor(gradeDTO.MentorId, schoolId);
             Grade grade = new Grade()
             {
-                Student = gradeDTO.Student,
+                Student = student,
                 Mark = gradeDTO.Mark,
-                Course = gradeDTO.Course,
-                Mentor = gradeDTO.Mentor
+                Course = course,
+                Mentor = mentor,
+                Date = gradeDTO.Date
             };
             _schoolRepository.AddCatalogueGrade(grade, schoolId, catalogueId);
             return CreatedAtRoute("GetCatalogueGrade",
@@ -302,10 +306,16 @@ namespace E_LearningSite.API.Controllers
             {
                 return NotFound();
             }
-            grade.Student = gradeDTO.Student;
+            Student student = _schoolRepository.GetStudent(gradeDTO.StudentId, schoolId);
+            Course course = _schoolRepository.GetCourse(gradeDTO.CourseId, schoolId);
+            Mentor mentor = _schoolRepository.GetMentor(gradeDTO.MentorId, schoolId);
+
+            grade.Student = student;
             grade.Mark = gradeDTO.Mark;
-            grade.Course = gradeDTO.Course;
-            grade.Mentor = gradeDTO.Mentor;
+            grade.Course = course;
+            grade.Mentor = mentor;
+            grade.Date = gradeDTO.Date;
+
             return NoContent();
         }
 

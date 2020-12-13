@@ -18,5 +18,7 @@ namespace E_LearningSite.API.DTOs
         public Course Course { get; set; }
         [Required]
         public Mentor Mentor { get; set; }
+        [Required]
+        public DateTime Date { get; set; }
     }
 }
