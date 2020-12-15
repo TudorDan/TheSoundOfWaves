@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace E_LearningSite.Domain
@@ -12,12 +14,18 @@ namespace E_LearningSite.Domain
             CourseCatalogues = new List<CourseCatalogue>();
         }
 
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
-        public Subject? Subject { get; set; }
         public string Description { get; set; }
         public List<Document> CourseMaterials { get; set; }
 
+        [ForeignKey("SubjectId")]
+        public Subject Subject { get; set; }
+        public int SubjectId { get; set; }
+
+        [ForeignKey("SchoolId")]
         public School School { get; set; }
         public int SchoolId { get; set; }
 

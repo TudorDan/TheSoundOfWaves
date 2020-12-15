@@ -38,6 +38,7 @@ namespace E_LearningSite.API
                     });
             });
             services.AddMvc(option => option.EnableEndpointRouting = false);
+
             services.AddSingleton<ISchoolRepository, InMemorySchoolDatabase>();
             //services.AddScoped<ISchoolRepository, InSQLSchoolDatabase>();
 

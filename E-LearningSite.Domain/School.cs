@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace E_LearningSite.Domain
 {
@@ -11,8 +13,11 @@ namespace E_LearningSite.Domain
             StudentsList = new List<Student>();
             CoursesList = new List<Course>();
             CataloguesList = new List<Catalogue>();
+            Subjects = new List<Subject>();
         }
 
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
         public string Photo { get; set; }
@@ -21,5 +26,6 @@ namespace E_LearningSite.Domain
         public List<Student> StudentsList { get; set; }
         public List<Course> CoursesList { get; set; }
         public List<Catalogue> CataloguesList { get; set; }
+        public List<Subject> Subjects { get; set; }
     }
 }

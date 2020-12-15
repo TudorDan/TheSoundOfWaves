@@ -17,7 +17,7 @@ namespace E_LearningSite.Data.Migrations
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.0");
+                .HasAnnotation("ProductVersion", "5.0.1");
 
             modelBuilder.Entity("E_LearningSite.Domain.Catalogue", b =>
                 {
@@ -58,7 +58,7 @@ namespace E_LearningSite.Data.Migrations
                     b.Property<int>("SchoolId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Subject")
+                    b.Property<int>("SubjectId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -66,6 +66,8 @@ namespace E_LearningSite.Data.Migrations
                     b.HasIndex("CatalogueId");
 
                     b.HasIndex("SchoolId");
+
+                    b.HasIndex("SubjectId");
 
                     b.ToTable("Courses");
                 });
@@ -118,16 +120,19 @@ namespace E_LearningSite.Data.Migrations
                     b.Property<int>("CatalogueId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CourseId")
+                    b.Property<int>("CourseId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
 
                     b.Property<float>("Mark")
                         .HasColumnType("real");
 
-                    b.Property<int?>("MentorId")
+                    b.Property<int>("MentorId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("StudentId")
+                    b.Property<int>("StudentId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -150,7 +155,7 @@ namespace E_LearningSite.Data.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("AccessRights")
+                    b.Property<int>("AccessRights")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("BirthDate")
@@ -199,7 +204,7 @@ namespace E_LearningSite.Data.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("AccessRights")
+                    b.Property<int>("AccessRights")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("BirthDate")
@@ -247,7 +252,7 @@ namespace E_LearningSite.Data.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("AccessRights")
+                    b.Property<int>("AccessRights")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("BirthDate")
@@ -274,6 +279,29 @@ namespace E_LearningSite.Data.Migrations
                     b.ToTable("Students");
                 });
 
+            modelBuilder.Entity("E_LearningSite.Domain.Subject", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<int>("SchoolId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SubjectName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SubjectType")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SchoolId");
+
+                    b.ToTable("Subjects");
+                });
+
             modelBuilder.Entity("E_LearningSite.Domain.Catalogue", b =>
                 {
                     b.HasOne("E_LearningSite.Domain.School", "School")
@@ -297,7 +325,15 @@ namespace E_LearningSite.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("E_LearningSite.Domain.Subject", "Subject")
+                        .WithMany()
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("School");
+
+                    b.Navigation("Subject");
                 });
 
             modelBuilder.Entity("E_LearningSite.Domain.CourseCatalogue", b =>
@@ -335,20 +371,26 @@ namespace E_LearningSite.Data.Migrations
                     b.HasOne("E_LearningSite.Domain.Catalogue", "Catalogue")
                         .WithMany("ClassGrades")
                         .HasForeignKey("CatalogueId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("E_LearningSite.Domain.Course", "Course")
                         .WithMany()
-                        .HasForeignKey("CourseId");
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("E_LearningSite.Domain.Mentor", "Mentor")
                         .WithMany()
-                        .HasForeignKey("MentorId");
+                        .HasForeignKey("MentorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("E_LearningSite.Domain.Student", "Student")
                         .WithMany()
-                        .HasForeignKey("StudentId");
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Catalogue");
 
@@ -409,7 +451,7 @@ namespace E_LearningSite.Data.Migrations
                     b.HasOne("E_LearningSite.Domain.Catalogue", "Catalogue")
                         .WithMany("ClassStudents")
                         .HasForeignKey("CatalogueId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("E_LearningSite.Domain.School", "School")
@@ -419,6 +461,17 @@ namespace E_LearningSite.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Catalogue");
+
+                    b.Navigation("School");
+                });
+
+            modelBuilder.Entity("E_LearningSite.Domain.Subject", b =>
+                {
+                    b.HasOne("E_LearningSite.Domain.School", "School")
+                        .WithMany("Subjects")
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("School");
                 });
@@ -461,6 +514,8 @@ namespace E_LearningSite.Data.Migrations
                     b.Navigation("Principal");
 
                     b.Navigation("StudentsList");
+
+                    b.Navigation("Subjects");
                 });
 #pragma warning restore 612, 618
         }

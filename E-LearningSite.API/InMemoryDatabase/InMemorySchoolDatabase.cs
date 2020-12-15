@@ -54,7 +54,6 @@ namespace E_LearningSite.API.DTOs
                             Name = "Sister Switchblades",
                             BirthDate = new DateTime(1999, 5, 4),
                             Photo = "student11.jpg",
-
                             AccessRights = AccessRights.FORSTUDENTS
                         },
                         new Student()
@@ -542,7 +541,7 @@ namespace E_LearningSite.API.DTOs
         }
 
         // Enums
-        public List<EnumValue> GetValues<T>()
+        /*public List<EnumValue> GetValues<T>()
         {
             List<EnumValue> values = new List<EnumValue>();
             foreach(var itemType in Enum.GetValues(typeof(T)))
@@ -553,8 +552,7 @@ namespace E_LearningSite.API.DTOs
                     Name = Enum.GetName(typeof(T), itemType)
                 });
             }
-
             return values;
-        }
+        }*/
     }
 }

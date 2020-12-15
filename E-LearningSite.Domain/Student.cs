@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace E_LearningSite.Domain
@@ -11,6 +12,7 @@ namespace E_LearningSite.Domain
 
         }
 
+        [ForeignKey("CatalogueId")]
         public Catalogue Catalogue { get; set; }
         public int CatalogueId { get; set; }
     }

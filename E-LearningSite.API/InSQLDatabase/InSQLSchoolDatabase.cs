@@ -200,9 +200,14 @@ namespace E_LearningSite.API.SQLDatabase
         }
 
         // Enums
-        public List<EnumValue> GetValues<T>()
+        /*public List<EnumValue> GetValues<T>()
         {
+            var subjectTypes = new Dictionary<int, string>();
+            foreach (var name in Enum.GetNames(typeof(SubjectType)))
+            {
+                subjectTypes.Add((int)Enum.Parse(typeof(SubjectType), name), name);
+            }
             throw new NotImplementedException();
-        }
+        }*/
     }
 }

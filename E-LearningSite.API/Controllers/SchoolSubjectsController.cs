@@ -2,6 +2,7 @@
 using E_LearningSite.API.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -97,7 +98,16 @@ namespace E_LearningSite.API.Controllers
         [HttpGet("types")]
         public IActionResult GetTypes()
         {
-            return Ok(_schoolRepository.GetValues<SubjectType>());
+            List<EnumValue> subjectTypes = new List<EnumValue>();            
+            foreach (var element in Enum.GetValues(typeof(SubjectType))) 
+            { 
+                subjectTypes.Add(new EnumValue() 
+                {
+                    Id = (int)element,
+                    Name = element.ToString(),
+                }); 
+            }
+            return Ok(subjectTypes);
         }
     }
 }

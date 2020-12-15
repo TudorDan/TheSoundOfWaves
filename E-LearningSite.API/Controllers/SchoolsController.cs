@@ -71,10 +71,10 @@ namespace E_LearningSite.API.Controllers
             school.Name = schoolDTO.Name;
             school.Photo = schoolDTO.Photo;
             school.Principal = schoolDTO.Principal;
-            school.MentorsList = schoolDTO.MentorsList;
+            /*school.MentorsList = schoolDTO.MentorsList;
             school.StudentsList = schoolDTO.StudentsList;
             school.CoursesList = schoolDTO.CoursesList;
-            school.CataloguesList = schoolDTO.CataloguesList;
+            school.CataloguesList = schoolDTO.CataloguesList;*/
             return NoContent();
         }
 
