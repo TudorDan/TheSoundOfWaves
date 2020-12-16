@@ -1,8 +1,4 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace E_LearningSite.API.Profiles
 {
@@ -12,6 +8,11 @@ namespace E_LearningSite.API.Profiles
         {
             CreateMap<Domain.School, DTOs.School>();
             CreateMap<Domain.Principal, DTOs.Principal>();
+            CreateMap<Domain.Mentor, DTOs.Mentor>();
+            CreateMap<Domain.Student, DTOs.Student>();
+            CreateMap<Domain.Course, DTOs.Course>();
+            CreateMap<Domain.Document, DTOs.Document>();
+            CreateMap<Domain.Subject, DTOs.Subject>();
         }
     }
 }

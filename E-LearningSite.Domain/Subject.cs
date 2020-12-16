@@ -17,7 +17,7 @@ namespace E_LearningSite.Domain
             }
             private set
             {
-                SubjectName = Enum.GetName(typeof(Type), SubjectType);
+                SubjectName = this.SubjectType.ToString();
             }
         }
 

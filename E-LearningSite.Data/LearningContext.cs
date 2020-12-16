@@ -25,7 +25,7 @@ namespace E_LearningSite.Data
         {
             optionsBuilder
                 .UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = LearningApp",
-                b => b.MigrationsAssembly("E-LearningSite.API"));
+                b => b.MigrationsAssembly("E-LearningSite.Data"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -46,6 +46,9 @@ namespace E_LearningSite.Data
                 .WithOne(s => s.Catalogue).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Catalogue>().HasMany(c => c.ClassGrades)
                 .WithOne(g => g.Catalogue).OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Course>().HasMany(c => c.CourseMaterials)
+                .WithOne(d => d.Course).OnDelete(DeleteBehavior.Restrict);
 
             //modelBuilder.Seed();
 

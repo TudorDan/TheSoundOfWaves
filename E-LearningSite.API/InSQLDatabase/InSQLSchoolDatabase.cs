@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
 using E_LearningSite.API.DTOs;
-using E_LearningSite.API.Models;
 using E_LearningSite.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace E_LearningSite.API.SQLDatabase
 {
@@ -23,24 +22,18 @@ namespace E_LearningSite.API.SQLDatabase
         // Schools
         public ICollection<School> GetAllSchools()
         {
-            List<Domain.School> schools = _context.Schools.OrderBy(s => s.Name).ToList();
-            foreach (Domain.School school in schools)
-            {
-                Domain.Principal principal = _context.Principals.FirstOrDefault(p => p.SchoolId == school.Id);
-                if (principal != null)
-                {
-                    school.Principal = principal;
-                }
-                else
-                {
-                    school.Principal = new Domain.Principal() { Name = "Unknown" };
-                }
-            }
+            List<Domain.School> schools = _context.Schools.Include(s => s.Principal).ToList();
+
             return (ICollection<School>)_mapper.Map<IEnumerable<School>>(schools);
         }
         public School GetSchool(int id)
         {
-            throw new NotImplementedException();
+            Domain.School school = _context.Schools.FirstOrDefault(s => s.Id == id);
+            Domain.Principal principal = _context.Principals.FirstOrDefault(p => p.SchoolId == school.Id);
+
+            school.Principal = principal;
+
+            return _mapper.Map<School>(school);
         }
         public School AddSchool(School school)
         {
@@ -52,7 +45,9 @@ namespace E_LearningSite.API.SQLDatabase
         // Mentors
         public ICollection<Mentor> GetAllMentors(int schoolId)
         {
-            throw new NotImplementedException();
+            List<Domain.Mentor> mentors = _context.Mentors.Where(m => m.SchoolId == schoolId).ToList();
+
+            return (ICollection<Mentor>)_mapper.Map<IEnumerable<Mentor>>(mentors);
         }
         public Mentor GetMentor(int id, int schoolId)
         {
@@ -66,7 +61,8 @@ namespace E_LearningSite.API.SQLDatabase
         // Students
         public ICollection<Student> GetAllStudents(int schoolId)
         {
-            throw new NotImplementedException();
+            List<Domain.Student> students = _context.Students.Where(s => s.SchoolId == schoolId).ToList();
+            return (ICollection<Student>)_mapper.Map<IEnumerable<Student>>(students);
         }
         public Student GetStudent(int id, int schoolId)
         {
@@ -80,7 +76,21 @@ namespace E_LearningSite.API.SQLDatabase
         // Courses
         public ICollection<Course> GetAllCourses(int schoolId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<Domain.Course> courses = _context.Courses
+                                .Where(c => c.SchoolId == schoolId)
+                                .Include(c => c.CourseMaterials)
+                                .Include(c => c.Subject).ToList();
+            }
+            catch (Exception e)
+            {
+                var x = e.Message;
+                Console.WriteLine(x);
+            }
+
+            return new List<Course>();
+            //return (ICollection<Course>)_mapper.Map<IEnumerable<Course>>(courses);
         }
         public Course GetCourse(int id, int schoolId)
         {
