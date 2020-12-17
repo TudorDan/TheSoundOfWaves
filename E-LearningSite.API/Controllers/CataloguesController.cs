@@ -67,10 +67,6 @@ namespace E_LearningSite.API.Controllers
                 return NotFound();
             }
             catalogue.ClassName = catalogueDTO.ClassName;
-            catalogue.ClassMentors = catalogueDTO.ClassMentors;
-            catalogue.ClassStudents = catalogueDTO.ClassStudents;
-            catalogue.ClassCourses = catalogueDTO.ClassCourses;
-            catalogue.ClassGrades = catalogueDTO.ClassGrades;
             return NoContent();
         }
 

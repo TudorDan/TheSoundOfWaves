@@ -67,7 +67,6 @@ namespace E_LearningSite.API.Controllers
             course.Name = courseDTO.Name;
             course.Subject = courseDTO.Subject;
             course.Description = courseDTO.Description;
-            course.CourseMaterials = courseDTO.CourseMaterials;
             return NoContent();
         }
 

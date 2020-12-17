@@ -78,9 +78,7 @@ namespace E_LearningSite.API.SQLDatabase
         {
             try
             {
-                List<Domain.Course> courses = _context.Courses                                
-                                .Include(c => c.CourseMaterials)
-                                .Include(c => c.Subject)
+                List<Domain.Course> courses = _context.Courses
                                 .Where(c => c.SchoolId == schoolId).ToList();
             }
             catch (Exception e)
