@@ -360,7 +360,7 @@ namespace E_LearningSite.Data.Migrations
                     b.HasOne("E_LearningSite.Domain.Course", "Course")
                         .WithMany("CourseMaterials")
                         .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Course");

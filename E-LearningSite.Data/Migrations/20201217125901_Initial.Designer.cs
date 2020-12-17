@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_LearningSite.Data.Migrations
 {
     [DbContext(typeof(LearningContext))]
-    [Migration("20201216141425_TestSubjectEnumName")]
-    partial class TestSubjectEnumName
+    [Migration("20201217125901_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -362,7 +362,7 @@ namespace E_LearningSite.Data.Migrations
                     b.HasOne("E_LearningSite.Domain.Course", "Course")
                         .WithMany("CourseMaterials")
                         .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Course");
