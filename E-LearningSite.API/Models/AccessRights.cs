@@ -11,6 +11,5 @@ namespace E_LearningSite.API.DTOs
         FORSTUDENTS = 1,
         FORPRINCIPALS = 2,
         FORADMIN = 3,
-        FORGUEST = 4,
     }
 }
