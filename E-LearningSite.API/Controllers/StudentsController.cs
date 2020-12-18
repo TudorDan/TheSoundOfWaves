@@ -84,7 +84,7 @@ namespace E_LearningSite.API.Controllers
                 return NotFound();
             }
             _schoolRepository.GetAllStudents(schoolId).Remove(student);
-            _schoolRepository.GetSchool(schoolId).CataloguesList.ForEach(c => c.ClassStudents.Remove(student));
+            _schoolRepository.GetSchool(schoolId).Catalogues.ForEach(c => c.ClassStudents.Remove(student));
             return NoContent();
         }
     }

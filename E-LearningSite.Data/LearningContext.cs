@@ -33,11 +33,11 @@ namespace E_LearningSite.Data
             modelBuilder.Entity<MentorCatalogue>().HasKey(m => new { m.MentorId, m.CatalogueId });
             modelBuilder.Entity<CourseCatalogue>().HasKey(c => new { c.CourseId, c.CatalogueId });
 
-            modelBuilder.Entity<School>().HasMany(s => s.StudentsList)
+            modelBuilder.Entity<School>().HasMany(s => s.Students)
                 .WithOne(s => s.School).OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<School>().HasMany(s => s.CoursesList)
+            modelBuilder.Entity<School>().HasMany(s => s.Courses)
                 .WithOne(c => c.School).OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<School>().HasMany(s => s.MentorsList)
+            modelBuilder.Entity<School>().HasMany(s => s.Mentors)
                 .WithOne(m => m.School).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<School>().HasMany(s => s.Subjects)
                 .WithOne(s => s.School).OnDelete(DeleteBehavior.Restrict);

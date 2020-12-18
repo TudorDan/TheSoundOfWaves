@@ -83,7 +83,7 @@ namespace E_LearningSite.API.Controllers
                 return NotFound();
             }
             _schoolRepository.GetAllCourses(schoolId).Remove(course);
-            _schoolRepository.GetSchool(schoolId).CataloguesList.ForEach(c => c.ClassCourses.Remove(course));
+            _schoolRepository.GetSchool(schoolId).Catalogues.ForEach(c => c.ClassCourses.Remove(course));
             return NoContent();
         }
 
@@ -153,7 +153,7 @@ namespace E_LearningSite.API.Controllers
                 return NotFound();
             }
             _schoolRepository.GetAllDocuments(schoolId, courseId).Remove(document);
-            _schoolRepository.GetSchool(schoolId).CataloguesList.ForEach(
+            _schoolRepository.GetSchool(schoolId).Catalogues.ForEach(
                 c => c.ClassCourses.ForEach(cs => cs.CourseMaterials.Remove(document)));
             return NoContent();
         }

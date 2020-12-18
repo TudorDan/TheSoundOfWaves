@@ -15,10 +15,10 @@ namespace E_LearningSite.API.DTOs
         public string Photo { get; set; }
         [Required]
         public Principal Principal { get; set; }
-        public List<Mentor> MentorsList { get; set; }
-        public List<Student> StudentsList { get; set; }
-        public List<Course> CoursesList { get; set; }
-        public List<Catalogue> CataloguesList { get; set; }
+        public List<Mentor> Mentors { get; set; }
+        public List<Student> Students { get; set; }
+        public List<Course> Courses { get; set; }
+        public List<Catalogue> Catalogues { get; set; }
         public List<Subject> Subjects { get; set; }
     }
 }

@@ -9,10 +9,10 @@ namespace E_LearningSite.Domain
     {
         public School()
         {
-            MentorsList = new List<Mentor>();
-            StudentsList = new List<Student>();
-            CoursesList = new List<Course>();
-            CataloguesList = new List<Catalogue>();
+            Mentors = new List<Mentor>();
+            Students = new List<Student>();
+            Courses = new List<Course>();
+            Catalogues = new List<Catalogue>();
             Subjects = new List<Subject>();
         }
 
@@ -22,10 +22,10 @@ namespace E_LearningSite.Domain
         public string Name { get; set; }
         public string Photo { get; set; }
         public Principal Principal { get; set; }
-        public List<Mentor> MentorsList { get; set; }
-        public List<Student> StudentsList { get; set; }
-        public List<Course> CoursesList { get; set; }
-        public List<Catalogue> CataloguesList { get; set; }
+        public List<Mentor> Mentors { get; set; }
+        public List<Student> Students { get; set; }
+        public List<Course> Courses { get; set; }
+        public List<Catalogue> Catalogues { get; set; }
         public List<Subject> Subjects { get; set; }
     }
 }

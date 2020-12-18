@@ -46,10 +46,10 @@ namespace E_LearningSite.API.Controllers
                 Name = schoolDTO.Name,
                 Principal = schoolDTO.Principal,
                 Photo = schoolDTO.Photo,
-                MentorsList = schoolDTO.MentorsList,
-                StudentsList = schoolDTO.StudentsList,
-                CoursesList = schoolDTO.CoursesList,
-                CataloguesList = schoolDTO.CataloguesList,
+                Mentors = schoolDTO.Mentors,
+                Students = schoolDTO.Students,
+                Courses = schoolDTO.Courses,
+                Catalogues = schoolDTO.Catalogues,
                 Subjects = schoolDTO.Subjects
             };
             _schoolRepository.AddSchool(school);
