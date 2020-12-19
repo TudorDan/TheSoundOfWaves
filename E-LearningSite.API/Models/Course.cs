@@ -15,7 +15,7 @@ namespace E_LearningSite.API.DTOs
         [Required]
         public string Description { get; set; }
         [Required]
-        public List<Document> CourseMaterials { get; set; }
+        public List<Document> Documents { get; set; }
 
         
         public int SubjectId { get; set; }

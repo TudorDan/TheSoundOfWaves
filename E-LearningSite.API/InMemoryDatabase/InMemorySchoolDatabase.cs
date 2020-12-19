@@ -73,7 +73,7 @@ namespace E_LearningSite.API.DTOs
                             Name = "Guessing Master of Science",
                             SubjectId = 3,
                             Description = "Pay for 1, you get 2",
-                            CourseMaterials = new List<Document>()
+                            Documents = new List<Document>()
                             {
                                 new Document()
                                 {
@@ -100,7 +100,7 @@ namespace E_LearningSite.API.DTOs
                             Name = "How to Watch Television",
                             SubjectId = 2,
                             Description = "For advanced majors",
-                            CourseMaterials = new List<Document>()
+                            Documents = new List<Document>()
                             {
                                 new Document()
                                 {
@@ -221,7 +221,7 @@ namespace E_LearningSite.API.DTOs
                             Name = "Hacking Ethics",
                             SubjectId = 2,
                             Description = "2nd edition",
-                            CourseMaterials = new List<Document>()
+                            Documents = new List<Document>()
                             {
                                 new Document()
                                 {
@@ -248,7 +248,7 @@ namespace E_LearningSite.API.DTOs
                             Name = "The Answer to Life, The Universe and Everything",
                             SubjectId = 1,
                             Description = "42",
-                            CourseMaterials = new List<Document>()
+                            Documents = new List<Document>()
                             {
                                 new Document()
                                 {
@@ -386,8 +386,8 @@ namespace E_LearningSite.API.DTOs
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             Course course = school.Courses.FirstOrDefault(c => c.Id == courseId);
-            document.Id = course.CourseMaterials.DefaultIfEmpty().Max(d => d == null ? 0 : d.Id) + 1;
-            course.CourseMaterials.Add(document);
+            document.Id = course.Documents.DefaultIfEmpty().Max(d => d == null ? 0 : d.Id) + 1;
+            course.Documents.Add(document);
             return document;
         }
 
@@ -395,14 +395,14 @@ namespace E_LearningSite.API.DTOs
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             Course course = school.Courses.FirstOrDefault(c => c.Id == courseId);
-            return course.CourseMaterials.FirstOrDefault(d => d.Id == id);
+            return course.Documents.FirstOrDefault(d => d.Id == id);
         }
 
         public ICollection<Document> GetAllDocuments(int schoolId, int courseId)
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             Course course = school.Courses.FirstOrDefault(c => c.Id == courseId);
-            return course.CourseMaterials;
+            return course.Documents;
         }
 
         // Catalogues

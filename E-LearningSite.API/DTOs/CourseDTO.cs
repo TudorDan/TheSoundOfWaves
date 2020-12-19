@@ -16,7 +16,7 @@ namespace E_LearningSite.API.DTOs
         [Required]
         public string Description { get; set; }
 #nullable enable
-        public List<Document>? CourseMaterials { get; set; }
+        public List<Document>? Documents { get; set; }
 #nullable disable
     }
 }

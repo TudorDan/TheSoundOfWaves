@@ -47,7 +47,7 @@ namespace E_LearningSite.Data
             modelBuilder.Entity<Catalogue>().HasMany(c => c.ClassGrades)
                 .WithOne(g => g.Catalogue).OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Course>().HasMany(c => c.CourseMaterials)
+            modelBuilder.Entity<Course>().HasMany(c => c.Documents)
                 .WithOne(d => d.Course).OnDelete(DeleteBehavior.Restrict);
 
             //modelBuilder.Seed();

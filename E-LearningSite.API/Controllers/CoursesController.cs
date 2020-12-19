@@ -46,7 +46,7 @@ namespace E_LearningSite.API.Controllers
                 Name = courseDTO.Name,
                 Subject = courseDTO.Subject,
                 Description = courseDTO.Description,
-                CourseMaterials = courseDTO.CourseMaterials
+                Documents = courseDTO.Documents
             };
             _schoolRepository.AddCourse(course, schoolId);
             return CreatedAtRoute("GetCourse", new { schoolId, courseId = course.Id }, course);
@@ -154,7 +154,7 @@ namespace E_LearningSite.API.Controllers
             }
             _schoolRepository.GetAllDocuments(schoolId, courseId).Remove(document);
             _schoolRepository.GetSchool(schoolId).Catalogues.ForEach(
-                c => c.ClassCourses.ForEach(cs => cs.CourseMaterials.Remove(document)));
+                c => c.ClassCourses.ForEach(cs => cs.Documents.Remove(document)));
             return NoContent();
         }
     }

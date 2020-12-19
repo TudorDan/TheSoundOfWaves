@@ -10,7 +10,7 @@ namespace E_LearningSite.Domain
     {
         public Course()
         {
-            CourseMaterials = new List<Document>();
+            Documents = new List<Document>();
             CourseCatalogues = new List<CourseCatalogue>();
         }
 
@@ -19,7 +19,7 @@ namespace E_LearningSite.Domain
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public List<Document> CourseMaterials { get; set; }
+        public List<Document> Documents { get; set; }
 
         [ForeignKey("SubjectId")]
         public Subject Subject { get; set; }
