@@ -12,7 +12,8 @@ namespace E_LearningSite.API.DTOs
         [MaxLength(50, ErrorMessage = "Name cannot exceed 50 characters")]
         public string Name { get; set; }
         [Required]
-        public Subject Subject { get; set; }
+        public int SubjectId { get; set; }
+        //public Subject Subject { get; set; }
         [Required]
         public string Description { get; set; }
 #nullable enable

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using E_LearningSite.API.DTOs;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -41,10 +42,13 @@ namespace E_LearningSite.API.Controllers
             {
                 return BadRequest(ModelState);
             }
+            int subjectId = courseDTO.SubjectId;
+            ICollection<Subject> schoolSubjects = _schoolRepository.GetAllSubjects(schoolId);
+            Subject subject = schoolSubjects.FirstOrDefault(sbj => sbj.Id == subjectId);
             Course course = new Course()
             {
                 Name = courseDTO.Name,
-                Subject = courseDTO.Subject,
+                Subject = subject,
                 Description = courseDTO.Description,
                 Documents = courseDTO.Documents
             };
@@ -65,7 +69,10 @@ namespace E_LearningSite.API.Controllers
                 return NotFound();
             }
             course.Name = courseDTO.Name;
-            course.Subject = courseDTO.Subject;
+            int subjectId = courseDTO.SubjectId;
+            ICollection<Subject> schoolSubjects = _schoolRepository.GetAllSubjects(schoolId);
+            Subject subject = schoolSubjects.FirstOrDefault(sbj => sbj.Id == subjectId);
+            course.Subject = subject;
             course.Description = courseDTO.Description;
             return NoContent();
         }
@@ -83,7 +90,7 @@ namespace E_LearningSite.API.Controllers
                 return NotFound();
             }
             _schoolRepository.GetAllCourses(schoolId).Remove(course);
-            _schoolRepository.GetSchool(schoolId).Catalogues.ForEach(c => c.ClassCourses.Remove(course));
+            _schoolRepository.GetSchool(schoolId).Catalogues.ForEach(c => c.Courses.Remove(course));
             return NoContent();
         }
 
@@ -154,7 +161,7 @@ namespace E_LearningSite.API.Controllers
             }
             _schoolRepository.GetAllDocuments(schoolId, courseId).Remove(document);
             _schoolRepository.GetSchool(schoolId).Catalogues.ForEach(
-                c => c.ClassCourses.ForEach(cs => cs.Documents.Remove(document)));
+                c => c.Courses.ForEach(cs => cs.Documents.Remove(document)));
             return NoContent();
         }
     }

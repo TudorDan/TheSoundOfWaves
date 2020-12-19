@@ -44,11 +44,11 @@ namespace E_LearningSite.API.Controllers
             }
             Catalogue catalogue = new Catalogue()
             {
-                ClassName = catalogueDTO.ClassName,
-                ClassMentors = catalogueDTO.ClassMentors,
-                ClassStudents = catalogueDTO.ClassStudents,
-                ClassCourses = catalogueDTO.ClassCourses,
-                ClassGrades = catalogueDTO.ClassGrades
+                Name = catalogueDTO.Name,
+                Mentors = catalogueDTO.Mentors,
+                Students = catalogueDTO.Students,
+                Courses = catalogueDTO.Courses,
+                Grades = catalogueDTO.Grades
             };
             _schoolRepository.AddCatalogue(catalogue, schoolId);
             return CreatedAtRoute("GetCatalogue", new { schoolId, catalogueId = catalogue.Id }, catalogue);
@@ -66,7 +66,7 @@ namespace E_LearningSite.API.Controllers
             {
                 return NotFound();
             }
-            catalogue.ClassName = catalogueDTO.ClassName;
+            catalogue.Name = catalogueDTO.Name;
             return NoContent();
         }
 
@@ -113,14 +113,14 @@ namespace E_LearningSite.API.Controllers
             }
             Mentor mentor = _schoolRepository.GetMentor(cataloguePersonDTO.Id, schoolId);
             Catalogue catalogue = _schoolRepository.GetCatalogue(catalogueId, schoolId);
-            foreach (Mentor ment in catalogue.ClassMentors)
+            foreach (Mentor ment in catalogue.Mentors)
             {
                 if (ment.Id == mentor.Id)
                 {
                     return Conflict(mentor.Name);
                 }
             }
-            catalogue.ClassMentors.Add(mentor);
+            catalogue.Mentors.Add(mentor);
             return CreatedAtRoute("GetCatalogueMentor", new { schoolId, catalogueId, mentorId = mentor.Id }, mentor);
         }
 
@@ -136,7 +136,7 @@ namespace E_LearningSite.API.Controllers
             {
                 return NotFound();
             }
-            _schoolRepository.GetCatalogue(catalogueId, schoolId).ClassMentors.Remove(mentor);
+            _schoolRepository.GetCatalogue(catalogueId, schoolId).Mentors.Remove(mentor);
             return NoContent();
         }
 
@@ -167,14 +167,14 @@ namespace E_LearningSite.API.Controllers
             }
             Student student = _schoolRepository.GetStudent(cataloguePersonDTO.Id, schoolId);
             Catalogue catalogue = _schoolRepository.GetCatalogue(catalogueId, schoolId);
-            foreach (Student stud in catalogue.ClassStudents)
+            foreach (Student stud in catalogue.Students)
             {
                 if (stud.Id == student.Id)
                 {
                     return Conflict(student.Name);
                 }
             }
-            catalogue.ClassStudents.Add(student);
+            catalogue.Students.Add(student);
             return CreatedAtRoute("GetCatalogueStudent", new { schoolId, catalogueId, studentId = student.Id }, student);
         }
 
@@ -190,7 +190,7 @@ namespace E_LearningSite.API.Controllers
             {
                 return NotFound();
             }
-            _schoolRepository.GetCatalogue(catalogueId, schoolId).ClassStudents.Remove(student);
+            _schoolRepository.GetCatalogue(catalogueId, schoolId).Students.Remove(student);
             return NoContent();
         }
 
@@ -221,14 +221,14 @@ namespace E_LearningSite.API.Controllers
             }
             Course course = _schoolRepository.GetCourse(cataloguePersonDTO.Id, schoolId);
             Catalogue catalogue = _schoolRepository.GetCatalogue(catalogueId, schoolId);
-            foreach (Course cour in catalogue.ClassCourses)
+            foreach (Course cour in catalogue.Courses)
             {
                 if (cour.Id == course.Id)
                 {
                     return Conflict(course.Name);
                 }
             }
-            catalogue.ClassCourses.Add(course);
+            catalogue.Courses.Add(course);
             return CreatedAtRoute("GetCatalogueCourse", new { schoolId, catalogueId, courseId = course.Id }, course);
         }
 

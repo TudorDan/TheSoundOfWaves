@@ -127,20 +127,20 @@ namespace E_LearningSite.API.DTOs
                         new Catalogue()
                         {
                             Id = 1,
-                            ClassName = "Steelers Ist Class",
-                            ClassMentors = new List<Mentor>(){},
-                            ClassStudents = new List<Student>() {},
-                            ClassCourses = new List<Course>() {},
-                            ClassGrades = new List<Grade>() {}
+                            Name = "Steelers Ist Class",
+                            Mentors = new List<Mentor>(){},
+                            Students = new List<Student>() {},
+                            Courses = new List<Course>() {},
+                            Grades = new List<Grade>() {}
                         },
                         new Catalogue()
                         {
                             Id = 2,
-                            ClassName = "Broncos IIIrd Class",
-                            ClassMentors = new List<Mentor>(){},
-                            ClassStudents = new List<Student>() {},
-                            ClassCourses = new List<Course>() {},
-                            ClassGrades = new List<Grade>() {}
+                            Name = "Broncos IIIrd Class",
+                            Mentors = new List<Mentor>(){},
+                            Students = new List<Student>() {},
+                            Courses = new List<Course>() {},
+                            Grades = new List<Grade>() {}
                         }
                     },
                     Subjects = new List<Subject>()
@@ -275,11 +275,11 @@ namespace E_LearningSite.API.DTOs
                         new Catalogue()
                         {
                             Id = 1,
-                            ClassName = "Chargers 2nd Class",
-                            ClassMentors = new List<Mentor>(){ },
-                            ClassStudents = new List<Student>() {},
-                            ClassCourses = new List<Course>() {},
-                            ClassGrades = new List<Grade>() {}
+                            Name = "Chargers 2nd Class",
+                            Mentors = new List<Mentor>(){ },
+                            Students = new List<Student>() {},
+                            Courses = new List<Course>() {},
+                            Grades = new List<Grade>() {}
                         }
                     },
                     Subjects = new List<Subject>()
@@ -429,9 +429,9 @@ namespace E_LearningSite.API.DTOs
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             Catalogue catalogue = school.Catalogues.FirstOrDefault(c => c.Id == catalogueId);
-            if (!catalogue.ClassMentors.Contains(mentor))
+            if (!catalogue.Mentors.Contains(mentor))
             {
-                catalogue.ClassMentors.Add(mentor);
+                catalogue.Mentors.Add(mentor);
             }
             return mentor;
         }
@@ -439,13 +439,13 @@ namespace E_LearningSite.API.DTOs
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             Catalogue catalogue = school.Catalogues.FirstOrDefault(c => c.Id == catalogueId);
-            return catalogue.ClassMentors.FirstOrDefault(m => m.Id == id);
+            return catalogue.Mentors.FirstOrDefault(m => m.Id == id);
         }
         public ICollection<Mentor> GetALLCatalogueMentors(int schoolId, int catalogueId)
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             Catalogue catalogue = school.Catalogues.FirstOrDefault(c => c.Id == catalogueId);
-            return catalogue.ClassMentors;
+            return catalogue.Mentors;
         }
 
         // Catalogue Students
@@ -453,9 +453,9 @@ namespace E_LearningSite.API.DTOs
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             Catalogue catalogue = school.Catalogues.FirstOrDefault(c => c.Id == catalogueId);
-            if (!catalogue.ClassStudents.Contains(student))
+            if (!catalogue.Students.Contains(student))
             {
-                catalogue.ClassStudents.Add(student);
+                catalogue.Students.Add(student);
             }
             return student;
         }
@@ -463,13 +463,13 @@ namespace E_LearningSite.API.DTOs
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             Catalogue catalogue = school.Catalogues.FirstOrDefault(c => c.Id == catalogueId);
-            return catalogue.ClassStudents.FirstOrDefault(s => s.Id == id);
+            return catalogue.Students.FirstOrDefault(s => s.Id == id);
         }
         public ICollection<Student> GetAllCatalogueStudents(int schoolId, int catalogueId)
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             Catalogue catalogue = school.Catalogues.FirstOrDefault(c => c.Id == catalogueId);
-            return catalogue.ClassStudents;
+            return catalogue.Students;
         }
 
         // Catalogue Courses
@@ -477,9 +477,9 @@ namespace E_LearningSite.API.DTOs
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             Catalogue catalogue = school.Catalogues.FirstOrDefault(c => c.Id == catalogueId);
-            if (!catalogue.ClassCourses.Contains(course))
+            if (!catalogue.Courses.Contains(course))
             {
-                catalogue.ClassCourses.Add(course);
+                catalogue.Courses.Add(course);
             }
             return course;
         }
@@ -487,13 +487,13 @@ namespace E_LearningSite.API.DTOs
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             Catalogue catalogue = school.Catalogues.FirstOrDefault(c => c.Id == catalogueId);
-            return catalogue.ClassCourses.FirstOrDefault(c => c.Id == id);
+            return catalogue.Courses.FirstOrDefault(c => c.Id == id);
         }
         public ICollection<Course> GetAllCatalogueCourses(int schoolId, int catalogueId)
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             Catalogue catalogue = school.Catalogues.FirstOrDefault(c => c.Id == catalogueId);
-            return catalogue.ClassCourses;
+            return catalogue.Courses;
         }
 
         // Catalogue Grades
@@ -501,10 +501,10 @@ namespace E_LearningSite.API.DTOs
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             Catalogue catalogue = school.Catalogues.FirstOrDefault(c => c.Id == catalogueId);
-            grade.Id = catalogue.ClassGrades.DefaultIfEmpty().Max(g => g == null ? 0 : g.Id) + 1;
-            if (!catalogue.ClassGrades.Contains(grade))
+            grade.Id = catalogue.Grades.DefaultIfEmpty().Max(g => g == null ? 0 : g.Id) + 1;
+            if (!catalogue.Grades.Contains(grade))
             {
-                catalogue.ClassGrades.Add(grade);
+                catalogue.Grades.Add(grade);
             }
             return grade;
         }
@@ -512,13 +512,13 @@ namespace E_LearningSite.API.DTOs
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             Catalogue catalogue = school.Catalogues.FirstOrDefault(c => c.Id == catalogueId);
-            return catalogue.ClassGrades.FirstOrDefault(g => g.Id == id);
+            return catalogue.Grades.FirstOrDefault(g => g.Id == id);
         }
         public ICollection<Grade> GetAllCatalogueGrades(int schoolId, int catalogueId)
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             Catalogue catalogue = school.Catalogues.FirstOrDefault(c => c.Id == catalogueId);
-            return catalogue.ClassGrades;
+            return catalogue.Grades;
         }
 
         // School Subjects

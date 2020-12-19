@@ -11,23 +11,23 @@ namespace E_LearningSite.Domain
         public Catalogue()
         {
             // initialized here, instead of school level
-            ClassGrades = new List<Grade>();
+            Grades = new List<Grade>();
             MentorCatalogues = new List<MentorCatalogue>();
             CourseCatalogues = new List<CourseCatalogue>();
 
-            ClassStudents = new List<Student>();
-            ClassMentors = new List<Mentor>();
-            ClassCourses = new List<Course>();
+            Students = new List<Student>();
+            Mentors = new List<Mentor>();
+            Courses = new List<Course>();
         }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string ClassName { get; set; }
-        public List<Mentor> ClassMentors { get; set; }
-        public List<Student> ClassStudents { get; set; }
-        public List<Course> ClassCourses { get; set; }
-        public List<Grade> ClassGrades { get; set; }
+        public List<Mentor> Mentors { get; set; }
+        public List<Student> Students { get; set; }
+        public List<Course> Courses { get; set; }
+        public List<Grade> Grades { get; set; }
 
         [ForeignKey("SchoolId")]
         public School School { get; set; }

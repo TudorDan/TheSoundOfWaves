@@ -10,10 +10,10 @@ namespace E_LearningSite.API.DTOs
     {
         [Required]
         [MaxLength(50, ErrorMessage = "Name cannot exceed 50 characters")]
-        public string ClassName { get; set; }
-        public List<Mentor> ClassMentors { get; set; }
-        public List<Student> ClassStudents { get; set; }
-        public List<Course> ClassCourses { get; set; }
-        public List<Grade> ClassGrades { get; set; }
+        public string Name { get; set; }
+        public List<Mentor> Mentors { get; set; }
+        public List<Student> Students { get; set; }
+        public List<Course> Courses { get; set; }
+        public List<Grade> Grades { get; set; }
     }
 }
