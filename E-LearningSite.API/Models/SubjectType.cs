@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace E_LearningSite.API.Models
 {
-    public enum SubjectType
+    public enum SubjectType 
     {
         HISTORY,
         IT,

@@ -78,13 +78,13 @@ namespace E_LearningSite.API.DTOs
                                 new Document()
                                 {
                                     Id = 1,
-                                    Documentation = "Palm Reading doc 1",
+                                    Name = "Palm Reading doc 1",
                                     Link = "Palm Reading link 1"
                                 },
                                 new Document()
                                 {
                                     Id = 2,
-                                    Documentation = "Witchcraft doc 2",
+                                    Name = "Witchcraft doc 2",
                                     Link = "Witchcraft link 2"
                                 }
                             },
@@ -105,13 +105,13 @@ namespace E_LearningSite.API.DTOs
                                 new Document()
                                 {
                                     Id = 3,
-                                    Documentation = "Getting dressed doc 1",
+                                    Name = "Getting dressed doc 1",
                                     Link = "Getting dressed link 1"
                                 },
                                 new Document()
                                 {
                                     Id = 4,
-                                    Documentation = "The art of walking doc 2",
+                                    Name = "The art of walking doc 2",
                                     Link = "The art of walking link 2"
                                 }
                             },
@@ -226,14 +226,14 @@ namespace E_LearningSite.API.DTOs
                                 new Document()
                                 {
                                     Id = 1,
-                                    Documentation = "hack doc 1",
-                                    Link = "kack link 1"
+                                    Name = "Torrent doc 1",
+                                    Link = "Torrent link 1"
                                 },
                                 new Document()
                                 {
                                     Id = 2,
-                                    Documentation = "hacky doc 2",
-                                    Link = "hacky link 2"
+                                    Name = "Pirating doc 2",
+                                    Link = "Pirating link 2"
                                 }
                             },
                             Subject = new Subject()
@@ -253,14 +253,14 @@ namespace E_LearningSite.API.DTOs
                                 new Document()
                                 {
                                     Id = 3,
-                                    Documentation = "Keep searching doc 1",
+                                    Name = "Keep searching doc 1",
                                     Link = "Keep searching link 1"
                                 },
                                 new Document()
                                 {
                                     Id = 4,
-                                    Documentation = " doc 2",
-                                    Link = " link 2"
+                                    Name = "Keep searching doc 2",
+                                    Link = "Keep searching link 2"
                                 }
                             },
                             Subject = new Subject()

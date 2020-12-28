@@ -122,7 +122,7 @@ namespace E_LearningSite.API.Controllers
             }
             Document document = new Document()
             {
-                Documentation = documentDTO.Documentation,
+                Name = documentDTO.Name,
                 Link = documentDTO.Link
             };
             _schoolRepository.AddDocument(document, schoolId, courseId);
@@ -142,7 +142,7 @@ namespace E_LearningSite.API.Controllers
             {
                 return NotFound();
             }
-            document.Documentation = documentDTO.Documentation;
+            document.Name = documentDTO.Name;
             document.Link = documentDTO.Link;
             return NoContent();
         }

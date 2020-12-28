@@ -23,7 +23,7 @@ namespace E_LearningSite.Domain
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string ClassName { get; set; }
+        public string Name { get; set; }
         public List<Mentor> Mentors { get; set; }
         public List<Student> Students { get; set; }
         public List<Course> Courses { get; set; }

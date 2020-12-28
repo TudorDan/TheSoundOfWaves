@@ -21,11 +21,13 @@ namespace E_LearningSite.Domain
         public int Id { get; set; }
         public string Name { get; set; }
         public string Photo { get; set; }
+#nullable enable
         public Principal Principal { get; set; }
         public List<Mentor> Mentors { get; set; }
         public List<Student> Students { get; set; }
         public List<Course> Courses { get; set; }
         public List<Catalogue> Catalogues { get; set; }
         public List<Subject> Subjects { get; set; }
+# nullable disable
     }
 }

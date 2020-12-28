@@ -51,9 +51,9 @@ namespace E_LearningSite.API.Controllers
             ICollection<Subject> schoolSubjects = _schoolRepository.GetAllSubjects(schoolId);
             foreach (Subject subj in schoolSubjects)
             {
-                if (subj.SubjectName == subject.SubjectName)
+                if (subj.Name == subject.Name)
                 {
-                    return Conflict(subject.SubjectName);
+                    return Conflict(subject.Name);
                 }
             }            
             _schoolRepository.AddSubject(subject, schoolId);

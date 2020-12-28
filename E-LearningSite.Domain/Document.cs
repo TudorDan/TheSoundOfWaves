@@ -11,7 +11,7 @@ namespace E_LearningSite.Domain
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string Documentation { get; set; }
+        public string Name { get; set; }
         public string Link { get; set; }
 
         [ForeignKey("CourseId")]

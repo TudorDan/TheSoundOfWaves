@@ -10,7 +10,7 @@ namespace E_LearningSite.API.DTOs
     {
         public int Id { get; set; }
         [Required]
-        public string Documentation { get; set; }
+        public string Name { get; set; }
         public string Link { get; set; }
     }
 }

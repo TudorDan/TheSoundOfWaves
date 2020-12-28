@@ -13,7 +13,6 @@ namespace E_LearningSite.API.DTOs
         public string Name { get; set; }
         [Required]
         public int SubjectId { get; set; }
-        //public Subject Subject { get; set; }
         [Required]
         public string Description { get; set; }
 #nullable enable
