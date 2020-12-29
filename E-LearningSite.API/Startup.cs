@@ -26,7 +26,11 @@ namespace E_LearningSite.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<LearningContext>(
-                options => options.UseSqlServer(_config.GetConnectionString("ELearningDbConnection"))
+                options => 
+                {
+                    options.UseSqlServer(_config.GetConnectionString("ELearningDbConnection"));
+                    options.EnableSensitiveDataLogging();
+                }
             );
 
             services.AddCors(options =>
@@ -39,8 +43,8 @@ namespace E_LearningSite.API
             });
             services.AddMvc(option => option.EnableEndpointRouting = false);
 
-            services.AddSingleton<ISchoolRepository, InMemorySchoolDatabase>();
-            //services.AddScoped<ISchoolRepository, InSQLSchoolDatabase>();
+            //services.AddSingleton<ISchoolRepository, InMemorySchoolDatabase>();
+            services.AddScoped<ISchoolRepository, InSQLSchoolDatabase>();
 
             services.AddSwaggerGen(setupAction =>
             {

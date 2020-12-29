@@ -1,6 +1,7 @@
 ﻿using E_LearningSite.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 
 namespace E_LearningSite.Data
 {
@@ -50,9 +51,20 @@ namespace E_LearningSite.Data
             modelBuilder.Entity<Course>().HasMany(c => c.Documents)
                 .WithOne(d => d.Course).OnDelete(DeleteBehavior.Restrict);
 
-            //modelBuilder.Seed();
+            modelBuilder.Entity<Subject>().Property(t => t.SubjectType).HasConversion<int>();
+            /*modelBuilder.Entity<Subject>().HasData(
+                    Enum.GetValues(typeof(SubjectType)).Cast<SubjectType>().Select(t => new Subject()
+                    {
+                        SubjectType = t,
+                        Name = t.ToString()
+                    })
+                );*/
+            modelBuilder.Entity<Subject>().HasMany(s => s.Courses)
+                .WithOne(c => c.Subject).OnDelete(DeleteBehavior.Restrict);
 
-            /*modelBuilder.Entity<School>()
+            modelBuilder.Seed();
+
+           /* modelBuilder.Entity<School>()
                 .HasData(
                     new School()
                     {
@@ -206,56 +218,56 @@ namespace E_LearningSite.Data
                     new Document()
                     {
                         Id = 1,
-                        Documentation = "Palm Reading doc 1",
+                        Name = "Palm Reading doc 1",
                         Link = "Palm Reading link 1",
                         CourseId = 1
                     },
                     new Document()
                     {
                         Id = 2,
-                        Documentation = "Witchcraft doc 2",
+                        Name = "Witchcraft doc 2",
                         Link = "Witchcraft link 2",
                         CourseId = 1
                     },
                     new Document()
                     {
                         Id = 3,
-                        Documentation = "Getting dressed doc 1",
+                        Name= "Getting dressed doc 1",
                         Link = "Getting dressed link 1",
                         CourseId = 2
                     },
                     new Document()
                     {
                         Id = 4,
-                        Documentation = "The art of walking doc 2",
+                        Name = "The art of walking doc 2",
                         Link = "The art of walking link 2",
                         CourseId = 2
                     },
                     new Document()
                     {
                         Id = 5,
-                        Documentation = "hack doc 1",
+                        Name = "hack doc 1",
                         Link = "kack link 1",
                         CourseId = 3
                     },
                     new Document()
                     {
                         Id = 6,
-                        Documentation = "hacky doc 2",
+                        Name = "hacky doc 2",
                         Link = "hacky link 2",
                         CourseId = 3
                     },
                     new Document()
                     {
                         Id = 7,
-                        Documentation = "Keep searching doc 1",
+                        Name = "Keep searching doc 1",
                         Link = "Keep searching link 1",
                         CourseId = 4
                     },
                     new Document()
                     {
                         Id = 8,
-                        Documentation = " doc 2",
+                        Name = " doc 2",
                         Link = " link 2",
                         CourseId = 4
                     }

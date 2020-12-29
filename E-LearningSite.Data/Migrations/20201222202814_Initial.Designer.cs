@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_LearningSite.Data.Migrations
 {
     [DbContext(typeof(LearningContext))]
-    [Migration("20201217125901_Initial")]
+    [Migration("20201222202814_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,7 +28,7 @@ namespace E_LearningSite.Data.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<string>("ClassName")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SchoolId")
@@ -60,7 +60,7 @@ namespace E_LearningSite.Data.Migrations
                     b.Property<int>("SchoolId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SubjectId")
+                    b.Property<int?>("SubjectId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -99,10 +99,10 @@ namespace E_LearningSite.Data.Migrations
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Documentation")
+                    b.Property<string>("Link")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Link")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -288,11 +288,11 @@ namespace E_LearningSite.Data.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("SchoolId")
                         .HasColumnType("int");
-
-                    b.Property<string>("SubjectName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SubjectType")
                         .HasColumnType("int");
@@ -307,7 +307,7 @@ namespace E_LearningSite.Data.Migrations
             modelBuilder.Entity("E_LearningSite.Domain.Catalogue", b =>
                 {
                     b.HasOne("E_LearningSite.Domain.School", "School")
-                        .WithMany("CataloguesList")
+                        .WithMany("Catalogues")
                         .HasForeignKey("SchoolId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -318,20 +318,19 @@ namespace E_LearningSite.Data.Migrations
             modelBuilder.Entity("E_LearningSite.Domain.Course", b =>
                 {
                     b.HasOne("E_LearningSite.Domain.Catalogue", null)
-                        .WithMany("ClassCourses")
+                        .WithMany("Courses")
                         .HasForeignKey("CatalogueId");
 
                     b.HasOne("E_LearningSite.Domain.School", "School")
-                        .WithMany("CoursesList")
+                        .WithMany("Courses")
                         .HasForeignKey("SchoolId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("E_LearningSite.Domain.Subject", "Subject")
-                        .WithMany()
+                        .WithMany("Courses")
                         .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("School");
 
@@ -360,7 +359,7 @@ namespace E_LearningSite.Data.Migrations
             modelBuilder.Entity("E_LearningSite.Domain.Document", b =>
                 {
                     b.HasOne("E_LearningSite.Domain.Course", "Course")
-                        .WithMany("CourseMaterials")
+                        .WithMany("Documents")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -371,7 +370,7 @@ namespace E_LearningSite.Data.Migrations
             modelBuilder.Entity("E_LearningSite.Domain.Grade", b =>
                 {
                     b.HasOne("E_LearningSite.Domain.Catalogue", "Catalogue")
-                        .WithMany("ClassGrades")
+                        .WithMany("Grades")
                         .HasForeignKey("CatalogueId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -406,11 +405,11 @@ namespace E_LearningSite.Data.Migrations
             modelBuilder.Entity("E_LearningSite.Domain.Mentor", b =>
                 {
                     b.HasOne("E_LearningSite.Domain.Catalogue", null)
-                        .WithMany("ClassMentors")
+                        .WithMany("Mentors")
                         .HasForeignKey("CatalogueId");
 
                     b.HasOne("E_LearningSite.Domain.School", "School")
-                        .WithMany("MentorsList")
+                        .WithMany("Mentors")
                         .HasForeignKey("SchoolId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -451,12 +450,12 @@ namespace E_LearningSite.Data.Migrations
             modelBuilder.Entity("E_LearningSite.Domain.Student", b =>
                 {
                     b.HasOne("E_LearningSite.Domain.Catalogue", "Catalogue")
-                        .WithMany("ClassStudents")
+                        .WithMany("Students")
                         .HasForeignKey("CatalogueId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("E_LearningSite.Domain.School", "School")
-                        .WithMany("StudentsList")
+                        .WithMany("Students")
                         .HasForeignKey("SchoolId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -479,24 +478,24 @@ namespace E_LearningSite.Data.Migrations
 
             modelBuilder.Entity("E_LearningSite.Domain.Catalogue", b =>
                 {
-                    b.Navigation("ClassCourses");
-
-                    b.Navigation("ClassGrades");
-
-                    b.Navigation("ClassMentors");
-
-                    b.Navigation("ClassStudents");
-
                     b.Navigation("CourseCatalogues");
 
+                    b.Navigation("Courses");
+
+                    b.Navigation("Grades");
+
                     b.Navigation("MentorCatalogues");
+
+                    b.Navigation("Mentors");
+
+                    b.Navigation("Students");
                 });
 
             modelBuilder.Entity("E_LearningSite.Domain.Course", b =>
                 {
                     b.Navigation("CourseCatalogues");
 
-                    b.Navigation("CourseMaterials");
+                    b.Navigation("Documents");
                 });
 
             modelBuilder.Entity("E_LearningSite.Domain.Mentor", b =>
@@ -506,17 +505,23 @@ namespace E_LearningSite.Data.Migrations
 
             modelBuilder.Entity("E_LearningSite.Domain.School", b =>
                 {
-                    b.Navigation("CataloguesList");
+                    b.Navigation("Catalogues");
 
-                    b.Navigation("CoursesList");
+                    b.Navigation("Courses");
 
-                    b.Navigation("MentorsList");
+                    b.Navigation("Mentors");
 
-                    b.Navigation("Principal");
+                    b.Navigation("Principal")
+                        .IsRequired();
 
-                    b.Navigation("StudentsList");
+                    b.Navigation("Students");
 
                     b.Navigation("Subjects");
+                });
+
+            modelBuilder.Entity("E_LearningSite.Domain.Subject", b =>
+                {
+                    b.Navigation("Courses");
                 });
 #pragma warning restore 612, 618
         }

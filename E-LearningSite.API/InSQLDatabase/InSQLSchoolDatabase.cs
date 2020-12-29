@@ -80,15 +80,18 @@ namespace E_LearningSite.API.SQLDatabase
             {
                 List<Domain.Course> courses = _context.Courses
                                 .Where(c => c.SchoolId == schoolId).ToList();
+                /*foreach(Domain.Course course in courses)
+                {
+                    course.Subject = _context.Subjects.FirstOrDefault(sbj => sbj.Id == course.SubjectId);
+                }*/
+            return (ICollection<Course>)_mapper.Map<IEnumerable<Course>>(courses);
             }
             catch (Exception e)
             {
                 var x = e.Message;
                 Console.WriteLine(x);
             }
-
-            return new List<Course>();
-            //return (ICollection<Course>)_mapper.Map<IEnumerable<Course>>(courses);
+            return null;
         }
         public Course GetCourse(int id, int schoolId)
         {
@@ -196,11 +199,25 @@ namespace E_LearningSite.API.SQLDatabase
         // Subjects
         public ICollection<Subject> GetAllSubjects(int schoolId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<Domain.Subject> subjects = _context.Subjects.Where(sbj => sbj.SchoolId == schoolId).ToList();
+                /*IEnumerable<Domain.Subject> subjects = from sbj in _context.Subjects
+                                                       where sbj.SchoolId == schoolId
+                                                       select sbj;*/
+                return (ICollection<Subject>)_mapper.Map<IEnumerable<Subject>>(subjects);
+            }
+            catch(Exception exception)
+            {
+                Console.WriteLine(exception.Message);
+            }
+            return null;
         }
         public Subject GetSubject(int id, int schoolId)
         {
-            throw new NotImplementedException();
+            Domain.Subject subject = _context.Subjects.FirstOrDefault(sbj => sbj.Id == id);
+
+            return _mapper.Map<Subject>(subject);
         }
         public Subject AddSubject(Subject subject, int schoolId)
         {
