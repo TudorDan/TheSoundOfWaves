@@ -44,6 +44,14 @@ namespace E_LearningSite.API.DTOs
                             Photo = "mentor12.jpg",
                             BirthDate = new DateTime(1970, 1, 4),
                             AccessRights = AccessRights.FORMENTORS
+                        },
+                        new Mentor()
+                        {
+                            Id = 4,
+                            Name = "Iulain Apostol",
+                            Photo = "mentor13.jpg",
+                            BirthDate = new DateTime(1980, 10, 23),
+                            AccessRights = AccessRights.FORMENTORS
                         }
                     },
                     Students = new List<Student>()
@@ -62,6 +70,14 @@ namespace E_LearningSite.API.DTOs
                             Name = "Costin Constantinescu",
                             Photo = "student12.jpg",
                             BirthDate = new DateTime(2000, 1, 1),
+                            AccessRights = AccessRights.FORSTUDENTS
+                        },
+                        new Student()
+                        {
+                            Id = 6,
+                            Name = "George Iordanescu",
+                            Photo = "mentor14.jpg",
+                            BirthDate = new DateTime(2000, 3, 17),
                             AccessRights = AccessRights.FORSTUDENTS
                         }
                     },
@@ -192,6 +208,14 @@ namespace E_LearningSite.API.DTOs
                             Photo = "mentor22.jpg",
                             BirthDate = new DateTime(1970, 1, 4),
                             AccessRights = AccessRights.FORMENTORS
+                        },
+                        new Mentor()
+                        {
+                            Id = 8,
+                            Name = "Andrei Pavel",
+                            Photo = "mentor23.jpg",
+                            BirthDate = new DateTime(1966, 7, 25),
+                            AccessRights = AccessRights.FORMENTORS
                         }
                     },
                     Students = new List<Student>()
@@ -210,6 +234,14 @@ namespace E_LearningSite.API.DTOs
                             Name = "Dorian Stefan",
                             Photo = "student22.jpg",
                             BirthDate = new DateTime(2001, 10, 21),
+                            AccessRights = AccessRights.FORSTUDENTS
+                        },
+                        new Student()
+                        {
+                            Id = 11,
+                            Name = "Andreea Popescu",
+                            Photo = "student23.jpg",
+                            BirthDate = new DateTime(2000, 9, 30),
                             AccessRights = AccessRights.FORSTUDENTS
                         }
                     },
