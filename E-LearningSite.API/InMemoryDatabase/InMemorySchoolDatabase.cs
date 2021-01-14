@@ -76,7 +76,7 @@ namespace E_LearningSite.API.DTOs
                         {
                             Id = 6,
                             Name = "George Iordanescu",
-                            Photo = "mentor14.jpg",
+                            Photo = "student14.jpg",
                             BirthDate = new DateTime(2000, 3, 17),
                             AccessRights = AccessRights.FORSTUDENTS
                         }
