@@ -48,17 +48,19 @@ namespace E_LearningSite.Data
             modelBuilder.Entity<Catalogue>().HasMany(c => c.Grades)
                 .WithOne(g => g.Catalogue).OnDelete(DeleteBehavior.Restrict);
 
+
             modelBuilder.Entity<Course>().HasMany(c => c.Documents)
                 .WithOne(d => d.Course).OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Subject>().Property(t => t.SubjectType).HasConversion<int>();
-            /*modelBuilder.Entity<Subject>().HasData(
+            modelBuilder.Entity<Subject>().HasData(
                     Enum.GetValues(typeof(SubjectType)).Cast<SubjectType>().Select(t => new Subject()
                     {
                         SubjectType = t,
-                        Name = t.ToString()
+                        Name = t.ToString(),
+                        Id = (int) t,
                     })
-                );*/
+                );
             modelBuilder.Entity<Subject>().HasMany(s => s.Courses)
                 .WithOne(c => c.Subject).OnDelete(DeleteBehavior.Restrict);
 

@@ -201,10 +201,12 @@ namespace E_LearningSite.API.SQLDatabase
         {
             try
             {
+                var x = _context.Subjects.Count();
                 List<Domain.Subject> subjects = _context.Subjects.Where(sbj => sbj.SchoolId == schoolId).ToList();
-                /*IEnumerable<Domain.Subject> subjects = from sbj in _context.Subjects
-                                                       where sbj.SchoolId == schoolId
-                                                       select sbj;*/
+                //IEnumerable<Domain.Subject> subjects = from sbj in _context.subjects
+                //                                       where sbj.schoolid == schoolid
+                //                                       select sbj;
+                var result = _mapper.Map<IEnumerable<Subject>>(subjects);
                 return (ICollection<Subject>)_mapper.Map<IEnumerable<Subject>>(subjects);
             }
             catch(Exception exception)

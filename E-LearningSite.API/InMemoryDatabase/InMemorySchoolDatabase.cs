@@ -48,7 +48,7 @@ namespace E_LearningSite.API.DTOs
                         new Mentor()
                         {
                             Id = 4,
-                            Name = "Iulain Apostol",
+                            Name = "Iulian Apostol",
                             Photo = "mentor13.jpg",
                             BirthDate = new DateTime(1980, 10, 23),
                             AccessRights = AccessRights.FORMENTORS
@@ -136,8 +136,32 @@ namespace E_LearningSite.API.DTOs
                                 Id = 2,
                                 SubjectType = SubjectType.IT
                             }
+                        },
+                        new Course()
+                        {
+                            Id = 3, 
+                            Name = "Capitals in Europe",
+                            SubjectId = 5,
+                            Description = "Basic knowledge for capitals from Europe",
+                            Documents = new List<Document>()
+                            {
+                                new Document()
+                                {
+                                    Id = 5,
+                                    Name = "Capitals in Western Europe",
+                                    Link = "Link 1"
+                                },
+                                new Document()
+                                {
+                                    Id = 6,
+                                    Name = "Capitals in Eastern Europe",
+                                    Link = "Link 2"
+                                }
+
+                            }
                         }
                     },
+
                     Catalogues = new List<Catalogue>()
                     {
                         new Catalogue()
@@ -299,6 +323,22 @@ namespace E_LearningSite.API.DTOs
                             {
                                 Id = 1,
                                 SubjectType = SubjectType.HISTORY
+                            }
+                        }, 
+                        new Course()
+                        {
+                            Id = 3,
+                            Name = "Equations",
+                            SubjectId = 6,
+                            Description = "Basic equations",
+                            Documents = new List<Document>()
+                            {
+                                new Document()
+                                {
+                                    Id = 5,
+                                    Name = "Equations with an unknown variable",
+                                    Link = "Link 1"
+                                }
                             }
                         }
                     },

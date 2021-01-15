@@ -45,12 +45,12 @@ namespace E_LearningSite.Domain
 
     public enum SubjectType : int
     {
-        HISTORY,
-        IT,
-        ASTRONOMY,
-        PHYSICS,
-        GEOGRAPHY,
-        MATHEMATICS,
-        SCIENCE
+        HISTORY = 1,
+        IT = 2,
+        ASTRONOMY = 3,
+        PHYSICS = 4,
+        GEOGRAPHY = 5,
+        MATHEMATICS = 6,
+        SCIENCE = 7
     }
 }
