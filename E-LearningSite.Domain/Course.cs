@@ -23,7 +23,7 @@ namespace E_LearningSite.Domain
 
         [ForeignKey("SubjectId")]
         public Subject Subject { get; set; }
-        //public int SubjectId { get; set; }
+        public int SubjectId { get; set; }
 
         [ForeignKey("SchoolId")]
         public School School { get; set; }
