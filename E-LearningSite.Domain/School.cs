@@ -14,6 +14,8 @@ namespace E_LearningSite.Domain
             Courses = new List<Course>();
             Catalogues = new List<Catalogue>();
             Subjects = new List<Subject>();
+
+            SchoolSubjects = new List<SchoolSubject>();
         }
 
         [Key]
@@ -28,6 +30,8 @@ namespace E_LearningSite.Domain
         public List<Course> Courses { get; set; }
         public List<Catalogue> Catalogues { get; set; }
         public List<Subject> Subjects { get; set; }
+
+        public List<SchoolSubject> SchoolSubjects { get; set; }
 # nullable disable
     }
 }

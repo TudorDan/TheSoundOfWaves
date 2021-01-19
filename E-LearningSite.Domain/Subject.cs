@@ -11,14 +11,15 @@ namespace E_LearningSite.Domain
         {
             //Id = -1;
             Courses = new List<Course>();
+            SchoolSubjects = new List<SchoolSubject>();
         }
 
-        public Subject(int id, string name, SubjectType subjectType)
+/*        public Subject(int id, string name, SubjectType subjectType)
         {
             this.Id = id;
             this.Name = name;
             this.SubjectType = subjectType;
-        }
+        }*/
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -41,9 +42,11 @@ namespace E_LearningSite.Domain
         [ForeignKey("SchoolId")]
         public School School { get; set; }
         public int SchoolId { get; set; }
+
+        public List<SchoolSubject> SchoolSubjects { get; set; }
     }
 
-    public enum SubjectType : int
+    /*public enum SubjectType : int
     {
         HISTORY,
         IT,
@@ -52,5 +55,5 @@ namespace E_LearningSite.Domain
         GEOGRAPHY,
         MATHEMATICS,
         SCIENCE
-    }
+    }*/
 }
