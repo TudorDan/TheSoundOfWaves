@@ -46,7 +46,7 @@ namespace E_LearningSite.API.Controllers
             }
             Subject subject= new Subject()
             {
-                SubjectType = subjectDTO.SubjectType,
+                Name = subjectDTO.Name
             };
             ICollection<Subject> schoolSubjects = _schoolRepository.GetAllSubjects(schoolId);
             foreach (Subject subj in schoolSubjects)
@@ -72,7 +72,7 @@ namespace E_LearningSite.API.Controllers
             {
                 return NotFound();
             }
-            subject.SubjectType = subjectDTO.SubjectType;
+            subject.Name = subjectDTO.Name;
             return NoContent();
         }
 
@@ -95,10 +95,12 @@ namespace E_LearningSite.API.Controllers
         }
 
         // Subjects Types
-        [HttpGet("types")]
+        /*[HttpGet("types")]
         public IActionResult GetTypes()
         {
-            List<EnumValue> subjectTypes = new List<EnumValue>();            
+            return Ok(_schoolRepository.GetAllSubjects());
+
+            *//*List<EnumValue> subjectTypes = new List<EnumValue>();            
             foreach (var element in Enum.GetValues(typeof(SubjectType))) 
             { 
                 subjectTypes.Add(new EnumValue() 
@@ -107,7 +109,7 @@ namespace E_LearningSite.API.Controllers
                     Name = element.ToString(),
                 }); 
             }
-            return Ok(subjectTypes);
-        }
+            return Ok(subjectTypes);*//*
+        }*/
     }
 }
