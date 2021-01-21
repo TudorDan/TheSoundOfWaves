@@ -8,6 +8,6 @@ namespace E_LearningSite.API.DTOs
 {
     public class SubjectDTO
     {
-        public SubjectType SubjectType { get; set; }
+        public string Name { get; set; }
     }
 }
