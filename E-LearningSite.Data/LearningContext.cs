@@ -33,7 +33,6 @@ namespace E_LearningSite.Data
         {
             modelBuilder.Entity<MentorCatalogue>().HasKey(m => new { m.MentorId, m.CatalogueId });
             modelBuilder.Entity<CourseCatalogue>().HasKey(c => new { c.CourseId, c.CatalogueId });
-            modelBuilder.Entity<SchoolSubject>().HasKey(s => new { s.SchoolId, s.SubjectId });
 
             modelBuilder.Entity<School>().HasMany(s => s.Students)
                 .WithOne(s => s.School).OnDelete(DeleteBehavior.Restrict);
@@ -42,7 +41,7 @@ namespace E_LearningSite.Data
             modelBuilder.Entity<School>().HasMany(s => s.Mentors)
                 .WithOne(m => m.School).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<School>().HasMany(s => s.Subjects)
-                .WithOne(s => s.School).OnDelete(DeleteBehavior.Restrict);
+                .WithOne(s => s.School).OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Catalogue>().HasMany(c => c.Students)
                 .WithOne(s => s.Catalogue).OnDelete(DeleteBehavior.Restrict);
@@ -52,14 +51,6 @@ namespace E_LearningSite.Data
             modelBuilder.Entity<Course>().HasMany(c => c.Documents)
                 .WithOne(d => d.Course).OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Subject>().Property(t => t.SubjectType).HasConversion<int>();
-            /*modelBuilder.Entity<Subject>().HasData(
-                    Enum.GetValues(typeof(SubjectType)).Cast<SubjectType>().Select(t => new Subject()
-                    {
-                        SubjectType = t,
-                        Name = t.ToString()
-                    })
-                );*/
             modelBuilder.Entity<Subject>().HasMany(s => s.Courses)
                 .WithOne(c => c.Subject).OnDelete(DeleteBehavior.Restrict);
 
