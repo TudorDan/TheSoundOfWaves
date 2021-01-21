@@ -10,7 +10,6 @@ namespace E_LearningSite.Domain
         public Subject()
         {
             Courses = new List<Course>();
-            SchoolSubjects = new List<SchoolSubject>();
         }
 
         [Key]
@@ -19,7 +18,9 @@ namespace E_LearningSite.Domain
         public string Name { get; set; }
 
         public List<Course> Courses { get; set; }
-            
-        public List<SchoolSubject> SchoolSubjects { get; set; }
+
+        [ForeignKey("SchoolId")]
+        public School School { get; set; }
+        public int SchoolId { get; set; }
     }
 }
