@@ -15,16 +15,8 @@ namespace E_LearningSite.Data
                 {
                     Id = 1,
                     Name = "Weed Health Institute",
-                    Photo = "school1.jpg",
-                    /*Principal = new Principal()
-                    {
-                        Id = 1,
-                        Name = "Miss Danger",
-                        Photo = "http://localhost:54719/images/principal1.jpg",
-                        BirthDate = new DateTime(1950, 12, 13),
-                        AccessRights = AccessRights.FORPRINCIPALS
-                    },
-                    Mentors = new List<Mentor>()
+                    Photo = "school1.jpg"
+                    /*Mentors = new List<Mentor>()
                     {
                         new Mentor()
                         {
@@ -160,16 +152,8 @@ namespace E_LearningSite.Data
                 {
                     Id = 2,
                     Name = "Universidad Técnica de Buenas Maneras y Pistoleros",
-                    Photo = "school2.jpg",
-                    /*Principal = new Principal()
-                    {
-                        Id = 6,
-                        Name = "Don Guzman",
-                        Photo = "http://localhost:54719/images/principal2.jpg",
-                        BirthDate = new DateTime(1967, 1, 3),
-                        AccessRights = AccessRights.FORPRINCIPALS
-                    },
-                    Mentors = new List<Mentor>()
+                    Photo = "school2.jpg"
+                    /*Mentors = new List<Mentor>()
                     {
                         new Mentor()
                         {
@@ -268,6 +252,59 @@ namespace E_LearningSite.Data
                 }
             );
 
+            modelBuilder.Entity<Principal>().HasData(
+                    new Principal()
+                    {
+                        Id = 1,
+                        Name = "Miss Danger",
+                        Photo = "http://localhost:54719/images/principal1.jpg",
+                        BirthDate = new DateTime(1950, 12, 13),
+                        AccessRights = AccessRights.FORPRINCIPALS,
+                        SchoolId = 1
+                    },
+                    new Principal()
+                    {
+                        Id = 6,
+                        Name = "Don Guzman",
+                        Photo = "http://localhost:54719/images/principal2.jpg",
+                        BirthDate = new DateTime(1967, 1, 3),
+                        AccessRights = AccessRights.FORPRINCIPALS,
+                        SchoolId = 2
+                    }
+                );
+
+            modelBuilder.Entity<Subject>().HasData(
+                    new Subject()
+                    {
+                        Id = 1,
+                        Name = "HISTORY",
+                        SchoolId = 1
+                    },
+                    new Subject()
+                    {
+                        Id = 2,
+                        Name = "IT",
+                        SchoolId = 1
+                    },
+                    new Subject()
+                    {
+                        Id = 3,
+                        Name = "ASTRONOMY",
+                        SchoolId = 1
+                    },
+                    new Subject()
+                    {
+                        Id = 4,
+                        Name = "IT",
+                        SchoolId = 2
+                    },
+                    new Subject()
+                    {
+                        Id = 5,
+                        Name = "HISTORY",
+                        SchoolId = 2
+                    }
+                );
         }
     }
 }

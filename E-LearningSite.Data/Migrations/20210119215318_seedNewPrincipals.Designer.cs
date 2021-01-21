@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_LearningSite.Data.Migrations
 {
     [DbContext(typeof(LearningContext))]
-    [Migration("20201222203116_SampleData")]
-    partial class SampleData
+    [Migration("20210119215318_seedNewPrincipals")]
+    partial class seedNewPrincipals
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -60,7 +60,7 @@ namespace E_LearningSite.Data.Migrations
                     b.Property<int>("SchoolId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SubjectId")
+                    b.Property<int>("SubjectId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -227,6 +227,26 @@ namespace E_LearningSite.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Principals");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccessRights = 2,
+                            BirthDate = new DateTime(1950, 12, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Miss Danger",
+                            Photo = "http://localhost:54719/images/principal1.jpg",
+                            SchoolId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AccessRights = 2,
+                            BirthDate = new DateTime(1967, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Don Guzman",
+                            Photo = "http://localhost:54719/images/principal2.jpg",
+                            SchoolId = 2
+                        });
                 });
 
             modelBuilder.Entity("E_LearningSite.Domain.School", b =>
@@ -305,10 +325,7 @@ namespace E_LearningSite.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SchoolId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SubjectType")
+                    b.Property<int?>("SchoolId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -344,7 +361,8 @@ namespace E_LearningSite.Data.Migrations
                     b.HasOne("E_LearningSite.Domain.Subject", "Subject")
                         .WithMany("Courses")
                         .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("School");
 
@@ -481,13 +499,9 @@ namespace E_LearningSite.Data.Migrations
 
             modelBuilder.Entity("E_LearningSite.Domain.Subject", b =>
                 {
-                    b.HasOne("E_LearningSite.Domain.School", "School")
+                    b.HasOne("E_LearningSite.Domain.School", null)
                         .WithMany("Subjects")
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("School");
+                        .HasForeignKey("SchoolId");
                 });
 
             modelBuilder.Entity("E_LearningSite.Domain.Catalogue", b =>

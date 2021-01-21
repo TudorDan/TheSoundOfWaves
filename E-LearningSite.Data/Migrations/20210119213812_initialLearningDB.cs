@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace E_LearningSite.Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initialLearningDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -71,8 +71,7 @@ namespace E_LearningSite.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SubjectType = table.Column<int>(type: "int", nullable: false),
-                    SchoolId = table.Column<int>(type: "int", nullable: false)
+                    SchoolId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -153,7 +152,7 @@ namespace E_LearningSite.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SubjectId = table.Column<int>(type: "int", nullable: true),
+                    SubjectId = table.Column<int>(type: "int", nullable: false),
                     SchoolId = table.Column<int>(type: "int", nullable: false),
                     CatalogueId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -290,6 +289,16 @@ namespace E_LearningSite.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Schools",
+                columns: new[] { "Id", "Name", "Photo" },
+                values: new object[] { 1, "Weed Health Institute", "school1.jpg" });
+
+            migrationBuilder.InsertData(
+                table: "Schools",
+                columns: new[] { "Id", "Name", "Photo" },
+                values: new object[] { 2, "Universidad Técnica de Buenas Maneras y Pistoleros", "school2.jpg" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Catalogues_SchoolId",
