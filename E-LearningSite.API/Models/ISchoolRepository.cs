@@ -51,7 +51,5 @@ namespace E_LearningSite.API.DTOs
         Subject AddSubject(Subject subject, int schoolId);
         Subject GetSubject(int id, int schoolId);
         ICollection<Subject> GetAllSubjects(int schoolId);
-
-        //List<EnumValue> GetValues<T>();
     }
 }
