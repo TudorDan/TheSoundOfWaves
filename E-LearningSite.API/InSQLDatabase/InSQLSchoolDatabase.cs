@@ -201,10 +201,8 @@ namespace E_LearningSite.API.SQLDatabase
         {
             try
             {
-                List<Domain.Subject> subjects = _context.Subjects.Where(sbj => sbj.SchoolId == schoolId).ToList();
-                /*IEnumerable<Domain.Subject> subjects = from sbj in _context.Subjects
-                                                       where sbj.SchoolId == schoolId
-                                                       select sbj;*/
+                //Domain.School school = _context.Schools.FirstOrDefault(s => s.Id == schoolId);
+                List<Domain.Subject> subjects = _context.Subjects.Where(s => s.SchoolId == schoolId).ToList();
                 return (ICollection<Subject>)_mapper.Map<IEnumerable<Subject>>(subjects);
             }
             catch(Exception exception)
@@ -223,16 +221,5 @@ namespace E_LearningSite.API.SQLDatabase
         {
             throw new NotImplementedException();
         }
-
-        // Enums
-        /*public List<EnumValue> GetValues<T>()
-        {
-            var subjectTypes = new Dictionary<int, string>();
-            foreach (var name in Enum.GetNames(typeof(SubjectType)))
-            {
-                subjectTypes.Add((int)Enum.Parse(typeof(SubjectType), name), name);
-            }
-            throw new NotImplementedException();
-        }*/
     }
 }

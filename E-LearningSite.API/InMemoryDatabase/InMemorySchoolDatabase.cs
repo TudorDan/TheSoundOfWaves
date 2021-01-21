@@ -107,7 +107,7 @@ namespace E_LearningSite.API.DTOs
                             Subject = new Subject
                             {
                                 Id = 3,
-                                SubjectType = SubjectType.ASTRONOMY
+                                Name = "ASTRONOMY"
                             }
                         },
                         new Course()
@@ -134,7 +134,7 @@ namespace E_LearningSite.API.DTOs
                             Subject = new Subject
                             {
                                 Id = 2,
-                                SubjectType = SubjectType.IT
+                                Name = "IT"
                             }
                         }
                     },
@@ -164,17 +164,17 @@ namespace E_LearningSite.API.DTOs
                         new Subject()
                         {
                             Id= 1,
-                            SubjectType = SubjectType.HISTORY
+                            Name = "HISTORY"
                         },
                         new Subject()
                         {
                             Id= 2,
-                            SubjectType = SubjectType.IT
+                            Name = "IT"
                         },
                         new Subject()
                         {
                             Id= 3,
-                            SubjectType = SubjectType.ASTRONOMY
+                            Name = "ASTRONOMY"
                         }
                     }
                 },
@@ -271,7 +271,7 @@ namespace E_LearningSite.API.DTOs
                             Subject = new Subject()
                             {
                                 Id = 2,
-                                SubjectType = SubjectType.IT
+                                Name = "IT"
                             }
                         },
                         new Course()
@@ -298,7 +298,7 @@ namespace E_LearningSite.API.DTOs
                             Subject = new Subject()
                             {
                                 Id = 1,
-                                SubjectType = SubjectType.HISTORY
+                                Name = "HISTORY"
                             }
                         }
                     },
@@ -319,17 +319,17 @@ namespace E_LearningSite.API.DTOs
                         new Subject()
                         {
                             Id= 1,
-                            SubjectType = SubjectType.HISTORY
+                            Name = "HISTORY"
                         },
                         new Subject()
                         {
                             Id= 2,
-                            SubjectType = SubjectType.IT
+                            Name = "IT"
                         },
                         new Subject()
                         {
                             Id= 3,
-                            SubjectType = SubjectType.ASTRONOMY
+                            Name = "ASTRONOMY"
                         }
                     }
                 }
