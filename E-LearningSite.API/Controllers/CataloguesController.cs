@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using E_LearningSite.API.DTOs;
+using E_LearningSite.API.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 

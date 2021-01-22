@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using E_LearningSite.API.DTOs;
+using E_LearningSite.API.Models;
 using E_LearningSite.Data;
 using Microsoft.EntityFrameworkCore;
 using System;

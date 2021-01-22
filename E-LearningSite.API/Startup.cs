@@ -1,5 +1,5 @@
 using System;
-using E_LearningSite.API.DTOs;
+using E_LearningSite.API.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -43,8 +43,8 @@ namespace E_LearningSite.API
             });
             services.AddMvc(option => option.EnableEndpointRouting = false);
 
-            //services.AddSingleton<ISchoolRepository, InMemorySchoolDatabase>();
-            services.AddScoped<ISchoolRepository, InSQLSchoolDatabase>();
+            services.AddSingleton<ISchoolRepository, InMemorySchoolDatabase>();
+            //services.AddScoped<ISchoolRepository, InSQLSchoolDatabase>();
 
             services.AddSwaggerGen(setupAction =>
             {

@@ -1,10 +1,7 @@
-﻿using E_LearningSite.API.DTOs;
-using E_LearningSite.API.Models;
+﻿using E_LearningSite.API.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace E_LearningSite.API.Controllers
 {
