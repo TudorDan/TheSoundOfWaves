@@ -4,14 +4,16 @@ using E_LearningSite.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace E_LearningSite.Data.Migrations
 {
     [DbContext(typeof(LearningContext))]
-    partial class LearningContextModelSnapshot : ModelSnapshot
+    [Migration("20210122193239_seedStudents")]
+    partial class seedStudents
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,26 +39,6 @@ namespace E_LearningSite.Data.Migrations
                     b.HasIndex("SchoolId");
 
                     b.ToTable("Catalogues");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Broncos Ist Grade",
-                            SchoolId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Steelers IIIrd Grade",
-                            SchoolId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Cowboys 9th Grade",
-                            SchoolId = 2
-                        });
                 });
 
             modelBuilder.Entity("E_LearningSite.Domain.Course", b =>
@@ -90,40 +72,6 @@ namespace E_LearningSite.Data.Migrations
                     b.HasIndex("SubjectId");
 
                     b.ToTable("Courses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Pay for 1, you get 2",
-                            Name = "Guessing Master of Science",
-                            SchoolId = 1,
-                            SubjectId = 3
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "For advanced majors",
-                            Name = "How to Watch Television",
-                            SchoolId = 1,
-                            SubjectId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "2nd edition",
-                            Name = "Hacking Ethics",
-                            SchoolId = 2,
-                            SubjectId = 4
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "42",
-                            Name = "The Answer to Life, The Universe and Everything",
-                            SchoolId = 2,
-                            SubjectId = 5
-                        });
                 });
 
             modelBuilder.Entity("E_LearningSite.Domain.CourseCatalogue", b =>
@@ -162,64 +110,6 @@ namespace E_LearningSite.Data.Migrations
                     b.HasIndex("CourseId");
 
                     b.ToTable("Documents");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CourseId = 1,
-                            Link = "Palm Reading link 1",
-                            Name = "Palm Reading doc 1"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CourseId = 1,
-                            Link = "Witchcraft link 2",
-                            Name = "Witchcraft doc 2"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CourseId = 2,
-                            Link = "Getting dressed link 1",
-                            Name = "Getting dressed doc 1"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CourseId = 2,
-                            Link = "The art of walking link 2",
-                            Name = "The art of walking doc 2"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CourseId = 3,
-                            Link = "kack link 1",
-                            Name = "hack doc 1"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CourseId = 4,
-                            Link = "hacky link 2",
-                            Name = "hacky doc 2"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CourseId = 4,
-                            Link = "Keep searching link 1",
-                            Name = "Keep searching doc 1"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CourseId = 4,
-                            Link = " link 2",
-                            Name = " doc 2"
-                        });
                 });
 
             modelBuilder.Entity("E_LearningSite.Domain.Grade", b =>
@@ -420,12 +310,6 @@ namespace E_LearningSite.Data.Migrations
                             Id = 1,
                             Name = "Weed Health Institute",
                             Photo = "school1.jpg"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Universidad Técnica de Buenas Maneras y Pistoleros",
-                            Photo = "school2.jpg"
                         });
                 });
 

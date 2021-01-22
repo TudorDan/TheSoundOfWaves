@@ -4,14 +4,16 @@ using E_LearningSite.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace E_LearningSite.Data.Migrations
 {
     [DbContext(typeof(LearningContext))]
-    partial class LearningContextModelSnapshot : ModelSnapshot
+    [Migration("20210122195425_seedDocuments")]
+    partial class seedDocuments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,26 +39,6 @@ namespace E_LearningSite.Data.Migrations
                     b.HasIndex("SchoolId");
 
                     b.ToTable("Catalogues");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Broncos Ist Grade",
-                            SchoolId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Steelers IIIrd Grade",
-                            SchoolId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Cowboys 9th Grade",
-                            SchoolId = 2
-                        });
                 });
 
             modelBuilder.Entity("E_LearningSite.Domain.Course", b =>
