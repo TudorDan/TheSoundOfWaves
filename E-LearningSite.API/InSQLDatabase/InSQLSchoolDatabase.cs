@@ -203,10 +203,13 @@ namespace E_LearningSite.API.SQLDatabase
             List<Domain.Student> students = _context.Students.Where(s => s.SchoolId == schoolId).ToList();
             return (ICollection<Student>)_mapper.Map<IEnumerable<Student>>(students);
         }
+
         public Student GetStudent(int id, int schoolId)
         {
-            throw new NotImplementedException();
+            Domain.Student student = _context.Students.Where(s => s.SchoolId == schoolId).FirstOrDefault(s => s.Id == id);
+            return _mapper.Map<Student>(student);
         }
+
         public Student AddStudent(Student student, int schoolId)
         {
             throw new NotImplementedException();
