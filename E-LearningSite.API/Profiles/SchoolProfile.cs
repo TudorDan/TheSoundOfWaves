@@ -9,6 +9,7 @@ namespace E_LearningSite.API.Profiles
             CreateMap<Domain.School, Models.School>();
 
             CreateMap<Domain.Principal, Models.Principal>();
+            CreateMap<Models.Principal, Domain.Principal>();
 
             CreateMap<Domain.Mentor, Models.Mentor>();
 

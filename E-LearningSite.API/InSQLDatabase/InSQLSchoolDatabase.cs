@@ -37,7 +37,17 @@ namespace E_LearningSite.API.SQLDatabase
         }
         public School AddSchool(School school)
         {
-            _context.Schools.Add(_mapper.Map<Domain.School>(school));
+            Domain.Principal newPrincipal = _mapper.Map<Domain.Principal>(school.Principal);
+            Domain.School newSchool = new Domain.School()
+            {
+                Name = school.Name,
+                Photo = school.Photo
+            };
+            _context.Schools.Add(newSchool);
+            _context.SaveChanges();
+
+            newPrincipal.SchoolId = newSchool.Id;
+            _context.Principals.Add(newPrincipal);
             _context.SaveChanges();
             return school;
         }
