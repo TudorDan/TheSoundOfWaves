@@ -20,6 +20,7 @@ namespace E_LearningSite.API.Models
         Mentor GetMentor(int id, int schoolId);
         ICollection<Mentor> GetAllMentors(int schoolId);
         void UpdateMentor(Mentor mentor, PersonDTO personDTO);
+        void DeleteMentor(Mentor mentor, int schoolId);
 
         // students
         Student AddStudent(Student student, int schoolId);

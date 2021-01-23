@@ -394,6 +394,12 @@ namespace E_LearningSite.API.Models
             mentor.BirthDate = personDTO.BirthDate;
             mentor.AccessRights = personDTO.AccessRights;
         }
+        public void DeleteMentor(Mentor mentor, int schoolId)
+        {
+            School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
+            school.Mentors.Remove(mentor);
+            school.Catalogues.ForEach(c => c.Mentors.Remove(mentor));
+        }
 
         // Student
         public Student AddStudent(Student student, int schoolId)

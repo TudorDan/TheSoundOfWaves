@@ -78,7 +78,7 @@ namespace E_LearningSite.API.SQLDatabase
             _context.SaveChanges();
 
             // select catalogues
-            List<Domain.Catalogue> deleteCatalogues =_context.Catalogues
+            List<Domain.Catalogue> deleteCatalogues = _context.Catalogues
                 .Include(c => c.CourseCatalogues).Include(c => c.MentorCatalogues)
                 .Where(c => c.SchoolId == school.Id).ToList();
 
@@ -108,7 +108,7 @@ namespace E_LearningSite.API.SQLDatabase
             }
             _context.Documents.RemoveRange(deleteDocuments);
             _context.SaveChanges();
-                        
+
             //C. delete courses
             _context.Courses.RemoveRange(deleteCourses);
             _context.SaveChanges();
@@ -151,6 +151,7 @@ namespace E_LearningSite.API.SQLDatabase
             Domain.Mentor mentor = _context.Mentors.Where(m => m.SchoolId == schoolId).FirstOrDefault(m => m.Id == id);
             return _mapper.Map<Mentor>(mentor);
         }
+
         public Mentor AddMentor(Mentor mentor, int schoolId)
         {
             Domain.Mentor newMentor = new Domain.Mentor()
@@ -177,6 +178,24 @@ namespace E_LearningSite.API.SQLDatabase
 
             _context.SaveChanges();
         }
+
+        public void DeleteMentor(Mentor mentor, int schoolId)
+        {
+            // firstly, delete mentor in catalogues 
+            List<Domain.Catalogue> catalogues = _context.Catalogues
+                .Include(c => c.MentorCatalogues).Where(c => c.SchoolId == schoolId).ToList();
+
+            List<Domain.MentorCatalogue> deleteMentorCatalogues = catalogues
+                .SelectMany(c => c.MentorCatalogues).Where(mc => mc.MentorId == mentor.Id).ToList();
+            _context.RemoveRange(deleteMentorCatalogues);            
+            _context.SaveChanges();
+
+            // secondly, delete mentor in school
+            Domain.Mentor deleteMentor = _context.Mentors.FirstOrDefault(m => m.Id == mentor.Id);
+            _context.Mentors.Remove(deleteMentor);
+            _context.SaveChanges();
+        }
+
 
         // Students
         public ICollection<Student> GetAllStudents(int schoolId)
