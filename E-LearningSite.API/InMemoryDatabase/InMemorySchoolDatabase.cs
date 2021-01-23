@@ -387,6 +387,14 @@ namespace E_LearningSite.API.Models
             return school.Mentors;
         }
 
+        public void UpdateMentor(Mentor mentor, PersonDTO personDTO)
+        {
+            mentor.Name = personDTO.Name;
+            mentor.Photo = personDTO.Photo;
+            mentor.BirthDate = personDTO.BirthDate;
+            mentor.AccessRights = personDTO.AccessRights;
+        }
+
         // Student
         public Student AddStudent(Student student, int schoolId)
         {

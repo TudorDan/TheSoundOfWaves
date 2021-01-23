@@ -156,8 +156,8 @@ namespace E_LearningSite.API.SQLDatabase
             Domain.Mentor newMentor = new Domain.Mentor()
             {
                 Name = mentor.Name,
-                BirthDate = mentor.BirthDate,
                 Photo = mentor.Photo,
+                BirthDate = mentor.BirthDate,
                 AccessRights = (Domain.AccessRights)mentor.AccessRights,
                 SchoolId = schoolId
             };
@@ -166,6 +166,16 @@ namespace E_LearningSite.API.SQLDatabase
 
             mentor.Id = newMentor.Id;
             return mentor;
+        }
+
+        public void UpdateMentor(Mentor mentor, PersonDTO personDTO)
+        {
+            Domain.Mentor updateMentor = _context.Mentors.FirstOrDefault(m => m.Id == mentor.Id);
+            updateMentor.Name = personDTO.Name;
+            updateMentor.Photo = personDTO.Photo;
+            updateMentor.BirthDate = personDTO.BirthDate;
+
+            _context.SaveChanges();
         }
 
         // Students
