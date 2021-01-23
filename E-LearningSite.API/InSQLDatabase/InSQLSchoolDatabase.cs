@@ -187,7 +187,7 @@ namespace E_LearningSite.API.SQLDatabase
 
             List<Domain.MentorCatalogue> deleteMentorCatalogues = catalogues
                 .SelectMany(c => c.MentorCatalogues).Where(mc => mc.MentorId == mentor.Id).ToList();
-            _context.RemoveRange(deleteMentorCatalogues);            
+            _context.RemoveRange(deleteMentorCatalogues);
             _context.SaveChanges();
 
             // secondly, delete mentor in school
@@ -225,6 +225,16 @@ namespace E_LearningSite.API.SQLDatabase
 
             student.Id = newStudent.Id;
             return student;
+        }
+        
+        public void UpdateStudent(Student student, PersonDTO personDTO)
+        {
+            Domain.Student updateStudent = _context.Students.FirstOrDefault(s => s.Id == student.Id);
+            updateStudent.Name = personDTO.Name;
+            updateStudent.Photo = personDTO.Photo;
+            updateStudent.BirthDate = personDTO.BirthDate;
+
+            _context.SaveChanges();
         }
 
         // Courses

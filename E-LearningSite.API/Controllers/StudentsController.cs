@@ -64,10 +64,7 @@ namespace E_LearningSite.API.Controllers
             {
                 return NotFound();
             }
-            student.Name = personDTO.Name;
-            student.Photo = personDTO.Photo;
-            student.BirthDate = personDTO.BirthDate;
-            student.AccessRights = personDTO.AccessRights;
+            _schoolRepository.UpdateStudent(student, personDTO);
             return NoContent();
         }
 

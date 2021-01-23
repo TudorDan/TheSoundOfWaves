@@ -419,6 +419,13 @@ namespace E_LearningSite.API.Models
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             return school.Students;
         }
+        public void UpdateStudent(Student student, PersonDTO personDTO)
+        {
+            student.Name = personDTO.Name;
+            student.Photo = personDTO.Photo;
+            student.BirthDate = personDTO.BirthDate;
+            student.AccessRights = personDTO.AccessRights;
+        }
 
         // Courses
         public Course AddCourse(Course course, int schoolId)

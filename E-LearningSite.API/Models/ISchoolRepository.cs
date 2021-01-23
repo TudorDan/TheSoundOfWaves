@@ -26,6 +26,7 @@ namespace E_LearningSite.API.Models
         Student AddStudent(Student student, int schoolId);
         Student GetStudent(int id, int schoolId);
         ICollection<Student> GetAllStudents(int schoolId);
+        void UpdateStudent(Student student, PersonDTO personDTO);
 
         // courses
         Course AddCourse(Course course, int schoolId);
