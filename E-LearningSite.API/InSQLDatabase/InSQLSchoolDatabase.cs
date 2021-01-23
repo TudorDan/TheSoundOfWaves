@@ -212,7 +212,19 @@ namespace E_LearningSite.API.SQLDatabase
 
         public Student AddStudent(Student student, int schoolId)
         {
-            throw new NotImplementedException();
+            Domain.Student newStudent = new Domain.Student()
+            {
+                Name = student.Name,
+                Photo = student.Photo,
+                BirthDate = student.BirthDate,
+                AccessRights = (Domain.AccessRights)student.AccessRights,
+                SchoolId = schoolId
+            };
+            _context.Students.Add(newStudent);
+            _context.SaveChanges();
+
+            student.Id = newStudent.Id;
+            return student;
         }
 
         // Courses
