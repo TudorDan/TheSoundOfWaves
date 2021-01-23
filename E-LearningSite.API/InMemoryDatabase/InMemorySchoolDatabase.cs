@@ -361,6 +361,11 @@ namespace E_LearningSite.API.Models
             school.Principal = schoolDTO.Principal;
         }
 
+        public void DeleteSchool(School school)
+        {
+            _schoolDatabase.Remove(school);
+        }
+
         // Mentors
         public Mentor AddMentor(Mentor mentor, int schoolId)
         {

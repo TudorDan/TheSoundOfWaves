@@ -80,7 +80,7 @@ namespace E_LearningSite.API.Controllers
             {
                 return NotFound();
             }
-            _schoolRepository.GetAllSchools().Remove(school);
+            _schoolRepository.DeleteSchool(school);
             return NoContent();
         }            
 

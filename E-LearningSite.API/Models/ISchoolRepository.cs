@@ -12,6 +12,7 @@ namespace E_LearningSite.API.Models
         ICollection<School> GetAllSchools();
         School AddSchool(School school);
         void UpdateSchool(School school, SchoolDTO schoolDTO);
+        void DeleteSchool(School school);
 
         Mentor AddMentor(Mentor mentor, int schoolId);
         Mentor GetMentor(int id, int schoolId);

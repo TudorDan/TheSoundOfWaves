@@ -26,6 +26,7 @@ namespace E_LearningSite.API.SQLDatabase
 
             return (ICollection<School>)_mapper.Map<IEnumerable<School>>(schools);
         }
+
         public School GetSchool(int id)
         {
             Domain.School school = _context.Schools.FirstOrDefault(s => s.Id == id);
@@ -35,6 +36,7 @@ namespace E_LearningSite.API.SQLDatabase
 
             return _mapper.Map<School>(school);
         }
+
         public School AddSchool(School school)
         {
             Domain.Principal newPrincipal = _mapper.Map<Domain.Principal>(school.Principal);
@@ -53,6 +55,7 @@ namespace E_LearningSite.API.SQLDatabase
             school.Id = newSchool.Id;
             return school;
         }
+
         public void UpdateSchool(School school, SchoolDTO schoolDTO)
         {
             Domain.Principal updatePrincipal = _context.Principals.FirstOrDefault(s => s.Id == school.Principal.Id);
@@ -64,6 +67,74 @@ namespace E_LearningSite.API.SQLDatabase
             Domain.School updateSchool = _context.Schools.FirstOrDefault(s => s.Id == school.Id);
             updateSchool.Name = schoolDTO.Name;
             updateSchool.Photo = schoolDTO.Photo;
+            _context.SaveChanges();
+        }
+
+        public void DeleteSchool(School school)
+        {
+            // delete principal
+            Domain.Principal deletePrincipal = _context.Principals.FirstOrDefault(s => s.Id == school.Principal.Id);
+            _context.Remove(deletePrincipal);
+            _context.SaveChanges();
+
+            // select catalogues
+            List<Domain.Catalogue> deleteCatalogues =_context.Catalogues
+                .Include(c => c.CourseCatalogues).Include(c => c.MentorCatalogues)
+                .Where(c => c.SchoolId == school.Id).ToList();
+
+            //A. delete catalogues grades
+            List<Domain.Grade> deleteGrades = new List<Domain.Grade>();
+            foreach (Domain.Catalogue catalogue in deleteCatalogues)
+            {
+                List<Domain.Grade> oneCatalogueGrades = _context.Grades
+                    .Where(g => g.CatalogueId == catalogue.Id).ToList();
+
+                deleteGrades.AddRange(oneCatalogueGrades);
+            }
+            _context.Grades.RemoveRange(deleteGrades);
+            _context.SaveChanges();
+
+            // select courses
+            List<Domain.Course> deleteCourses = _context.Courses.Where(c => c.SchoolId == school.Id).ToList();
+
+            //B. delete courses documents
+            List<Domain.Document> deleteDocuments = new List<Domain.Document>();
+            foreach (Domain.Course course in deleteCourses)
+            {
+                List<Domain.Document> oneCourseDocuments = _context.Documents
+                    .Where(d => d.CourseId == course.Id).ToList();
+
+                deleteDocuments.AddRange(oneCourseDocuments);
+            }
+            _context.Documents.RemoveRange(deleteDocuments);
+            _context.SaveChanges();
+                        
+            //C. delete courses
+            _context.Courses.RemoveRange(deleteCourses);
+            _context.SaveChanges();
+
+            //D. delete mentors
+            List<Domain.Mentor> deleteMentors = _context.Mentors.Where(m => m.SchoolId == school.Id).ToList();
+            _context.Mentors.RemoveRange(deleteMentors);
+            _context.SaveChanges();
+
+            //E. delete students
+            List<Domain.Student> deleteStudents = _context.Students.Where(s => s.SchoolId == school.Id).ToList();
+            _context.Students.RemoveRange(deleteStudents);
+            _context.SaveChanges();
+
+            //F. delete catalogues
+            _context.Catalogues.RemoveRange(deleteCatalogues);
+            _context.SaveChanges();
+
+            //delete subjects
+            List<Domain.Subject> deleteSubjects = _context.Subjects.Where(s => s.SchoolId == school.Id).ToList();
+            _context.Subjects.RemoveRange(deleteSubjects);
+            _context.SaveChanges();
+
+            //delete school
+            Domain.School deleteSchool = _context.Schools.FirstOrDefault(s => s.Id == school.Id);
+            _context.Schools.Remove(deleteSchool);
             _context.SaveChanges();
         }
 
@@ -109,7 +180,7 @@ namespace E_LearningSite.API.SQLDatabase
                 {
                     course.Subject = _context.Subjects.FirstOrDefault(sbj => sbj.Id == course.SubjectId);
                 }*/
-            return (ICollection<Course>)_mapper.Map<IEnumerable<Course>>(courses);
+                return (ICollection<Course>)_mapper.Map<IEnumerable<Course>>(courses);
             }
             catch (Exception e)
             {
@@ -171,7 +242,7 @@ namespace E_LearningSite.API.SQLDatabase
         public Mentor GetCatalogueMentor(int id, int schoolId, int catalogueId)
         {
             throw new NotImplementedException();
-        }        
+        }
         public Mentor AddCatalogueMentor(Mentor mentor, int schoolId, int catalogueId)
         {
             throw new NotImplementedException();
@@ -230,7 +301,7 @@ namespace E_LearningSite.API.SQLDatabase
                 List<Domain.Subject> subjects = _context.Subjects.Where(s => s.SchoolId == schoolId).ToList();
                 return (ICollection<Subject>)_mapper.Map<IEnumerable<Subject>>(subjects);
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 Console.WriteLine(exception.Message);
             }
