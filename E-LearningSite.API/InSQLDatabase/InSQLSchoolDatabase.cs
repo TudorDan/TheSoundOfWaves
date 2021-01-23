@@ -49,7 +49,22 @@ namespace E_LearningSite.API.SQLDatabase
             newPrincipal.SchoolId = newSchool.Id;
             _context.Principals.Add(newPrincipal);
             _context.SaveChanges();
+
+            school.Id = newSchool.Id;
             return school;
+        }
+        public void UpdateSchool(School school, SchoolDTO schoolDTO)
+        {
+            Domain.Principal updatePrincipal = _context.Principals.FirstOrDefault(s => s.Id == school.Principal.Id);
+            updatePrincipal.Name = schoolDTO.Principal.Name;
+            updatePrincipal.Photo = schoolDTO.Principal.Photo;
+            updatePrincipal.BirthDate = schoolDTO.Principal.BirthDate;
+            _context.SaveChanges();
+
+            Domain.School updateSchool = _context.Schools.FirstOrDefault(s => s.Id == school.Id);
+            updateSchool.Name = schoolDTO.Name;
+            updateSchool.Photo = schoolDTO.Photo;
+            _context.SaveChanges();
         }
 
         // Mentors

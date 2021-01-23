@@ -354,6 +354,13 @@ namespace E_LearningSite.API.Models
             return _schoolDatabase;
         }
 
+        public void UpdateSchool(School school, SchoolDTO schoolDTO)
+        {
+            school.Name = schoolDTO.Name;
+            school.Photo = schoolDTO.Photo;
+            school.Principal = schoolDTO.Principal;
+        }
+
         // Mentors
         public Mentor AddMentor(Mentor mentor, int schoolId)
         {
