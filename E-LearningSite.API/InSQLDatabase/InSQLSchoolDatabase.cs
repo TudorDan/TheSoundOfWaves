@@ -127,7 +127,7 @@ namespace E_LearningSite.API.SQLDatabase
             _context.Catalogues.RemoveRange(deleteCatalogues);
             _context.SaveChanges();
 
-            //delete subjects
+            //G. delete subjects
             List<Domain.Subject> deleteSubjects = _context.Subjects.Where(s => s.SchoolId == school.Id).ToList();
             _context.Subjects.RemoveRange(deleteSubjects);
             _context.SaveChanges();
@@ -145,9 +145,11 @@ namespace E_LearningSite.API.SQLDatabase
 
             return (ICollection<Mentor>)_mapper.Map<IEnumerable<Mentor>>(mentors);
         }
+
         public Mentor GetMentor(int id, int schoolId)
         {
-            throw new NotImplementedException();
+            Domain.Mentor mentor = _context.Mentors.Where(m => m.SchoolId == schoolId).FirstOrDefault(m => m.Id == id);
+            return _mapper.Map<Mentor>(mentor);
         }
         public Mentor AddMentor(Mentor mentor, int schoolId)
         {
