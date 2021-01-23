@@ -397,8 +397,8 @@ namespace E_LearningSite.API.Models
         public void DeleteMentor(Mentor mentor, int schoolId)
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
-            school.Mentors.Remove(mentor);
             school.Catalogues.ForEach(c => c.Mentors.Remove(mentor));
+            school.Mentors.Remove(mentor);
         }
 
         // Student
@@ -425,6 +425,12 @@ namespace E_LearningSite.API.Models
             student.Photo = personDTO.Photo;
             student.BirthDate = personDTO.BirthDate;
             student.AccessRights = personDTO.AccessRights;
+        }
+        public void DeleteStudent(Student student, int schoolId)
+        {
+            School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
+            school.Catalogues.ForEach(c => c.Students.Remove(student));
+            school.Students.Remove(student);
         }
 
         // Courses

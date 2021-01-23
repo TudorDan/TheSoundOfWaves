@@ -236,6 +236,12 @@ namespace E_LearningSite.API.SQLDatabase
 
             _context.SaveChanges();
         }
+        public void DeleteStudent(Student student, int schoolId)
+        {
+            Domain.Student deleteStudent = _context.Students.FirstOrDefault(s => s.Id == student.Id);
+            _context.Students.Remove(deleteStudent);
+            _context.SaveChanges();
+        }
 
         // Courses
         public ICollection<Course> GetAllCourses(int schoolId)
