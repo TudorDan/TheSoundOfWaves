@@ -153,7 +153,19 @@ namespace E_LearningSite.API.SQLDatabase
         }
         public Mentor AddMentor(Mentor mentor, int schoolId)
         {
-            throw new NotImplementedException();
+            Domain.Mentor newMentor = new Domain.Mentor()
+            {
+                Name = mentor.Name,
+                BirthDate = mentor.BirthDate,
+                Photo = mentor.Photo,
+                AccessRights = (Domain.AccessRights)mentor.AccessRights,
+                SchoolId = schoolId
+            };
+            _context.Mentors.Add(newMentor);
+            _context.SaveChanges();
+
+            mentor.Id = newMentor.Id;
+            return mentor;
         }
 
         // Students
