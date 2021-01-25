@@ -226,7 +226,7 @@ namespace E_LearningSite.API.SQLDatabase
             student.Id = newStudent.Id;
             return student;
         }
-        
+
         public void UpdateStudent(Student student, PersonDTO personDTO)
         {
             Domain.Student updateStudent = _context.Students.FirstOrDefault(s => s.Id == student.Id);
@@ -236,6 +236,7 @@ namespace E_LearningSite.API.SQLDatabase
 
             _context.SaveChanges();
         }
+        
         public void DeleteStudent(Student student, int schoolId)
         {
             Domain.Student deleteStudent = _context.Students.FirstOrDefault(s => s.Id == student.Id);
@@ -369,17 +370,9 @@ namespace E_LearningSite.API.SQLDatabase
         // Subjects
         public ICollection<Subject> GetAllSubjects(int schoolId)
         {
-            try
-            {
-                //Domain.School school = _context.Schools.FirstOrDefault(s => s.Id == schoolId);
-                List<Domain.Subject> subjects = _context.Subjects.Where(s => s.SchoolId == schoolId).ToList();
-                return (ICollection<Subject>)_mapper.Map<IEnumerable<Subject>>(subjects);
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception.Message);
-            }
-            return null;
+            List<Domain.Subject> subjects = _context.Subjects.Where(s => s.SchoolId == schoolId).ToList();
+
+            return (ICollection<Subject>)_mapper.Map<IEnumerable<Subject>>(subjects);
         }
         public Subject GetSubject(int id, int schoolId)
         {
@@ -389,7 +382,16 @@ namespace E_LearningSite.API.SQLDatabase
         }
         public Subject AddSubject(Subject subject, int schoolId)
         {
-            throw new NotImplementedException();
+            Domain.Subject newSubject = new Domain.Subject()
+            {
+                Name = subject.Name,
+                SchoolId = schoolId
+            };
+            _context.Subjects.Add(newSubject);
+            _context.SaveChanges();
+
+            subject.Id = newSubject.Id;
+            return subject;
         }
     }
 }
