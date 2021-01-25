@@ -236,7 +236,7 @@ namespace E_LearningSite.API.SQLDatabase
 
             _context.SaveChanges();
         }
-        
+
         public void DeleteStudent(Student student, int schoolId)
         {
             Domain.Student deleteStudent = _context.Students.FirstOrDefault(s => s.Id == student.Id);
@@ -247,22 +247,9 @@ namespace E_LearningSite.API.SQLDatabase
         // Courses
         public ICollection<Course> GetAllCourses(int schoolId)
         {
-            try
-            {
-                List<Domain.Course> courses = _context.Courses
-                                .Where(c => c.SchoolId == schoolId).ToList();
-                /*foreach(Domain.Course course in courses)
-                {
-                    course.Subject = _context.Subjects.FirstOrDefault(sbj => sbj.Id == course.SubjectId);
-                }*/
-                return (ICollection<Course>)_mapper.Map<IEnumerable<Course>>(courses);
-            }
-            catch (Exception e)
-            {
-                var x = e.Message;
-                Console.WriteLine(x);
-            }
-            return null;
+            List<Domain.Course> courses = _context.Courses.Where(c => c.SchoolId == schoolId).ToList();
+
+            return (ICollection<Course>)_mapper.Map<IEnumerable<Course>>(courses);
         }
         public Course GetCourse(int id, int schoolId)
         {
@@ -276,11 +263,15 @@ namespace E_LearningSite.API.SQLDatabase
         // Course Documents
         public ICollection<Document> GetAllDocuments(int schoolId, int courseId)
         {
-            throw new NotImplementedException();
+            List<Domain.Document> documents = _context.Documents.Where(d => d.CourseId == courseId).ToList();
+
+            return (ICollection<Document>)_mapper.Map<IEnumerable<Document>>(documents);
         }
         public Document GetDocument(int id, int schoolId, int courseId)
         {
-            throw new NotImplementedException();
+            Domain.Document document = _context.Documents.FirstOrDefault(d => d.Id == id);
+
+            return _mapper.Map<Document>(document);
         }
         public Document AddDocument(Document document, int schoolId, int courseId)
         {

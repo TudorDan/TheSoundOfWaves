@@ -600,11 +600,13 @@ namespace E_LearningSite.API.Models
             school.Subjects.Add(subject);
             return subject;
         }
+
         public Subject GetSubject(int id, int schoolId)
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             return school.Subjects.FirstOrDefault(s => s.Id == id);
         }
+
         public ICollection<Subject> GetAllSubjects(int schoolId)
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);

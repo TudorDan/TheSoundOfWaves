@@ -94,7 +94,7 @@ namespace E_LearningSite.API.Controllers
             return NoContent();
         }
 
-        // Course Materials
+        // Course Documents
         [HttpGet("{courseId}/documents")]
         public IActionResult GetDocuments(int schoolId, int courseId)
         {
