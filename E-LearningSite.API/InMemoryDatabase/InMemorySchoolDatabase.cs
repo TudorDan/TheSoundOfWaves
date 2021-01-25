@@ -481,6 +481,18 @@ namespace E_LearningSite.API.Models
             document.Name = documentDTO.Name;
             document.Link = documentDTO.Link;
         }
+        public void DeleteDocument(Document document, int schoolId, int courseId)
+        {
+            School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
+            Course course = school.Courses.FirstOrDefault(c => c.Id == courseId);
+
+            school.Catalogues.ForEach(cat => cat.Courses.ForEach(cc => cc.Documents.Remove(document)));
+            course.Documents.Remove(document);
+
+            /*_schoolRepository.GetAllDocuments(schoolId, courseId).Remove(document);
+            _schoolRepository.GetSchool(schoolId).Catalogues.ForEach(
+                c => c.Courses.ForEach(cs => cs.Documents.Remove(document)));*/
+        }
 
         // Catalogues
         public Catalogue AddCatalogue(Catalogue catalogue, int schoolId)

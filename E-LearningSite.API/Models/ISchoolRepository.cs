@@ -39,7 +39,7 @@ namespace E_LearningSite.API.Models
         Document GetDocument(int id, int schoolId, int courseId);
         ICollection<Document> GetAllDocuments(int schoolId, int courseId);
         void UpdateDocument(Document document, DocumentDTO documentDTO);
-        //void DeleteStudent(Student student, int schoolId);
+        void DeleteDocument(Document document, int schoolId, int courseId);
 
         // catalogues
         Catalogue AddCatalogue(Catalogue catalogue, int schoolId);

@@ -296,6 +296,16 @@ namespace E_LearningSite.API.SQLDatabase
 
             _context.SaveChanges();
         }
+        public void DeleteDocument(Document document, int schoolId, int courseId)
+        {
+            /*Domain.Subject deleteSubject = _context.Subjects.FirstOrDefault(s => s.Id == subject.Id);
+            _context.Subjects.Remove(deleteSubject);
+            _context.SaveChanges();*/
+            Domain.Document deleteDocument = _context.Documents.FirstOrDefault(d => d.Id == document.Id);
+
+            _context.Remove(deleteDocument);
+            _context.SaveChanges();
+        }
 
         // Catalogues
         public ICollection<Catalogue> GetAllCatalogues(int schoolId)
@@ -420,5 +430,6 @@ namespace E_LearningSite.API.SQLDatabase
             _context.Subjects.Remove(deleteSubject);
             _context.SaveChanges();
         }
+
     }
 }
