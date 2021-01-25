@@ -252,9 +252,13 @@ namespace E_LearningSite.API.SQLDatabase
 
             return (ICollection<Course>)_mapper.Map<IEnumerable<Course>>(courses);
         }
+
         public Course GetCourse(int id, int schoolId)
         {
-            throw new NotImplementedException();
+            Domain.Course course = _context.Courses.Include(c => c.Documents)
+                .Include(c => c.Subject).FirstOrDefault(c => c.Id == id);
+
+            return _mapper.Map<Course>(course);
         }
         public Course AddCourse(Course course, int schoolId)
         {
