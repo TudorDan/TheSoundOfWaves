@@ -87,7 +87,6 @@ namespace E_LearningSite.API.Models
                         {
                             Id = 1,
                             Name = "Solar System",
-                            SubjectId = 3,
                             Description = "Discover the elements of the solar system",
                             Documents = new List<Document>()
                             {
@@ -114,7 +113,6 @@ namespace E_LearningSite.API.Models
                         {
                             Id = 2,
                             Name = "OOP",
-                            SubjectId = 2,
                             Description = "Basic elements of OOP",
                             Documents = new List<Document>()
                             {
@@ -251,7 +249,6 @@ namespace E_LearningSite.API.Models
                         {
                             Id = 1,
                             Name = "Cyber Security",
-                            SubjectId = 2,
                             Description = "Basic elements of cyber security",
                             Documents = new List<Document>()
                             {
@@ -278,7 +275,6 @@ namespace E_LearningSite.API.Models
                         {
                             Id = 2,
                             Name = "World Word II",
-                            SubjectId = 1,
                             Description = "The instability created in Europe by the First World War (1914-18) set the stage for another international conflict—World War II",
                             Documents = new List<Document>()
                             {
@@ -488,10 +484,6 @@ namespace E_LearningSite.API.Models
 
             school.Catalogues.ForEach(cat => cat.Courses.ForEach(cc => cc.Documents.Remove(document)));
             course.Documents.Remove(document);
-
-            /*_schoolRepository.GetAllDocuments(schoolId, courseId).Remove(document);
-            _schoolRepository.GetSchool(schoolId).Catalogues.ForEach(
-                c => c.Courses.ForEach(cs => cs.Documents.Remove(document)));*/
         }
 
         // Catalogues

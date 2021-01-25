@@ -247,7 +247,8 @@ namespace E_LearningSite.API.SQLDatabase
         // Courses
         public ICollection<Course> GetAllCourses(int schoolId)
         {
-            List<Domain.Course> courses = _context.Courses.Where(c => c.SchoolId == schoolId).ToList();
+            List<Domain.Course> courses = _context.Courses.Where(c => c.SchoolId == schoolId)
+                .Include(c => c.Documents).Include(c => c.Subject).ToList();
 
             return (ICollection<Course>)_mapper.Map<IEnumerable<Course>>(courses);
         }
@@ -298,9 +299,6 @@ namespace E_LearningSite.API.SQLDatabase
         }
         public void DeleteDocument(Document document, int schoolId, int courseId)
         {
-            /*Domain.Subject deleteSubject = _context.Subjects.FirstOrDefault(s => s.Id == subject.Id);
-            _context.Subjects.Remove(deleteSubject);
-            _context.SaveChanges();*/
             Domain.Document deleteDocument = _context.Documents.FirstOrDefault(d => d.Id == document.Id);
 
             _context.Remove(deleteDocument);

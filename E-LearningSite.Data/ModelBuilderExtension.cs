@@ -233,7 +233,7 @@ namespace E_LearningSite.Data
                         Id = 6,
                         Name = "hacky doc 2",
                         Link = "hacky link 2",
-                        CourseId = 4
+                        CourseId = 3
                     },
                     new Document()
                     {

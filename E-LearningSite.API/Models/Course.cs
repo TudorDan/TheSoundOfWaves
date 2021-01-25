@@ -15,10 +15,8 @@ namespace E_LearningSite.API.Models
         [Required]
         public string Description { get; set; }
         [Required]
-        public List<Document> Documents { get; set; }
-
+        public List<Document> Documents { get; set; }  
         
-        public int SubjectId { get; set; }
         [Required]
         public Subject Subject { get; set; }
     }
