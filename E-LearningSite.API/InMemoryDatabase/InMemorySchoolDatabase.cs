@@ -616,6 +616,12 @@ namespace E_LearningSite.API.Models
             subject.Name = subjectDTO.Name;
         }
 
+        public void DeleteSubject(Subject subject, int schoolId)
+        {
+            School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
+            school.Subjects.Remove(subject);
+        }
+
         // Enums
         /*public List<EnumValue> GetValues<T>()
         {

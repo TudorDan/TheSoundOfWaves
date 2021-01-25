@@ -85,8 +85,8 @@ namespace E_LearningSite.API.Controllers
             {
                 return NotFound();
             }
-            _schoolRepository.GetAllSubjects(schoolId).Remove(subject);
-            // should delete all courses with specific subject
+            _schoolRepository.DeleteSubject(subject, schoolId);
+            // should delete all courses with specific subject ?
             //_schoolRepository.GetAllCourses(schoolId). .ForEach(c => c.ClassMentors.Remove(mentor));
             return NoContent();
         }

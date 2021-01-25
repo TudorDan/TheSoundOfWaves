@@ -374,12 +374,14 @@ namespace E_LearningSite.API.SQLDatabase
 
             return (ICollection<Subject>)_mapper.Map<IEnumerable<Subject>>(subjects);
         }
+
         public Subject GetSubject(int id, int schoolId)
         {
             Domain.Subject subject = _context.Subjects.FirstOrDefault(sbj => sbj.Id == id);
 
             return _mapper.Map<Subject>(subject);
         }
+
         public Subject AddSubject(Subject subject, int schoolId)
         {
             Domain.Subject newSubject = new Domain.Subject()
@@ -399,6 +401,13 @@ namespace E_LearningSite.API.SQLDatabase
             Domain.Subject updateSubject = _context.Subjects.FirstOrDefault(s => s.Id == subject.Id);
             updateSubject.Name = subjectDTO.Name;
 
+            _context.SaveChanges();
+        }
+
+        public void DeleteSubject(Subject subject, int schoolId)
+        {
+            Domain.Subject deleteSubject = _context.Subjects.FirstOrDefault(s => s.Id == subject.Id);
+            _context.Subjects.Remove(deleteSubject);
             _context.SaveChanges();
         }
     }
