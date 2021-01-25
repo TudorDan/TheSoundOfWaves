@@ -611,6 +611,11 @@ namespace E_LearningSite.API.Models
             return school.Subjects;
         }
 
+        public void UpdateSubject(Subject subject, SubjectDTO subjectDTO)
+        {
+            subject.Name = subjectDTO.Name;
+        }
+
         // Enums
         /*public List<EnumValue> GetValues<T>()
         {

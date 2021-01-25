@@ -68,5 +68,7 @@ namespace E_LearningSite.API.Models
         Subject AddSubject(Subject subject, int schoolId);
         Subject GetSubject(int id, int schoolId);
         ICollection<Subject> GetAllSubjects(int schoolId);
+        void UpdateSubject(Subject subject, SubjectDTO subjectDTO);
+        //void DeleteStudent(Student student, int schoolId);
     }
 }

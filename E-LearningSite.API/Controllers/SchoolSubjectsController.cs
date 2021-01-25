@@ -69,7 +69,7 @@ namespace E_LearningSite.API.Controllers
             {
                 return NotFound();
             }
-            subject.Name = subjectDTO.Name;
+            _schoolRepository.UpdateSubject(subject, subjectDTO);
             return NoContent();
         }
 

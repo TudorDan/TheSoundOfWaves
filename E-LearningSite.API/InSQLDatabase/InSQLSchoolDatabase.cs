@@ -393,5 +393,13 @@ namespace E_LearningSite.API.SQLDatabase
             subject.Id = newSubject.Id;
             return subject;
         }
+
+        public void UpdateSubject(Subject subject, SubjectDTO subjectDTO)
+        {
+            Domain.Subject updateSubject = _context.Subjects.FirstOrDefault(s => s.Id == subject.Id);
+            updateSubject.Name = subjectDTO.Name;
+
+            _context.SaveChanges();
+        }
     }
 }
