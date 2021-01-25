@@ -275,7 +275,17 @@ namespace E_LearningSite.API.SQLDatabase
         }
         public Document AddDocument(Document document, int schoolId, int courseId)
         {
-            throw new NotImplementedException();
+            Domain.Document newDocument = new Domain.Document()
+            {
+                Name = document.Name,
+                Link = document.Link,
+                CourseId = courseId
+            };
+            _context.Documents.Add(newDocument);
+            _context.SaveChanges();
+
+            document.Id = newDocument.Id;
+            return document;
         }
 
         // Catalogues
