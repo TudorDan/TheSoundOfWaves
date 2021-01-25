@@ -476,6 +476,12 @@ namespace E_LearningSite.API.Models
             return course.Documents;
         }
 
+        public void UpdateDocument(Document document, DocumentDTO documentDTO)
+        {
+            document.Name = documentDTO.Name;
+            document.Link = documentDTO.Link;
+        }
+
         // Catalogues
         public Catalogue AddCatalogue(Catalogue catalogue, int schoolId)
         {

@@ -142,8 +142,7 @@ namespace E_LearningSite.API.Controllers
             {
                 return NotFound();
             }
-            document.Name = documentDTO.Name;
-            document.Link = documentDTO.Link;
+            _schoolRepository.UpdateDocument(document, documentDTO);
             return NoContent();
         }
 

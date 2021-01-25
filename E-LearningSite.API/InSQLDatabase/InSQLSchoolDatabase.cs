@@ -288,6 +288,15 @@ namespace E_LearningSite.API.SQLDatabase
             return document;
         }
 
+        public void UpdateDocument(Document document, DocumentDTO documentDTO)
+        {
+            Domain.Document updateDocument = _context.Documents.FirstOrDefault(d => d.Id == document.Id);
+            updateDocument.Name = documentDTO.Name;
+            updateDocument.Link = documentDTO.Link;
+
+            _context.SaveChanges();
+        }
+
         // Catalogues
         public ICollection<Catalogue> GetAllCatalogues(int schoolId)
         {
