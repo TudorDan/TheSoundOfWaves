@@ -449,6 +449,16 @@ namespace E_LearningSite.API.Models
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             return school.Courses;
         }
+        public void UpdateCourse(Course course, CourseDTO courseDTO, int schoolId)
+        {
+            course.Name = courseDTO.Name;
+            int subjectId = courseDTO.SubjectId;
+            ICollection<Subject> schoolSubjects = _schoolDatabase
+                .FirstOrDefault(s => s.Id == schoolId).Subjects;
+            Subject subject = schoolSubjects.FirstOrDefault(sbj => sbj.Id == subjectId);
+            course.Subject = subject;
+            course.Description = courseDTO.Description;
+        }
 
         // Documents
         public Document AddDocument(Document document, int schoolId, int courseId)

@@ -68,12 +68,7 @@ namespace E_LearningSite.API.Controllers
             {
                 return NotFound();
             }
-            course.Name = courseDTO.Name;
-            int subjectId = courseDTO.SubjectId;
-            ICollection<Subject> schoolSubjects = _schoolRepository.GetAllSubjects(schoolId);
-            Subject subject = schoolSubjects.FirstOrDefault(sbj => sbj.Id == subjectId);
-            course.Subject = subject;
-            course.Description = courseDTO.Description;
+            _schoolRepository.UpdateCourse(course, courseDTO, courseId);            
             return NoContent();
         }
 

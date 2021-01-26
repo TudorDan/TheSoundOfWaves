@@ -275,6 +275,15 @@ namespace E_LearningSite.API.SQLDatabase
             course.Id = newCourse.Id;
             return course;
         }
+        public void UpdateCourse(Course course, CourseDTO courseDTO, int schoolId)
+        {
+            Domain.Course updateCourse = _context.Courses.FirstOrDefault(c => c.Id == course.Id);
+            updateCourse.Name = courseDTO.Name;
+            updateCourse.Description = courseDTO.Description;
+            updateCourse.SubjectId = courseDTO.SubjectId;
+
+            _context.SaveChanges();
+        }
 
         // Course Documents
         public ICollection<Document> GetAllDocuments(int schoolId, int courseId)
