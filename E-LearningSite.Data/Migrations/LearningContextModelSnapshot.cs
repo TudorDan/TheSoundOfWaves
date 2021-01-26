@@ -42,19 +42,19 @@ namespace E_LearningSite.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Broncos Ist Grade",
+                            Name = "9th Grade - Mathematics Informatics",
                             SchoolId = 1
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Steelers IIIrd Grade",
+                            Name = "10th Grade - Science",
                             SchoolId = 1
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Cowboys 9th Grade",
+                            Name = "9th Grade - Philosophy",
                             SchoolId = 2
                         });
                 });
@@ -90,34 +90,34 @@ namespace E_LearningSite.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "Pay for 1, you get 2",
-                            Name = "Guessing Master of Science",
+                            Description = "Discover the elements of the solar system",
+                            Name = "Solar System",
                             SchoolId = 1,
                             SubjectId = 3
                         },
                         new
                         {
                             Id = 2,
-                            Description = "For advanced majors",
-                            Name = "How to Watch Television",
+                            Description = "Basic elements of OOP",
+                            Name = "OOP",
                             SchoolId = 1,
-                            SubjectId = 1
+                            SubjectId = 2
                         },
                         new
                         {
                             Id = 3,
-                            Description = "2nd edition",
-                            Name = "Hacking Ethics",
+                            Description = "Basic elements of cyber security",
+                            Name = "Cyber Security",
                             SchoolId = 2,
-                            SubjectId = 4
+                            SubjectId = 5
                         },
                         new
                         {
                             Id = 4,
-                            Description = "42",
-                            Name = "The Answer to Life, The Universe and Everything",
+                            Description = "Political, Economic and Diplomatic Causes in the Far East",
+                            Name = "World Word II",
                             SchoolId = 2,
-                            SubjectId = 5
+                            SubjectId = 4
                         });
                 });
 
@@ -163,57 +163,57 @@ namespace E_LearningSite.Data.Migrations
                         {
                             Id = 1,
                             CourseId = 1,
-                            Link = "Palm Reading link 1",
-                            Name = "Palm Reading doc 1"
+                            Link = "Link 1",
+                            Name = "Planets of the Solar system"
                         },
                         new
                         {
                             Id = 2,
                             CourseId = 1,
-                            Link = "Witchcraft link 2",
-                            Name = "Witchcraft doc 2"
+                            Link = "Link 2",
+                            Name = "Natural satellites"
                         },
                         new
                         {
                             Id = 3,
                             CourseId = 2,
-                            Link = "Getting dressed link 1",
-                            Name = "Getting dressed doc 1"
+                            Link = "Link 1",
+                            Name = "Classes and Methods"
                         },
                         new
                         {
                             Id = 4,
                             CourseId = 2,
-                            Link = "The art of walking link 2",
-                            Name = "The art of walking doc 2"
+                            Link = "Link 2",
+                            Name = "Overload and Override"
                         },
                         new
                         {
                             Id = 5,
                             CourseId = 3,
-                            Link = "kack link 1",
-                            Name = "hack doc 1"
+                            Link = "Link 1",
+                            Name = "Malware"
                         },
                         new
                         {
                             Id = 6,
                             CourseId = 3,
-                            Link = "hacky link 2",
-                            Name = "hacky doc 2"
+                            Link = "Link 2",
+                            Name = "Data breaches"
                         },
                         new
                         {
                             Id = 7,
                             CourseId = 4,
-                            Link = "Keep searching link 1",
-                            Name = "Keep searching doc 1"
+                            Link = "Link 1",
+                            Name = "Chinese Warlords, Kuomintang and Marco Polo Incident(1937)"
                         },
                         new
                         {
                             Id = 8,
                             CourseId = 4,
-                            Link = " link 2",
-                            Name = " doc 2"
+                            Link = "Link 2",
+                            Name = "Soviet–Japanese border interests and the Battle of Khalkin Gol(1939)"
                         });
                 });
 
@@ -289,7 +289,7 @@ namespace E_LearningSite.Data.Migrations
                             Id = 1,
                             AccessRights = 0,
                             BirthDate = new DateTime(1960, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Tyrone Shotgun",
+                            Name = "Marcel Popescu",
                             Photo = "mentor11.jpg",
                             SchoolId = 1
                         },
@@ -298,7 +298,7 @@ namespace E_LearningSite.Data.Migrations
                             Id = 2,
                             AccessRights = 0,
                             BirthDate = new DateTime(1970, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Johnny 3Fingers",
+                            Name = "Adrian Barbu",
                             Photo = "mentor12.jpg",
                             SchoolId = 1
                         },
@@ -306,18 +306,36 @@ namespace E_LearningSite.Data.Migrations
                         {
                             Id = 3,
                             AccessRights = 0,
-                            BirthDate = new DateTime(1964, 4, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Eric Blood Axe",
-                            Photo = "mentor21.jpg",
-                            SchoolId = 2
+                            BirthDate = new DateTime(1980, 10, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Iulain Apostol",
+                            Photo = "mentor13.jpg",
+                            SchoolId = 1
                         },
                         new
                         {
                             Id = 4,
                             AccessRights = 0,
+                            BirthDate = new DateTime(1964, 4, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Eric Angelescu",
+                            Photo = "mentor21.jpg",
+                            SchoolId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AccessRights = 0,
                             BirthDate = new DateTime(1970, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Tommy Machine Gun",
+                            Name = "Emanuel Aramitu",
                             Photo = "mentor22.jpg",
+                            SchoolId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AccessRights = 0,
+                            BirthDate = new DateTime(1966, 7, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Andrei Pavel",
+                            Photo = "mentor23.jpg",
                             SchoolId = 2
                         });
                 });
@@ -372,7 +390,7 @@ namespace E_LearningSite.Data.Migrations
                             Id = 1,
                             AccessRights = 2,
                             BirthDate = new DateTime(1950, 12, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Miss Danger",
+                            Name = "Georgiana Ionescu",
                             Photo = "principal1.jpg",
                             SchoolId = 1
                         },
@@ -381,7 +399,7 @@ namespace E_LearningSite.Data.Migrations
                             Id = 2,
                             AccessRights = 2,
                             BirthDate = new DateTime(1967, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Don Guzman",
+                            Name = "Marian Stanciulescu",
                             Photo = "principal2.jpg",
                             SchoolId = 2
                         });
@@ -408,13 +426,13 @@ namespace E_LearningSite.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Weed Health Institute",
+                            Name = "Harvard",
                             Photo = "school1.jpg"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Universidad Técnica de Buenas Maneras y Pistoleros",
+                            Name = "Oxford",
                             Photo = "school2.jpg"
                         });
                 });
@@ -458,35 +476,53 @@ namespace E_LearningSite.Data.Migrations
                             Id = 1,
                             AccessRights = 1,
                             BirthDate = new DateTime(1999, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Sister Switchblades",
+                            Name = "Elena Diaconescu",
                             Photo = "student11.jpg",
                             SchoolId = 1
                         },
                         new
                         {
-                            Id = 5,
+                            Id = 2,
                             AccessRights = 1,
                             BirthDate = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Jamal Gangsta LeeRoy",
+                            Name = "Costin Constantinescu",
                             Photo = "student12.jpg",
                             SchoolId = 1
                         },
                         new
                         {
-                            Id = 9,
+                            Id = 3,
+                            AccessRights = 1,
+                            BirthDate = new DateTime(2000, 3, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "George Iordanescu",
+                            Photo = "student14.jpg",
+                            SchoolId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
                             AccessRights = 1,
                             BirthDate = new DateTime(1989, 10, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Donna Corason Intenso",
+                            Name = "Diana Petrache",
                             Photo = "student21.jpg",
                             SchoolId = 2
                         },
                         new
                         {
-                            Id = 10,
+                            Id = 5,
                             AccessRights = 1,
                             BirthDate = new DateTime(2001, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "The Sleeping Student",
+                            Name = "Dorian Stefan",
                             Photo = "student22.jpg",
+                            SchoolId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AccessRights = 1,
+                            BirthDate = new DateTime(2000, 9, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Andreea Popescu",
+                            Photo = "student23.jpg",
                             SchoolId = 2
                         });
                 });
@@ -532,13 +568,19 @@ namespace E_LearningSite.Data.Migrations
                         new
                         {
                             Id = 4,
-                            Name = "IT",
+                            Name = "HISTORY",
                             SchoolId = 2
                         },
                         new
                         {
                             Id = 5,
-                            Name = "HISTORY",
+                            Name = "IT",
+                            SchoolId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "ASTRONOMY",
                             SchoolId = 2
                         });
                 });
@@ -546,7 +588,7 @@ namespace E_LearningSite.Data.Migrations
             modelBuilder.Entity("E_LearningSite.Domain.Catalogue", b =>
                 {
                     b.HasOne("E_LearningSite.Domain.School", "School")
-                        .WithMany()
+                        .WithMany("Catalogues")
                         .HasForeignKey("SchoolId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -733,6 +775,8 @@ namespace E_LearningSite.Data.Migrations
 
             modelBuilder.Entity("E_LearningSite.Domain.School", b =>
                 {
+                    b.Navigation("Catalogues");
+
                     b.Navigation("Courses");
 
                     b.Navigation("Mentors");

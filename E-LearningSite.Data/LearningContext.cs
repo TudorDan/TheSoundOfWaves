@@ -42,6 +42,8 @@ namespace E_LearningSite.Data
                 .WithOne(m => m.School).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<School>().HasMany(s => s.Subjects)
                 .WithOne(s => s.School).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<School>().HasMany(s => s.Catalogues)
+                .WithOne(c => c.School).OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Catalogue>().HasMany(c => c.Students)
                 .WithOne(s => s.Catalogue).OnDelete(DeleteBehavior.Restrict);

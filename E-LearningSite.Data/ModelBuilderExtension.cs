@@ -14,13 +14,13 @@ namespace E_LearningSite.Data
                 new School()
                 {
                     Id = 1,
-                    Name = "Weed Health Institute",
+                    Name = "Harvard",
                     Photo = "school1.jpg"                 
                 },
                 new School()
                 {
                     Id = 2,
-                    Name = "Universidad Técnica de Buenas Maneras y Pistoleros",
+                    Name = "Oxford",
                     Photo = "school2.jpg"
                 }
             );
@@ -29,7 +29,7 @@ namespace E_LearningSite.Data
                     new Principal()
                     {
                         Id = 1,
-                        Name = "Miss Danger",
+                        Name = "Georgiana Ionescu",
                         Photo = "principal1.jpg",
                         BirthDate = new DateTime(1950, 12, 13),
                         AccessRights = AccessRights.FORPRINCIPALS,
@@ -38,7 +38,7 @@ namespace E_LearningSite.Data
                     new Principal()
                     {
                         Id = 2,
-                        Name = "Don Guzman",
+                        Name = "Marian Stanciulescu",
                         Photo = "principal2.jpg",
                         BirthDate = new DateTime(1967, 1, 3),
                         AccessRights = AccessRights.FORPRINCIPALS,
@@ -68,13 +68,19 @@ namespace E_LearningSite.Data
                     new Subject()
                     {
                         Id = 4,
-                        Name = "IT",
+                        Name = "HISTORY",
                         SchoolId = 2
                     },
                     new Subject()
                     {
                         Id = 5,
-                        Name = "HISTORY",
+                        Name = "IT",
+                        SchoolId = 2
+                    }, 
+                    new Subject()
+                    {
+                        Id = 6,
+                        Name = "ASTRONOMY",
                         SchoolId = 2
                     }
                 );
@@ -83,7 +89,7 @@ namespace E_LearningSite.Data
                     new Mentor()
                     {
                         Id = 1,
-                        Name = "Tyrone Shotgun",
+                        Name = "Marcel Popescu",
                         Photo = "mentor11.jpg",
                         BirthDate = new DateTime(1960, 6, 6),
                         AccessRights = AccessRights.FORMENTORS,
@@ -92,7 +98,7 @@ namespace E_LearningSite.Data
                     new Mentor()
                     {
                         Id = 2,
-                        Name = "Johnny 3Fingers",
+                        Name = "Adrian Barbu",
                         Photo = "mentor12.jpg",
                         BirthDate = new DateTime(1970, 1, 4),
                         AccessRights = AccessRights.FORMENTORS,
@@ -101,7 +107,16 @@ namespace E_LearningSite.Data
                     new Mentor()
                     {
                         Id = 3,
-                        Name = "Eric Blood Axe",
+                        Name = "Iulain Apostol",
+                        Photo = "mentor13.jpg",
+                        BirthDate = new DateTime(1980, 10, 23),
+                        AccessRights = AccessRights.FORMENTORS,
+                        SchoolId = 1
+                    },
+                    new Mentor()
+                    {
+                        Id = 4,
+                        Name = "Eric Angelescu",
                         Photo = "mentor21.jpg",
                         BirthDate = new DateTime(1964, 4, 16),
                         AccessRights = AccessRights.FORMENTORS,
@@ -109,10 +124,19 @@ namespace E_LearningSite.Data
                     },
                     new Mentor()
                     {
-                        Id = 4,
-                        Name = "Tommy Machine Gun",
+                        Id = 5,
+                        Name = "Emanuel Aramitu",
                         Photo = "mentor22.jpg",
                         BirthDate = new DateTime(1970, 1, 4),
+                        AccessRights = AccessRights.FORMENTORS,
+                        SchoolId = 2
+                    },
+                    new Mentor()
+                    {
+                        Id = 6,
+                        Name = "Andrei Pavel",
+                        Photo = "mentor23.jpg",
+                        BirthDate = new DateTime(1966, 7, 25),
                         AccessRights = AccessRights.FORMENTORS,
                         SchoolId = 2
                     }
@@ -122,7 +146,7 @@ namespace E_LearningSite.Data
                     new Student()
                     {
                         Id = 1,
-                        Name = "Sister Switchblades",
+                        Name = "Elena Diaconescu",
                         Photo = "student11.jpg",
                         BirthDate = new DateTime(1999, 5, 4),
                         AccessRights = AccessRights.FORSTUDENTS,
@@ -130,8 +154,8 @@ namespace E_LearningSite.Data
                     },
                     new Student()
                     {
-                        Id = 5,
-                        Name = "Jamal Gangsta LeeRoy",
+                        Id = 2,
+                        Name = "Costin Constantinescu",
                         Photo = "student12.jpg",
                         BirthDate = new DateTime(2000, 1, 1),
                         AccessRights = AccessRights.FORSTUDENTS,
@@ -139,8 +163,17 @@ namespace E_LearningSite.Data
                     },
                     new Student()
                     {
-                        Id = 9,
-                        Name = "Donna Corason Intenso",
+                        Id = 3,
+                        Name = "George Iordanescu",
+                        Photo = "student14.jpg",
+                        BirthDate = new DateTime(2000, 3, 17),
+                        AccessRights = AccessRights.FORSTUDENTS,
+                        SchoolId = 1
+                    },
+                    new Student()
+                    {
+                        Id = 4,
+                        Name = "Diana Petrache",
                         Photo = "student21.jpg",
                         BirthDate = new DateTime(1989, 10, 24),
                         AccessRights = AccessRights.FORSTUDENTS,
@@ -148,10 +181,19 @@ namespace E_LearningSite.Data
                     },
                     new Student()
                     {
-                        Id = 10,
-                        Name = "The Sleeping Student",
+                        Id = 5,
+                        Name = "Dorian Stefan",
                         Photo = "student22.jpg",
                         BirthDate = new DateTime(2001, 10, 21),
+                        AccessRights = AccessRights.FORSTUDENTS,
+                        SchoolId = 2
+                    },
+                    new Student()
+                    {
+                        Id = 6,
+                        Name = "Andreea Popescu",
+                        Photo = "student23.jpg",
+                        BirthDate = new DateTime(2000, 9, 30),
                         AccessRights = AccessRights.FORSTUDENTS,
                         SchoolId = 2
                     }
@@ -161,33 +203,33 @@ namespace E_LearningSite.Data
                     new Course()
                     {
                         Id = 1,
-                        Name = "Guessing Master of Science",
+                        Name = "Solar System",
                         SubjectId = 3,
-                        Description = "Pay for 1, you get 2",
+                        Description = "Discover the elements of the solar system",
                         SchoolId = 1
                     },
                     new Course()
                     {
                         Id = 2,
-                        Name = "How to Watch Television",
-                        SubjectId = 1,
-                        Description = "For advanced majors",
+                        Name = "OOP",
+                        SubjectId = 2,
+                        Description = "Basic elements of OOP",
                         SchoolId = 1
                     },
                     new Course()
                     {
                         Id = 3,
-                        Name = "Hacking Ethics",
-                        SubjectId = 4,
-                        Description = "2nd edition",
+                        Name = "Cyber Security",
+                        SubjectId = 5,
+                        Description = "Basic elements of cyber security",
                         SchoolId = 2
                     },
                     new Course()
                     {
                         Id = 4,
-                        Name = "The Answer to Life, The Universe and Everything",
-                        SubjectId = 5,
-                        Description = "42",
+                        Name = "World Word II",
+                        SubjectId = 4,
+                        Description = "Political, Economic and Diplomatic Causes in the Far East",
                         SchoolId = 2
                     }
                 );
@@ -196,57 +238,57 @@ namespace E_LearningSite.Data
                     new Document()
                     {
                         Id = 1,
-                        Name = "Palm Reading doc 1",
-                        Link = "Palm Reading link 1",
+                        Name = "Planets of the Solar system",
+                        Link = "Link 1",
                         CourseId = 1
                     },
                     new Document()
                     {
                         Id = 2,
-                        Name = "Witchcraft doc 2",
-                        Link = "Witchcraft link 2",
+                        Name = "Natural satellites",
+                        Link = "Link 2",
                         CourseId = 1
                     },
                     new Document()
                     {
                         Id = 3,
-                        Name = "Getting dressed doc 1",
-                        Link = "Getting dressed link 1",
+                        Name = "Classes and Methods",
+                        Link = "Link 1",
                         CourseId = 2
                     },
                     new Document()
                     {
                         Id = 4,
-                        Name = "The art of walking doc 2",
-                        Link = "The art of walking link 2",
+                        Name = "Overload and Override",
+                        Link = "Link 2",
                         CourseId = 2
                     },
                     new Document()
                     {
                         Id = 5,
-                        Name = "hack doc 1",
-                        Link = "kack link 1",
+                        Name = "Malware",
+                        Link = "Link 1",
                         CourseId = 3
                     },
                     new Document()
                     {
                         Id = 6,
-                        Name = "hacky doc 2",
-                        Link = "hacky link 2",
+                        Name = "Data breaches",
+                        Link = "Link 2",
                         CourseId = 3
                     },
                     new Document()
                     {
                         Id = 7,
-                        Name = "Keep searching doc 1",
-                        Link = "Keep searching link 1",
+                        Name = "Chinese Warlords, Kuomintang and Marco Polo Incident(1937)",
+                        Link = "Link 1",
                         CourseId = 4
                     },
                     new Document()
                     {
                         Id = 8,
-                        Name = " doc 2",
-                        Link = " link 2",
+                        Name = "Soviet–Japanese border interests and the Battle of Khalkin Gol(1939)",
+                        Link = "Link 2",
                         CourseId = 4
                     }
                 );
@@ -255,19 +297,19 @@ namespace E_LearningSite.Data
                     new Catalogue()
                     {
                         Id = 1,
-                        Name = "Broncos Ist Grade",
+                        Name = "9th Grade - Mathematics Informatics",
                         SchoolId = 1
                     },
                     new Catalogue()
                     {
                         Id = 2,
-                        Name = "Steelers IIIrd Grade",
+                        Name = "10th Grade - Science",
                         SchoolId = 1
                     },
                     new Catalogue()
                     {
                         Id = 3,
-                        Name = "Cowboys 9th Grade",
+                        Name = "9th Grade - Philosophy",
                         SchoolId = 2
                     }
                 );
