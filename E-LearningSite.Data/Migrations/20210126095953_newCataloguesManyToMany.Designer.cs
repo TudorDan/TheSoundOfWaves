@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_LearningSite.Data.Migrations
 {
     [DbContext(typeof(LearningContext))]
-    [Migration("20210126093046_newManytoManyCourseCatalogues")]
-    partial class newManytoManyCourseCatalogues
+    [Migration("20210126095953_newCataloguesManyToMany")]
+    partial class newCataloguesManyToMany
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -172,6 +172,21 @@ namespace E_LearningSite.Data.Migrations
                     b.HasIndex("SchoolId");
 
                     b.ToTable("Mentors");
+                });
+
+            modelBuilder.Entity("E_LearningSite.Domain.MentorCatalogue", b =>
+                {
+                    b.Property<int>("MentorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CatalogueId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MentorId", "CatalogueId");
+
+                    b.HasIndex("CatalogueId");
+
+                    b.ToTable("MentorCatalogue");
                 });
 
             modelBuilder.Entity("E_LearningSite.Domain.Principal", b =>
@@ -382,6 +397,25 @@ namespace E_LearningSite.Data.Migrations
                     b.Navigation("School");
                 });
 
+            modelBuilder.Entity("E_LearningSite.Domain.MentorCatalogue", b =>
+                {
+                    b.HasOne("E_LearningSite.Domain.Catalogue", "Catalogue")
+                        .WithMany("MentorCatalogues")
+                        .HasForeignKey("CatalogueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("E_LearningSite.Domain.Mentor", "Mentor")
+                        .WithMany("MentorCatalogues")
+                        .HasForeignKey("MentorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Catalogue");
+
+                    b.Navigation("Mentor");
+                });
+
             modelBuilder.Entity("E_LearningSite.Domain.Principal", b =>
                 {
                     b.HasOne("E_LearningSite.Domain.School", "School")
@@ -428,6 +462,8 @@ namespace E_LearningSite.Data.Migrations
 
                     b.Navigation("Grades");
 
+                    b.Navigation("MentorCatalogues");
+
                     b.Navigation("Students");
                 });
 
@@ -436,6 +472,11 @@ namespace E_LearningSite.Data.Migrations
                     b.Navigation("CourseCatalogues");
 
                     b.Navigation("Documents");
+                });
+
+            modelBuilder.Entity("E_LearningSite.Domain.Mentor", b =>
+                {
+                    b.Navigation("MentorCatalogues");
                 });
 
             modelBuilder.Entity("E_LearningSite.Domain.School", b =>

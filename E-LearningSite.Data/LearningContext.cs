@@ -54,7 +54,7 @@ namespace E_LearningSite.Data
             modelBuilder.Entity<Subject>().HasMany(s => s.Courses)
                 .WithOne(c => c.Subject).OnDelete(DeleteBehavior.Restrict);
 
-            //modelBuilder.Seed();
+            modelBuilder.Seed();
            
             base.OnModelCreating(modelBuilder);
         }
