@@ -12,7 +12,7 @@ namespace E_LearningSite.Domain
             Mentors = new List<Mentor>();
             Students = new List<Student>();
             Courses = new List<Course>();
-            //Catalogues = new List<Catalogue>();
+            Catalogues = new List<Catalogue>();
             Subjects = new List<Subject>();
         }
 
@@ -26,7 +26,7 @@ namespace E_LearningSite.Domain
         public List<Mentor> Mentors { get; set; }
         public List<Student> Students { get; set; }
         public List<Course> Courses { get; set; }
-        //public List<Catalogue> Catalogues { get; set; }
+        public List<Catalogue> Catalogues { get; set; }
         public List<Subject> Subjects { get; set; }
 # nullable disable
     }

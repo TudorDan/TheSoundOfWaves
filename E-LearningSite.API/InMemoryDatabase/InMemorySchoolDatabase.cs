@@ -449,6 +449,7 @@ namespace E_LearningSite.API.Models
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             return school.Courses;
         }
+
         public void UpdateCourse(Course course, CourseDTO courseDTO, int schoolId)
         {
             course.Name = courseDTO.Name;
@@ -458,6 +459,13 @@ namespace E_LearningSite.API.Models
             Subject subject = schoolSubjects.FirstOrDefault(sbj => sbj.Id == subjectId);
             course.Subject = subject;
             course.Description = courseDTO.Description;
+        }
+
+        public void DeleteCourse(Course course, int schoolId)
+        {
+            _schoolDatabase.FirstOrDefault(s => s.Id == schoolId).Courses.Remove(course);
+            _schoolDatabase.FirstOrDefault(s => s.Id == schoolId)
+                .Catalogues.ForEach(c => c.Courses.Remove(course));
         }
 
         // Documents

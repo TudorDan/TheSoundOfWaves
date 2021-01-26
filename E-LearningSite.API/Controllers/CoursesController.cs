@@ -84,8 +84,7 @@ namespace E_LearningSite.API.Controllers
             {
                 return NotFound();
             }
-            _schoolRepository.GetAllCourses(schoolId).Remove(course);
-            _schoolRepository.GetSchool(schoolId).Catalogues.ForEach(c => c.Courses.Remove(course));
+            _schoolRepository.DeleteCourse(course, schoolId);
             return NoContent();
         }
 

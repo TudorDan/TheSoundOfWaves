@@ -34,6 +34,7 @@ namespace E_LearningSite.API.Models
         Course GetCourse(int id, int schoolId);
         ICollection<Course> GetAllCourses(int schoolId);
         void UpdateCourse(Course course, CourseDTO courseDTO, int schoolId);
+        void DeleteCourse(Course course, int schoolId);
 
         // documents
         Document AddDocument(Document document, int schoolId, int courseId);
