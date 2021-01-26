@@ -437,11 +437,13 @@ namespace E_LearningSite.API.Models
             school.Courses.Add(course);
             return course;
         }
+
         public Course GetCourse(int id, int schoolId)
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             return school.Courses.FirstOrDefault(c => c.Id == id);
         }
+
         public ICollection<Course> GetAllCourses(int schoolId)
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
