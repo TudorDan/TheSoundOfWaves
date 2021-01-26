@@ -31,8 +31,8 @@ namespace E_LearningSite.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<MentorCatalogue>().HasKey(m => new { m.MentorId, m.CatalogueId });
-            modelBuilder.Entity<CourseCatalogue>().HasKey(c => new { c.CourseId, c.CatalogueId });
+            modelBuilder.Entity<MentorCatalogue>().HasKey(mc => new { mc.MentorId, mc.CatalogueId });
+            modelBuilder.Entity<CourseCatalogue>().HasKey(cc => new { cc.CourseId, cc.CatalogueId });
 
             modelBuilder.Entity<School>().HasMany(s => s.Students)
                 .WithOne(s => s.School).OnDelete(DeleteBehavior.Restrict);
@@ -54,7 +54,7 @@ namespace E_LearningSite.Data
             modelBuilder.Entity<Subject>().HasMany(s => s.Courses)
                 .WithOne(c => c.Subject).OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Seed();
+            //modelBuilder.Seed();
            
             base.OnModelCreating(modelBuilder);
         }

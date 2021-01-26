@@ -37,26 +37,6 @@ namespace E_LearningSite.Data.Migrations
                     b.HasIndex("SchoolId");
 
                     b.ToTable("Catalogues");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Broncos Ist Grade",
-                            SchoolId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Steelers IIIrd Grade",
-                            SchoolId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Cowboys 9th Grade",
-                            SchoolId = 2
-                        });
                 });
 
             modelBuilder.Entity("E_LearningSite.Domain.Course", b =>
@@ -65,9 +45,6 @@ namespace E_LearningSite.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
-
-                    b.Property<int?>("CatalogueId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -83,47 +60,11 @@ namespace E_LearningSite.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CatalogueId");
-
                     b.HasIndex("SchoolId");
 
                     b.HasIndex("SubjectId");
 
                     b.ToTable("Courses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Pay for 1, you get 2",
-                            Name = "Guessing Master of Science",
-                            SchoolId = 1,
-                            SubjectId = 3
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "For advanced majors",
-                            Name = "How to Watch Television",
-                            SchoolId = 1,
-                            SubjectId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "2nd edition",
-                            Name = "Hacking Ethics",
-                            SchoolId = 2,
-                            SubjectId = 4
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "42",
-                            Name = "The Answer to Life, The Universe and Everything",
-                            SchoolId = 2,
-                            SubjectId = 5
-                        });
                 });
 
             modelBuilder.Entity("E_LearningSite.Domain.CourseCatalogue", b =>
@@ -162,64 +103,6 @@ namespace E_LearningSite.Data.Migrations
                     b.HasIndex("CourseId");
 
                     b.ToTable("Documents");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CourseId = 1,
-                            Link = "Palm Reading link 1",
-                            Name = "Palm Reading doc 1"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CourseId = 1,
-                            Link = "Witchcraft link 2",
-                            Name = "Witchcraft doc 2"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CourseId = 2,
-                            Link = "Getting dressed link 1",
-                            Name = "Getting dressed doc 1"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CourseId = 2,
-                            Link = "The art of walking link 2",
-                            Name = "The art of walking doc 2"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CourseId = 3,
-                            Link = "kack link 1",
-                            Name = "hack doc 1"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CourseId = 4,
-                            Link = "hacky link 2",
-                            Name = "hacky doc 2"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CourseId = 4,
-                            Link = "Keep searching link 1",
-                            Name = "Keep searching doc 1"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CourseId = 4,
-                            Link = " link 2",
-                            Name = " doc 2"
-                        });
                 });
 
             modelBuilder.Entity("E_LearningSite.Domain.Grade", b =>
@@ -273,9 +156,6 @@ namespace E_LearningSite.Data.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("CatalogueId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -287,49 +167,9 @@ namespace E_LearningSite.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CatalogueId");
-
                     b.HasIndex("SchoolId");
 
                     b.ToTable("Mentors");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AccessRights = 0,
-                            BirthDate = new DateTime(1960, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Tyrone Shotgun",
-                            Photo = "mentor11.jpg",
-                            SchoolId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            AccessRights = 0,
-                            BirthDate = new DateTime(1970, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Johnny 3Fingers",
-                            Photo = "mentor12.jpg",
-                            SchoolId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            AccessRights = 0,
-                            BirthDate = new DateTime(1964, 4, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Eric Blood Axe",
-                            Photo = "mentor21.jpg",
-                            SchoolId = 2
-                        },
-                        new
-                        {
-                            Id = 4,
-                            AccessRights = 0,
-                            BirthDate = new DateTime(1970, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Tommy Machine Gun",
-                            Photo = "mentor22.jpg",
-                            SchoolId = 2
-                        });
                 });
 
             modelBuilder.Entity("E_LearningSite.Domain.MentorCatalogue", b =>
@@ -375,26 +215,6 @@ namespace E_LearningSite.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Principals");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AccessRights = 2,
-                            BirthDate = new DateTime(1950, 12, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Miss Danger",
-                            Photo = "principal1.jpg",
-                            SchoolId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            AccessRights = 2,
-                            BirthDate = new DateTime(1967, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Don Guzman",
-                            Photo = "principal2.jpg",
-                            SchoolId = 2
-                        });
                 });
 
             modelBuilder.Entity("E_LearningSite.Domain.School", b =>
@@ -413,20 +233,6 @@ namespace E_LearningSite.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Schools");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Weed Health Institute",
-                            Photo = "school1.jpg"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Universidad Técnica de Buenas Maneras y Pistoleros",
-                            Photo = "school2.jpg"
-                        });
                 });
 
             modelBuilder.Entity("E_LearningSite.Domain.Student", b =>
@@ -461,44 +267,6 @@ namespace E_LearningSite.Data.Migrations
                     b.HasIndex("SchoolId");
 
                     b.ToTable("Students");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AccessRights = 1,
-                            BirthDate = new DateTime(1999, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Sister Switchblades",
-                            Photo = "student11.jpg",
-                            SchoolId = 1
-                        },
-                        new
-                        {
-                            Id = 5,
-                            AccessRights = 1,
-                            BirthDate = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Jamal Gangsta LeeRoy",
-                            Photo = "student12.jpg",
-                            SchoolId = 1
-                        },
-                        new
-                        {
-                            Id = 9,
-                            AccessRights = 1,
-                            BirthDate = new DateTime(1989, 10, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Donna Corason Intenso",
-                            Photo = "student21.jpg",
-                            SchoolId = 2
-                        },
-                        new
-                        {
-                            Id = 10,
-                            AccessRights = 1,
-                            BirthDate = new DateTime(2001, 10, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "The Sleeping Student",
-                            Photo = "student22.jpg",
-                            SchoolId = 2
-                        });
                 });
 
             modelBuilder.Entity("E_LearningSite.Domain.Subject", b =>
@@ -519,44 +287,12 @@ namespace E_LearningSite.Data.Migrations
                     b.HasIndex("SchoolId");
 
                     b.ToTable("Subjects");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "HISTORY",
-                            SchoolId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "IT",
-                            SchoolId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "ASTRONOMY",
-                            SchoolId = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "IT",
-                            SchoolId = 2
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "HISTORY",
-                            SchoolId = 2
-                        });
                 });
 
             modelBuilder.Entity("E_LearningSite.Domain.Catalogue", b =>
                 {
                     b.HasOne("E_LearningSite.Domain.School", "School")
-                        .WithMany("Catalogues")
+                        .WithMany()
                         .HasForeignKey("SchoolId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -566,10 +302,6 @@ namespace E_LearningSite.Data.Migrations
 
             modelBuilder.Entity("E_LearningSite.Domain.Course", b =>
                 {
-                    b.HasOne("E_LearningSite.Domain.Catalogue", null)
-                        .WithMany("Courses")
-                        .HasForeignKey("CatalogueId");
-
                     b.HasOne("E_LearningSite.Domain.School", "School")
                         .WithMany("Courses")
                         .HasForeignKey("SchoolId")
@@ -654,10 +386,6 @@ namespace E_LearningSite.Data.Migrations
 
             modelBuilder.Entity("E_LearningSite.Domain.Mentor", b =>
                 {
-                    b.HasOne("E_LearningSite.Domain.Catalogue", null)
-                        .WithMany("Mentors")
-                        .HasForeignKey("CatalogueId");
-
                     b.HasOne("E_LearningSite.Domain.School", "School")
                         .WithMany("Mentors")
                         .HasForeignKey("SchoolId")
@@ -730,13 +458,9 @@ namespace E_LearningSite.Data.Migrations
                 {
                     b.Navigation("CourseCatalogues");
 
-                    b.Navigation("Courses");
-
                     b.Navigation("Grades");
 
                     b.Navigation("MentorCatalogues");
-
-                    b.Navigation("Mentors");
 
                     b.Navigation("Students");
                 });
@@ -755,8 +479,6 @@ namespace E_LearningSite.Data.Migrations
 
             modelBuilder.Entity("E_LearningSite.Domain.School", b =>
                 {
-                    b.Navigation("Catalogues");
-
                     b.Navigation("Courses");
 
                     b.Navigation("Mentors");

@@ -72,7 +72,8 @@ namespace E_LearningSite.API.SQLDatabase
 
         public void DeleteSchool(School school)
         {
-            // delete principal
+            throw new NotImplementedException();
+            /*// delete principal
             Domain.Principal deletePrincipal = _context.Principals.FirstOrDefault(s => s.Id == school.Principal.Id);
             _context.Remove(deletePrincipal);
             _context.SaveChanges();
@@ -135,7 +136,7 @@ namespace E_LearningSite.API.SQLDatabase
             //delete school
             Domain.School deleteSchool = _context.Schools.FirstOrDefault(s => s.Id == school.Id);
             _context.Schools.Remove(deleteSchool);
-            _context.SaveChanges();
+            _context.SaveChanges();*/
         }
 
         // Mentors
@@ -181,7 +182,8 @@ namespace E_LearningSite.API.SQLDatabase
 
         public void DeleteMentor(Mentor mentor, int schoolId)
         {
-            // firstly, delete mentor in catalogues 
+            throw new NotImplementedException();
+            /*// firstly, delete mentor in catalogues 
             List<Domain.Catalogue> catalogues = _context.Catalogues
                 .Include(c => c.MentorCatalogues).Where(c => c.SchoolId == schoolId).ToList();
 
@@ -193,7 +195,7 @@ namespace E_LearningSite.API.SQLDatabase
             // secondly, delete mentor in school
             Domain.Mentor deleteMentor = _context.Mentors.FirstOrDefault(m => m.Id == mentor.Id);
             _context.Mentors.Remove(deleteMentor);
-            _context.SaveChanges();
+            _context.SaveChanges();*/
         }
 
 
@@ -262,7 +264,18 @@ namespace E_LearningSite.API.SQLDatabase
         }
         public Course AddCourse(Course course, int schoolId)
         {
-            throw new NotImplementedException();
+            Domain.Course newCourse = new Domain.Course()
+            {
+                Name = course.Name,
+                Description = course.Description,
+                SubjectId = course.Subject.Id,
+                SchoolId = schoolId
+            };
+            _context.Courses.Add(newCourse);
+            _context.SaveChanges();
+
+            course.Id = newCourse.Id;
+            return course;
         }
 
         // Course Documents
@@ -320,7 +333,8 @@ namespace E_LearningSite.API.SQLDatabase
         }
         public Catalogue AddCatalogue(Catalogue catalogue, int schoolId)
         {
-            var school = _context.Schools.FirstOrDefault(s => s.Id == schoolId);
+            throw new NotImplementedException();
+            /*var school = _context.Schools.FirstOrDefault(s => s.Id == schoolId);
             if (school != null)
             {
                 var c = _mapper.Map<Domain.Catalogue>(catalogue);
@@ -328,7 +342,7 @@ namespace E_LearningSite.API.SQLDatabase
                 _context.SaveChanges();
                 return catalogue;
             }
-            return null;
+            return null;*/
         }
 
         // Catalogue Mentors

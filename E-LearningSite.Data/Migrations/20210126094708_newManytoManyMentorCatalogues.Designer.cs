@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_LearningSite.Data.Migrations
 {
     [DbContext(typeof(LearningContext))]
-    [Migration("20210119213812_initialLearningDB")]
-    partial class initialLearningDB
+    [Migration("20210126094708_newManytoManyMentorCatalogues")]
+    partial class newManytoManyMentorCatalogues
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,9 +48,6 @@ namespace E_LearningSite.Data.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<int?>("CatalogueId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -64,8 +61,6 @@ namespace E_LearningSite.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CatalogueId");
 
                     b.HasIndex("SchoolId");
 
@@ -163,9 +158,6 @@ namespace E_LearningSite.Data.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("CatalogueId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -176,8 +168,6 @@ namespace E_LearningSite.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CatalogueId");
 
                     b.HasIndex("SchoolId");
 
@@ -245,20 +235,6 @@ namespace E_LearningSite.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Schools");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Weed Health Institute",
-                            Photo = "school1.jpg"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Universidad Técnica de Buenas Maneras y Pistoleros",
-                            Photo = "school2.jpg"
-                        });
                 });
 
             modelBuilder.Entity("E_LearningSite.Domain.Student", b =>
@@ -305,7 +281,7 @@ namespace E_LearningSite.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SchoolId")
+                    b.Property<int>("SchoolId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -318,7 +294,7 @@ namespace E_LearningSite.Data.Migrations
             modelBuilder.Entity("E_LearningSite.Domain.Catalogue", b =>
                 {
                     b.HasOne("E_LearningSite.Domain.School", "School")
-                        .WithMany("Catalogues")
+                        .WithMany()
                         .HasForeignKey("SchoolId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -328,10 +304,6 @@ namespace E_LearningSite.Data.Migrations
 
             modelBuilder.Entity("E_LearningSite.Domain.Course", b =>
                 {
-                    b.HasOne("E_LearningSite.Domain.Catalogue", null)
-                        .WithMany("Courses")
-                        .HasForeignKey("CatalogueId");
-
                     b.HasOne("E_LearningSite.Domain.School", "School")
                         .WithMany("Courses")
                         .HasForeignKey("SchoolId")
@@ -416,10 +388,6 @@ namespace E_LearningSite.Data.Migrations
 
             modelBuilder.Entity("E_LearningSite.Domain.Mentor", b =>
                 {
-                    b.HasOne("E_LearningSite.Domain.Catalogue", null)
-                        .WithMany("Mentors")
-                        .HasForeignKey("CatalogueId");
-
                     b.HasOne("E_LearningSite.Domain.School", "School")
                         .WithMany("Mentors")
                         .HasForeignKey("SchoolId")
@@ -479,22 +447,22 @@ namespace E_LearningSite.Data.Migrations
 
             modelBuilder.Entity("E_LearningSite.Domain.Subject", b =>
                 {
-                    b.HasOne("E_LearningSite.Domain.School", null)
+                    b.HasOne("E_LearningSite.Domain.School", "School")
                         .WithMany("Subjects")
-                        .HasForeignKey("SchoolId");
+                        .HasForeignKey("SchoolId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("School");
                 });
 
             modelBuilder.Entity("E_LearningSite.Domain.Catalogue", b =>
                 {
                     b.Navigation("CourseCatalogues");
 
-                    b.Navigation("Courses");
-
                     b.Navigation("Grades");
 
                     b.Navigation("MentorCatalogues");
-
-                    b.Navigation("Mentors");
 
                     b.Navigation("Students");
                 });
@@ -513,8 +481,6 @@ namespace E_LearningSite.Data.Migrations
 
             modelBuilder.Entity("E_LearningSite.Domain.School", b =>
                 {
-                    b.Navigation("Catalogues");
-
                     b.Navigation("Courses");
 
                     b.Navigation("Mentors");
