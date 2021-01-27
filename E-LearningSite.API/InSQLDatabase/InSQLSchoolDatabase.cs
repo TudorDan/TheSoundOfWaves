@@ -401,11 +401,20 @@ namespace E_LearningSite.API.SQLDatabase
             catalogue.Id = newCatalogue.Id;
             return catalogue;
         }
+
         public void UpdateCatalogue(Catalogue catalogue, CatalogueDTO catalogueDTO)
         {
             Domain.Catalogue updateCatalogue = _context.Catalogues.FirstOrDefault(c => c.Id == catalogue.Id);
             updateCatalogue.Name = catalogueDTO.Name;
 
+            _context.SaveChanges();
+        }
+
+        public void DeleteCatalogue(Catalogue catalogue, int schoolId)
+        {
+            Domain.Catalogue deleteCatalogue = _context.Catalogues.Include(c => c.CourseCatalogues)
+                .Include(c => c.MentorCatalogues).FirstOrDefault(c => c.Id == catalogue.Id);
+            _context.Catalogues.Remove(deleteCatalogue);
             _context.SaveChanges();
         }
 

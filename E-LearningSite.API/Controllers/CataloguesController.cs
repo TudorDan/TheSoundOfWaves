@@ -82,7 +82,7 @@ namespace E_LearningSite.API.Controllers
             {
                 return NotFound();
             }
-            _schoolRepository.GetAllCatalogues(schoolId).Remove(catalogue);
+            _schoolRepository.DeleteCatalogue(catalogue, schoolId);
             return NoContent();
         }
 

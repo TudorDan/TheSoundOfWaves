@@ -514,19 +514,28 @@ namespace E_LearningSite.API.Models
             school.Catalogues.Add(catalogue);
             return catalogue;
         }
+
         public Catalogue GetCatalogue(int id, int schoolId)
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             return school.Catalogues.FirstOrDefault(c => c.Id == id);
         }
+
         public ICollection<Catalogue> GetAllCatalogues(int schoolId)
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             return school.Catalogues;
         }
+
         public void UpdateCatalogue(Catalogue catalogue, CatalogueDTO catalogueDTO)
         {
             catalogue.Name = catalogueDTO.Name;
+        }
+
+        public void DeleteCatalogue(Catalogue catalogue, int schoolId)
+        {
+            School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
+            school.Catalogues.Remove(catalogue);
         }
 
         // Catalogue Mentors
