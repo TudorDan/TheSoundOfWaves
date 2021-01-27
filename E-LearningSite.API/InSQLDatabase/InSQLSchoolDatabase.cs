@@ -445,7 +445,7 @@ namespace E_LearningSite.API.SQLDatabase
         }
         public Mentor AddCatalogueMentor(Mentor mentor, int schoolId, int catalogueId)
         {
-            Domain.MentorCatalogue mentorCatalogue = new Domain.MentorCatalogue()
+            Domain.MentorCatalogue newMentorCatalogue = new Domain.MentorCatalogue()
             {
                 MentorId = mentor.Id,
                 CatalogueId = catalogueId
@@ -454,10 +454,21 @@ namespace E_LearningSite.API.SQLDatabase
             Domain.Catalogue catalogue = _context.Catalogues.Where(c => c.SchoolId == schoolId)
             .FirstOrDefault(c => c.Id == catalogueId);
 
-            catalogue.MentorCatalogues.Add(mentorCatalogue);
+            catalogue.MentorCatalogues.Add(newMentorCatalogue);
             _context.SaveChanges();
 
             return mentor;
+        }
+        public void DeleteCatalogueMentor(Mentor mentor, int schoolId, int catalogueId)
+        {
+            Domain.Catalogue catalogue = _context.Catalogues.Where(c => c.SchoolId == schoolId)
+            .Include(c => c.MentorCatalogues).FirstOrDefault(c => c.Id == catalogueId);
+
+            Domain.MentorCatalogue deleteMentorCatalogue = catalogue.MentorCatalogues
+                .FirstOrDefault(mc => mc.MentorId == mentor.Id);
+
+            catalogue.MentorCatalogues.Remove(deleteMentorCatalogue);
+            _context.SaveChanges();
         }
 
         // Catalogue Students

@@ -54,6 +54,7 @@ namespace E_LearningSite.API.Models
         Mentor AddCatalogueMentor(Mentor mentor, int schoolId, int catalogueId);
         Mentor GetCatalogueMentor(int id, int schoolId, int catalogueId);
         ICollection<Mentor> GetALLCatalogueMentors(int schoolId, int catalogueId);
+        void DeleteCatalogueMentor(Mentor mentor, int schoolId, int catalogueId);
 
         // catalogue students
         Student AddCatalogueStudent(Student student, int schoolId, int catalogueId);

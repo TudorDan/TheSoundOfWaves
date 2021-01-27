@@ -561,6 +561,12 @@ namespace E_LearningSite.API.Models
             Catalogue catalogue = school.Catalogues.FirstOrDefault(c => c.Id == catalogueId);
             return catalogue.Mentors;
         }
+        public void DeleteCatalogueMentor(Mentor mentor, int schoolId, int catalogueId)
+        {
+            School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
+            Catalogue catalogue = school.Catalogues.FirstOrDefault(c => c.Id == catalogueId);
+            catalogue.Mentors.Remove(mentor);
+        }
 
         // Catalogue Students
         public Student AddCatalogueStudent(Student student, int schoolId, int catalogueId)

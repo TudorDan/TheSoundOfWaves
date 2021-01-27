@@ -120,7 +120,7 @@ namespace E_LearningSite.API.Controllers
                     return Conflict(mentor.Name);
                 }
             }
-            catalogue.Mentors.Add(mentor);
+            _schoolRepository.AddCatalogueMentor(mentor, schoolId, catalogueId);
             return CreatedAtRoute("GetCatalogueMentor", new { schoolId, catalogueId, mentorId = mentor.Id }, mentor);
         }
 
@@ -136,7 +136,7 @@ namespace E_LearningSite.API.Controllers
             {
                 return NotFound();
             }
-            _schoolRepository.GetCatalogue(catalogueId, schoolId).Mentors.Remove(mentor);
+            _schoolRepository.DeleteCatalogueMentor(mentor, schoolId, catalogueId);
             return NoContent();
         }
 
