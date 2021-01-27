@@ -433,7 +433,15 @@ namespace E_LearningSite.API.SQLDatabase
 
         public Mentor GetCatalogueMentor(int id, int schoolId, int catalogueId)
         {
-            throw new NotImplementedException();
+            var catalogue = _context.Catalogues.Select(c => new
+            {
+                Catalogue = c,
+                Mentors = c.MentorCatalogues.Select(mc => mc.Mentor),
+            }).Where(c => c.Catalogue.SchoolId == schoolId)
+            .FirstOrDefault(c => c.Catalogue.Id == catalogueId);
+
+            Domain.Mentor mentor = catalogue.Mentors.FirstOrDefault(m => m.Id == id);
+            return _mapper.Map<Mentor>(mentor);
         }
         public Mentor AddCatalogueMentor(Mentor mentor, int schoolId, int catalogueId)
         {
