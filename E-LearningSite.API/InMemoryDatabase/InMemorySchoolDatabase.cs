@@ -524,6 +524,10 @@ namespace E_LearningSite.API.Models
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             return school.Catalogues;
         }
+        public void UpdateCatalogue(Catalogue catalogue, CatalogueDTO catalogueDTO)
+        {
+            catalogue.Name = catalogueDTO.Name;
+        }
 
         // Catalogue Mentors
         public Mentor AddCatalogueMentor(Mentor mentor, int schoolId, int catalogueId)

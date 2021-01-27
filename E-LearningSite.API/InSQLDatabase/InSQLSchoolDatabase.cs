@@ -401,6 +401,13 @@ namespace E_LearningSite.API.SQLDatabase
             catalogue.Id = newCatalogue.Id;
             return catalogue;
         }
+        public void UpdateCatalogue(Catalogue catalogue, CatalogueDTO catalogueDTO)
+        {
+            Domain.Catalogue updateCatalogue = _context.Catalogues.FirstOrDefault(c => c.Id == catalogue.Id);
+            updateCatalogue.Name = catalogueDTO.Name;
+
+            _context.SaveChanges();
+        }
 
         // Catalogue Mentors
         public ICollection<Mentor> GetALLCatalogueMentors(int schoolId, int catalogueId)

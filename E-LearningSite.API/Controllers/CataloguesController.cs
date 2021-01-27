@@ -66,7 +66,7 @@ namespace E_LearningSite.API.Controllers
             {
                 return NotFound();
             }
-            catalogue.Name = catalogueDTO.Name;
+            _schoolRepository.UpdateCatalogue(catalogue, catalogueDTO);
             return NoContent();
         }
 
