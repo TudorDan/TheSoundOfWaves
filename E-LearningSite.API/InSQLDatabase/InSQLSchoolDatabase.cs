@@ -474,7 +474,10 @@ namespace E_LearningSite.API.SQLDatabase
         // Catalogue Students
         public ICollection<Student> GetAllCatalogueStudents(int schoolId, int catalogueId)
         {
-            throw new NotImplementedException();
+            Domain.Catalogue catalogue = _context.Catalogues.Where(c => c.SchoolId == schoolId)
+            .Include(c => c.Students).FirstOrDefault(c => c.Id == catalogueId);
+
+            return (ICollection<Student>)_mapper.Map<IEnumerable<Student>>(catalogue.Students);
         }
         public Student GetCatalogueStudent(int id, int schoolId, int catalogueId)
         {
