@@ -340,7 +340,29 @@ namespace E_LearningSite.API.SQLDatabase
         // Catalogues
         public ICollection<Catalogue> GetAllCatalogues(int schoolId)
         {
-            throw new NotImplementedException();
+            var catalogues = _context.Catalogues.Select(c => new
+            {
+                Catalogue = c,
+                Mentors = c.MentorCatalogues.Select(mc => mc.Mentor),
+                Courses = c.CourseCatalogues.Select(cc => cc.Course)
+            }).ToList();
+
+            List<Catalogue> cataloguesModels = new List<Catalogue>();
+            foreach (var catalogue in catalogues)
+            {
+                Catalogue tempCatalogueModel = new Catalogue()
+                {
+                    Id = catalogue.Catalogue.Id,
+                    Name = catalogue.Catalogue.Name,
+                    Mentors = (List<Mentor>)_mapper.Map<IEnumerable<Mentor>>(catalogue.Mentors),
+                    Students = (List<Student>)_mapper.Map<IEnumerable<Student>>(catalogue.Catalogue.Students),
+                    Courses = (List<Course>)_mapper.Map<IEnumerable<Course>>(catalogue.Courses),
+                    Grades = (List<Grade>)_mapper.Map<IEnumerable<Grade>>(catalogue.Catalogue.Grades)
+                };
+                cataloguesModels.Add(tempCatalogueModel);
+            }
+
+            return cataloguesModels;
         }
         public Catalogue GetCatalogue(int id, int schoolId)
         {

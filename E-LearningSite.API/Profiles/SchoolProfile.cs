@@ -20,6 +20,8 @@ namespace E_LearningSite.API.Profiles
             CreateMap<Domain.Document, Models.Document>();
 
             CreateMap<Domain.Subject, Models.Subject>();
+
+            CreateMap<Domain.Grade, Models.Grade>();
         }
     }
 }
