@@ -481,7 +481,12 @@ namespace E_LearningSite.API.SQLDatabase
         }
         public Student GetCatalogueStudent(int id, int schoolId, int catalogueId)
         {
-            throw new NotImplementedException();
+            Domain.Catalogue catalogue = _context.Catalogues.Where(c => c.SchoolId == schoolId)
+            .Include(c => c.Students).FirstOrDefault(c => c.Id == catalogueId);
+
+            Domain.Student student = catalogue.Students.FirstOrDefault(s => s.Id == id);
+
+            return _mapper.Map<Student>(student);
         }
         public Student AddCatalogueStudent(Student student, int schoolId, int catalogueId)
         {
