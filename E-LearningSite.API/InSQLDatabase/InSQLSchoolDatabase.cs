@@ -345,12 +345,12 @@ namespace E_LearningSite.API.SQLDatabase
                 Catalogue = c,
                 Mentors = c.MentorCatalogues.Select(mc => mc.Mentor),
                 Courses = c.CourseCatalogues.Select(cc => cc.Course)
-            }).ToList();
+            }).Where(catalogues => catalogues.Catalogue.SchoolId == schoolId).ToList();
 
             List<Catalogue> cataloguesModels = new List<Catalogue>();
             foreach (var catalogue in catalogues)
             {
-                Catalogue tempCatalogueModel = new Catalogue()
+                Catalogue catalogueModel = new Catalogue()
                 {
                     Id = catalogue.Catalogue.Id,
                     Name = catalogue.Catalogue.Name,
@@ -359,26 +359,47 @@ namespace E_LearningSite.API.SQLDatabase
                     Courses = (List<Course>)_mapper.Map<IEnumerable<Course>>(catalogue.Courses),
                     Grades = (List<Grade>)_mapper.Map<IEnumerable<Grade>>(catalogue.Catalogue.Grades)
                 };
-                cataloguesModels.Add(tempCatalogueModel);
+                cataloguesModels.Add(catalogueModel);
             }
 
             return cataloguesModels;
         }
+
         public Catalogue GetCatalogue(int id, int schoolId)
         {
-            throw new NotImplementedException();
+            var catalogue = _context.Catalogues.Select(c => new
+            {
+                Catalogue = c,
+                Mentors = c.MentorCatalogues.Select(mc => mc.Mentor),
+                Courses = c.CourseCatalogues.Select(cc => cc.Course)
+            }).Where(catalogues => catalogues.Catalogue.SchoolId == schoolId)
+            .FirstOrDefault(catalogue => catalogue.Catalogue.Id == id);
+
+            Catalogue catalogueModel = new Catalogue()
+            {
+                Id = catalogue.Catalogue.Id,
+                Name = catalogue.Catalogue.Name,
+                Mentors = (List<Mentor>)_mapper.Map<IEnumerable<Mentor>>(catalogue.Mentors),
+                Students = (List<Student>)_mapper.Map<IEnumerable<Student>>(catalogue.Catalogue.Students),
+                Courses = (List<Course>)_mapper.Map<IEnumerable<Course>>(catalogue.Courses),
+                Grades = (List<Grade>)_mapper.Map<IEnumerable<Grade>>(catalogue.Catalogue.Grades)
+            };
+
+            return catalogueModel;
         }
+
         public Catalogue AddCatalogue(Catalogue catalogue, int schoolId)
         {
-            var school = _context.Schools.FirstOrDefault(s => s.Id == schoolId);
-            if (school != null)
+            Domain.Catalogue newCatalogue = new Domain.Catalogue()
             {
-                var c = _mapper.Map<Domain.Catalogue>(catalogue);
-                _context.Catalogues.Add(c);
-                _context.SaveChanges();
-                return catalogue;
-            }
-            return null;
+                Name = catalogue.Name,
+                SchoolId = schoolId
+            };
+            _context.Catalogues.Add(newCatalogue);
+            _context.SaveChanges();
+
+            catalogue.Id = newCatalogue.Id;
+            return catalogue;
         }
 
         // Catalogue Mentors
