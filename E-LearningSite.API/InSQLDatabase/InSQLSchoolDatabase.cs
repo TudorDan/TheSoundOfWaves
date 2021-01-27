@@ -421,8 +421,16 @@ namespace E_LearningSite.API.SQLDatabase
         // Catalogue Mentors
         public ICollection<Mentor> GetALLCatalogueMentors(int schoolId, int catalogueId)
         {
-            throw new NotImplementedException();
+            var catalogue = _context.Catalogues.Select(c => new
+            {
+                Catalogue = c,
+                Mentors = c.MentorCatalogues.Select(mc => mc.Mentor),
+            }).Where(c => c.Catalogue.SchoolId == schoolId)
+            .FirstOrDefault(c => c.Catalogue.Id == catalogueId);
+
+            return (ICollection<Mentor>)_mapper.Map<IEnumerable<Mentor>>(catalogue.Mentors);
         }
+
         public Mentor GetCatalogueMentor(int id, int schoolId, int catalogueId)
         {
             throw new NotImplementedException();
