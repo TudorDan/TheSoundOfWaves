@@ -22,6 +22,7 @@ namespace E_LearningSite.API.SQLDatabase
         // Schools
         public ICollection<School> GetAllSchools()
         {
+            // Eager Loading -> Include.
             List<Domain.School> schools = _context.Schools.Include(s => s.Principal).ToList();
 
             return (ICollection<School>)_mapper.Map<IEnumerable<School>>(schools);
@@ -518,8 +519,28 @@ namespace E_LearningSite.API.SQLDatabase
         // Catalogue Courses
         public ICollection<Course> GetAllCatalogueCourses(int schoolId, int catalogueId)
         {
-            throw new NotImplementedException();
+            var catalogueCourses = _context.Catalogues.Where(c => c.SchoolId == schoolId)
+            .Where(c => c.Id == catalogueId).Select(c => new
+            {
+                Course = c.CourseCatalogues.Select(cc => cc.Course),
+                Documents = c.CourseCatalogues.Select(cc => cc.Course).Select(c => c.Documents),
+                Subject = c.CourseCatalogues.Select(cc => cc.Course).Select(c => c.Subject)
+            }).ToList();
+
+            List<Course> courses = new List<Course>();
+            foreach (var catalogueCourse in catalogueCourses)
+            {
+                Course courseModel = _mapper.Map<Course>(catalogueCourse.Course);
+                courseModel.Documents = (List<Document>)_mapper
+                    .Map<IEnumerable<Document>>(catalogueCourse.Documents);
+                courseModel.Subject = _mapper.Map<Subject>(catalogueCourse.Subject);
+
+                courses.Add(courseModel);
+            }
+
+            return courses;
         }
+
         public Course GetCatalogueCourse(int id, int schoolId, int catalogueId)
         {
             throw new NotImplementedException();
