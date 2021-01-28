@@ -371,7 +371,7 @@ namespace E_LearningSite.API.SQLDatabase
             {
                 Catalogue = c,
                 Mentors = c.MentorCatalogues.Select(mc => mc.Mentor),
-                Courses = c.CourseCatalogues.Select(cc => cc.Course)
+                Courses = c.CourseCatalogues.Select(cc => cc.Course),
             }).Where(catalogues => catalogues.Catalogue.SchoolId == schoolId)
             .FirstOrDefault(catalogue => catalogue.Catalogue.Id == id);
 
@@ -490,7 +490,13 @@ namespace E_LearningSite.API.SQLDatabase
         }
         public Student AddCatalogueStudent(Student student, int schoolId, int catalogueId)
         {
-            throw new NotImplementedException();
+            Domain.Student newStudent = _context.Students.Where(s => s.SchoolId == schoolId)
+                .FirstOrDefault(s => s.Id == student.Id);
+
+            newStudent.CatalogueId = catalogueId;
+            _context.SaveChanges();
+
+            return student;
         }
 
 

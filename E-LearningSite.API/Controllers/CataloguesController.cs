@@ -174,7 +174,7 @@ namespace E_LearningSite.API.Controllers
                     return Conflict(student.Name);
                 }
             }
-            catalogue.Students.Add(student);
+            _schoolRepository.AddCatalogueStudent(student, schoolId, catalogueId);
             return CreatedAtRoute("GetCatalogueStudent", new { schoolId, catalogueId, studentId = student.Id }, student);
         }
 
