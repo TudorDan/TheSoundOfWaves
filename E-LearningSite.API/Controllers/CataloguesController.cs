@@ -190,7 +190,7 @@ namespace E_LearningSite.API.Controllers
             {
                 return NotFound();
             }
-            _schoolRepository.GetCatalogue(catalogueId, schoolId).Students.Remove(student);
+            _schoolRepository.DeleteCatalogueStudent(student, schoolId, catalogueId);
             return NoContent();
         }
 

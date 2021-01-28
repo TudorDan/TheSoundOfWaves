@@ -60,6 +60,7 @@ namespace E_LearningSite.API.Models
         Student AddCatalogueStudent(Student student, int schoolId, int catalogueId);
         Student GetCatalogueStudent(int id, int schoolId, int catalogueId);
         ICollection<Student> GetAllCatalogueStudents(int schoolId, int catalogueId);
+        void DeleteCatalogueStudent(Student student, int schoolId, int catalogueId);
 
         // catalogue courses
         Course AddCatalogueCourse(Course course, int schoolId, int catalogueId);

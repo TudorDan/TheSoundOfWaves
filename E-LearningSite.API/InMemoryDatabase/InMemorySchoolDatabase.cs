@@ -582,17 +582,26 @@ namespace E_LearningSite.API.Models
             }
             return student;
         }
+
         public Student GetCatalogueStudent(int id, int schoolId, int catalogueId)
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             Catalogue catalogue = school.Catalogues.FirstOrDefault(c => c.Id == catalogueId);
             return catalogue.Students.FirstOrDefault(s => s.Id == id);
         }
+
         public ICollection<Student> GetAllCatalogueStudents(int schoolId, int catalogueId)
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             Catalogue catalogue = school.Catalogues.FirstOrDefault(c => c.Id == catalogueId);
             return catalogue.Students;
+        }
+
+        public void DeleteCatalogueStudent(Student student, int schoolId, int catalogueId)
+        {
+            School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
+            Catalogue catalogue = school.Catalogues.FirstOrDefault(c => c.Id == catalogueId);
+            catalogue.Students.Remove(student);
         }
 
         // Catalogue Courses

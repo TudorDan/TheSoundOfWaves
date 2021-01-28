@@ -445,9 +445,10 @@ namespace E_LearningSite.API.SQLDatabase
             Domain.Mentor mentor = catalogue.Mentors.FirstOrDefault(m => m.Id == id);
             return _mapper.Map<Mentor>(mentor);
         }
+
         public Mentor AddCatalogueMentor(Mentor mentor, int schoolId, int catalogueId)
         {
-            Domain.MentorCatalogue newMentorCatalogue = new Domain.MentorCatalogue()
+            Domain.MentorCatalogue newCatalogueMentor = new Domain.MentorCatalogue()
             {
                 MentorId = mentor.Id,
                 CatalogueId = catalogueId
@@ -456,20 +457,21 @@ namespace E_LearningSite.API.SQLDatabase
             Domain.Catalogue catalogue = _context.Catalogues.Where(c => c.SchoolId == schoolId)
             .FirstOrDefault(c => c.Id == catalogueId);
 
-            catalogue.MentorCatalogues.Add(newMentorCatalogue);
+            catalogue.MentorCatalogues.Add(newCatalogueMentor);
             _context.SaveChanges();
 
             return mentor;
         }
+
         public void DeleteCatalogueMentor(Mentor mentor, int schoolId, int catalogueId)
         {
             Domain.Catalogue catalogue = _context.Catalogues.Where(c => c.SchoolId == schoolId)
             .Include(c => c.MentorCatalogues).FirstOrDefault(c => c.Id == catalogueId);
 
-            Domain.MentorCatalogue deleteMentorCatalogue = catalogue.MentorCatalogues
+            Domain.MentorCatalogue deleteCatalogueMentor = catalogue.MentorCatalogues
                 .FirstOrDefault(mc => mc.MentorId == mentor.Id);
 
-            catalogue.MentorCatalogues.Remove(deleteMentorCatalogue);
+            catalogue.MentorCatalogues.Remove(deleteCatalogueMentor);
             _context.SaveChanges();
         }
 
@@ -481,6 +483,7 @@ namespace E_LearningSite.API.SQLDatabase
 
             return (ICollection<Student>)_mapper.Map<IEnumerable<Student>>(catalogue.Students);
         }
+
         public Student GetCatalogueStudent(int id, int schoolId, int catalogueId)
         {
             Domain.Catalogue catalogue = _context.Catalogues.Where(c => c.SchoolId == schoolId)
@@ -490,15 +493,25 @@ namespace E_LearningSite.API.SQLDatabase
 
             return _mapper.Map<Student>(student);
         }
+
         public Student AddCatalogueStudent(Student student, int schoolId, int catalogueId)
         {
-            Domain.Student newStudent = _context.Students.Where(s => s.SchoolId == schoolId)
+            Domain.Student newCatalogueStudent = _context.Students.Where(s => s.SchoolId == schoolId)
                 .FirstOrDefault(s => s.Id == student.Id);
 
-            newStudent.CatalogueId = catalogueId;
+            newCatalogueStudent.CatalogueId = catalogueId;
             _context.SaveChanges();
 
             return student;
+        }
+
+        public void DeleteCatalogueStudent(Student student, int schoolId, int catalogueId)
+        {
+            Domain.Student deleteCatalogueStudent = _context.Students.Where(s => s.SchoolId == schoolId)
+                .FirstOrDefault(s => s.Id == student.Id);
+
+            deleteCatalogueStudent.CatalogueId = null;
+            _context.SaveChanges();
         }
 
 
