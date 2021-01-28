@@ -344,7 +344,8 @@ namespace E_LearningSite.API.SQLDatabase
             {
                 Catalogue = c,
                 Mentors = c.MentorCatalogues.Select(mc => mc.Mentor),
-                Courses = c.CourseCatalogues.Select(cc => cc.Course)
+                Courses = c.CourseCatalogues.Select(cc => cc.Course),
+                Students = c.Students
             }).Where(catalogues => catalogues.Catalogue.SchoolId == schoolId).ToList();
 
             List<Catalogue> cataloguesModels = new List<Catalogue>();
@@ -355,7 +356,7 @@ namespace E_LearningSite.API.SQLDatabase
                     Id = catalogue.Catalogue.Id,
                     Name = catalogue.Catalogue.Name,
                     Mentors = (List<Mentor>)_mapper.Map<IEnumerable<Mentor>>(catalogue.Mentors),
-                    Students = (List<Student>)_mapper.Map<IEnumerable<Student>>(catalogue.Catalogue.Students),
+                    Students = (List<Student>)_mapper.Map<IEnumerable<Student>>(catalogue.Students),
                     Courses = (List<Course>)_mapper.Map<IEnumerable<Course>>(catalogue.Courses),
                     Grades = (List<Grade>)_mapper.Map<IEnumerable<Grade>>(catalogue.Catalogue.Grades)
                 };
@@ -372,6 +373,7 @@ namespace E_LearningSite.API.SQLDatabase
                 Catalogue = c,
                 Mentors = c.MentorCatalogues.Select(mc => mc.Mentor),
                 Courses = c.CourseCatalogues.Select(cc => cc.Course),
+                Students = c.Students
             }).Where(catalogues => catalogues.Catalogue.SchoolId == schoolId)
             .FirstOrDefault(catalogue => catalogue.Catalogue.Id == id);
 
@@ -380,7 +382,7 @@ namespace E_LearningSite.API.SQLDatabase
                 Id = catalogue.Catalogue.Id,
                 Name = catalogue.Catalogue.Name,
                 Mentors = (List<Mentor>)_mapper.Map<IEnumerable<Mentor>>(catalogue.Mentors),
-                Students = (List<Student>)_mapper.Map<IEnumerable<Student>>(catalogue.Catalogue.Students),
+                Students = (List<Student>)_mapper.Map<IEnumerable<Student>>(catalogue.Students),
                 Courses = (List<Course>)_mapper.Map<IEnumerable<Course>>(catalogue.Courses),
                 Grades = (List<Grade>)_mapper.Map<IEnumerable<Grade>>(catalogue.Catalogue.Grades)
             };
