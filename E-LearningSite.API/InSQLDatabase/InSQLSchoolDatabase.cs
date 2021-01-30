@@ -603,7 +603,10 @@ namespace E_LearningSite.API.SQLDatabase
         }
         public Grade GetCatalogueGrade(int id, int schoolId, int catalogueId)
         {
-            throw new NotImplementedException();
+            Domain.Grade grade = _context.Grades.Where(g => g.CatalogueId == catalogueId)
+                .FirstOrDefault(g => g.Id == id);
+
+            return _mapper.Map<Grade>(grade);
         }
         public Grade AddCatalogueGrade(Grade grade, int schoolId, int catalogueId)
         {
