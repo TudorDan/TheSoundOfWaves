@@ -353,7 +353,8 @@ namespace E_LearningSite.API.SQLDatabase
                 Catalogue = c,
                 Mentors = c.MentorCatalogues.Select(mc => mc.Mentor),
                 Courses = c.CourseCatalogues.Select(cc => cc.Course),
-                Students = c.Students
+                Students = c.Students,
+                Grades = c.Grades
             }).Where(catalogues => catalogues.Catalogue.SchoolId == schoolId).ToList();
 
             List<Catalogue> cataloguesModels = new List<Catalogue>();
@@ -366,7 +367,7 @@ namespace E_LearningSite.API.SQLDatabase
                     Mentors = (List<Mentor>)_mapper.Map<IEnumerable<Mentor>>(catalogue.Mentors),
                     Students = (List<Student>)_mapper.Map<IEnumerable<Student>>(catalogue.Students),
                     Courses = (List<Course>)_mapper.Map<IEnumerable<Course>>(catalogue.Courses),
-                    Grades = (List<Grade>)_mapper.Map<IEnumerable<Grade>>(catalogue.Catalogue.Grades)
+                    Grades = (List<Grade>)_mapper.Map<IEnumerable<Grade>>(catalogue.Grades)
                 };
                 cataloguesModels.Add(catalogueModel);
             }
@@ -381,7 +382,8 @@ namespace E_LearningSite.API.SQLDatabase
                 Catalogue = c,
                 Mentors = c.MentorCatalogues.Select(mc => mc.Mentor),
                 Courses = c.CourseCatalogues.Select(cc => cc.Course),
-                Students = c.Students
+                Students = c.Students,
+                Grades = c.Grades
             }).Where(catalogues => catalogues.Catalogue.SchoolId == schoolId)
             .FirstOrDefault(catalogue => catalogue.Catalogue.Id == id);
 
@@ -392,7 +394,7 @@ namespace E_LearningSite.API.SQLDatabase
                 Mentors = (List<Mentor>)_mapper.Map<IEnumerable<Mentor>>(catalogue.Mentors),
                 Students = (List<Student>)_mapper.Map<IEnumerable<Student>>(catalogue.Students),
                 Courses = (List<Course>)_mapper.Map<IEnumerable<Course>>(catalogue.Courses),
-                Grades = (List<Grade>)_mapper.Map<IEnumerable<Grade>>(catalogue.Catalogue.Grades)
+                Grades = (List<Grade>)_mapper.Map<IEnumerable<Grade>>(catalogue.Grades)
             };
 
             return catalogueModel;
@@ -597,20 +599,38 @@ namespace E_LearningSite.API.SQLDatabase
         // Catalogue Grades
         public ICollection<Grade> GetAllCatalogueGrades(int schoolId, int catalogueId)
         {
-            List<Domain.Grade> grades = _context.Grades.Where(g => g.CatalogueId == catalogueId).ToList();
+            List<Domain.Grade> grades = _context.Grades.Include(g => g.Student).Include(g => g.Course)
+                .Include(g => g.Course.Subject)
+                .Include(g => g.Mentor).Where(g => g.CatalogueId == catalogueId).ToList();
 
             return (ICollection<Grade>)_mapper.Map<IEnumerable<Grade>>(grades);
         }
+
         public Grade GetCatalogueGrade(int id, int schoolId, int catalogueId)
         {
-            Domain.Grade grade = _context.Grades.Where(g => g.CatalogueId == catalogueId)
+            Domain.Grade grade = _context.Grades.Include(g => g.Student).Include(g => g.Course)
+                .Include(g => g.Course.Subject)
+                .Include(g => g.Mentor).Where(g => g.CatalogueId == catalogueId)
                 .FirstOrDefault(g => g.Id == id);
 
             return _mapper.Map<Grade>(grade);
         }
+
         public Grade AddCatalogueGrade(Grade grade, int schoolId, int catalogueId)
         {
-            throw new NotImplementedException();
+            Domain.Grade newGrade = new Domain.Grade()
+            {
+                StudentId = grade.Student.Id,
+                Mark = grade.Mark,
+                MentorId = grade.Mentor.Id,
+                Date = grade.Date,
+                CourseId = grade.Course.Id,
+                CatalogueId = catalogueId
+            };
+            _context.Grades.Add(newGrade);
+            _context.SaveChanges();
+
+            return grade;
         }
 
         // Subjects
