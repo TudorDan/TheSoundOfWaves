@@ -572,6 +572,17 @@ namespace E_LearningSite.API.SQLDatabase
 
             return course;
         }
+        public void DeleteCatalogueCourse(Course course, int schoolId, int catalogueId)
+        {
+            Domain.Catalogue catalogue = _context.Catalogues.Where(c => c.SchoolId == schoolId)
+            .Include(c => c.CourseCatalogues).FirstOrDefault(c => c.Id == catalogueId);
+
+            Domain.CourseCatalogue deleteCatalogueCourse = catalogue.CourseCatalogues
+                .FirstOrDefault(cc => cc.CourseId == course.Id);
+
+            catalogue.CourseCatalogues.Remove(deleteCatalogueCourse);
+            _context.SaveChanges();
+        }
 
 
         // Catalogue Grades

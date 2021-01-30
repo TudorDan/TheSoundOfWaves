@@ -66,6 +66,7 @@ namespace E_LearningSite.API.Models
         Course AddCatalogueCourse(Course course, int schoolId, int catalogueId);
         Course GetCatalogueCourse(int id, int schoolId, int catalogueId);
         ICollection<Course> GetAllCatalogueCourses(int schoolId, int catalogueId);
+        void DeleteCatalogueCourse(Course course, int schoolId, int catalogueId);
 
         // catalogue grades
         Grade AddCatalogueGrade(Grade grade, int schoolId, int catalogueId);

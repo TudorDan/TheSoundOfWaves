@@ -630,6 +630,13 @@ namespace E_LearningSite.API.Models
             return catalogue.Courses;
         }
 
+        public void DeleteCatalogueCourse(Course course, int schoolId, int catalogueId)
+        {
+            School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
+            Catalogue catalogue = school.Catalogues.FirstOrDefault(c => c.Id == catalogueId);
+            catalogue.Courses.Remove(course);
+        }
+
         // Catalogue Grades
         public Grade AddCatalogueGrade(Grade grade, int schoolId, int catalogueId)
         {

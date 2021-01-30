@@ -244,7 +244,7 @@ namespace E_LearningSite.API.Controllers
             {
                 return NotFound();
             }
-            _schoolRepository.GetAllCatalogueCourses(schoolId, catalogueId).Remove(course);
+            _schoolRepository.DeleteCatalogueCourse(course, schoolId, catalogueId);
             return NoContent();
         }
 
