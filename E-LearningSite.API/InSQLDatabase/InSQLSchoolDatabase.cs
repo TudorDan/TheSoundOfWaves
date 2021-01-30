@@ -542,15 +542,16 @@ namespace E_LearningSite.API.SQLDatabase
 
         public Course GetCatalogueCourse(int id, int schoolId, int catalogueId)
         {
-            var catalogueCourse = _context.Catalogues.Select(c => new
+            var course = _context.Catalogues.Select(c => new
             {
                 Catalogue = c,
                 Course = c.CourseCatalogues.Select(cc => cc.Course).FirstOrDefault(c => c.Id == id),
-                Subject = c.CourseCatalogues.Select(cc => cc.Course).Select(c => c.Subject)
+                Subjects = c.CourseCatalogues.Select(cc => cc.Course).Select(c => c.Subject)
             }).Where(c => c.Catalogue.SchoolId == schoolId).FirstOrDefault(c => c.Catalogue.Id == catalogueId);
 
-            Course courseModel = _mapper.Map<Course>(catalogueCourse.Course);
-            courseModel.Subject = _mapper.Map<Subject>(catalogueCourse.Subject);
+            Course courseModel = _mapper.Map<Course>(course.Course);
+            Domain.Subject subject = course.Subjects.FirstOrDefault(s => s.Id == course.Course.SubjectId);
+            courseModel.Subject = _mapper.Map<Subject>(subject);
 
             return courseModel;
         }
