@@ -615,12 +615,14 @@ namespace E_LearningSite.API.Models
             }
             return course;
         }
+
         public Course GetCatalogueCourse(int id, int schoolId, int catalogueId)
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
             Catalogue catalogue = school.Catalogues.FirstOrDefault(c => c.Id == catalogueId);
             return catalogue.Courses.FirstOrDefault(c => c.Id == id);
         }
+
         public ICollection<Course> GetAllCatalogueCourses(int schoolId, int catalogueId)
         {
             School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);

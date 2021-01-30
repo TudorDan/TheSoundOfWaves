@@ -518,22 +518,21 @@ namespace E_LearningSite.API.SQLDatabase
 
         // Catalogue Courses
         public ICollection<Course> GetAllCatalogueCourses(int schoolId, int catalogueId)
-        {
-            var catalogueCourses = _context.Catalogues.Where(c => c.SchoolId == schoolId)
-            .Where(c => c.Id == catalogueId).Select(c => new
+        {  
+            var catalogue = _context.Catalogues.Select(c => new
             {
-                Course = c.CourseCatalogues.Select(cc => cc.Course),
-                Documents = c.CourseCatalogues.Select(cc => cc.Course).Select(c => c.Documents),
-                Subject = c.CourseCatalogues.Select(cc => cc.Course).Select(c => c.Subject)
-            }).ToList();
+                Catalogue = c,
+                Courses = c.CourseCatalogues.Select(cc => cc.Course),
+                Subjects = c.CourseCatalogues.Select(cc => cc.Course).Select(c => c.Subject)
+            }).Where(c => c.Catalogue.SchoolId == schoolId)
+            .FirstOrDefault(c => c.Catalogue.Id == catalogueId);
 
             List<Course> courses = new List<Course>();
-            foreach (var catalogueCourse in catalogueCourses)
+            foreach (var catalogueCourse in catalogue.Courses)
             {
-                Course courseModel = _mapper.Map<Course>(catalogueCourse.Course);
-                courseModel.Documents = (List<Document>)_mapper
-                    .Map<IEnumerable<Document>>(catalogueCourse.Documents);
-                courseModel.Subject = _mapper.Map<Subject>(catalogueCourse.Subject);
+                Course courseModel = _mapper.Map<Course>(catalogueCourse);
+                Domain.Subject subject = catalogue.Subjects.FirstOrDefault(s => s.Id == catalogueCourse.SubjectId);
+                courseModel.Subject = _mapper.Map<Subject>(subject);
 
                 courses.Add(courseModel);
             }
@@ -543,24 +542,34 @@ namespace E_LearningSite.API.SQLDatabase
 
         public Course GetCatalogueCourse(int id, int schoolId, int catalogueId)
         {
-            var catalogueCourse = _context.Catalogues.Where(c => c.SchoolId == schoolId)
-            .Where(c => c.Id == catalogueId).Select(c => new
+            var catalogueCourse = _context.Catalogues.Select(c => new
             {
-                Course = c.CourseCatalogues.Select(cc => cc.Course),
-                Documents = c.CourseCatalogues.Select(cc => cc.Course).Select(c => c.Documents),
+                Catalogue = c,
+                Course = c.CourseCatalogues.Select(cc => cc.Course).FirstOrDefault(c => c.Id == id),
                 Subject = c.CourseCatalogues.Select(cc => cc.Course).Select(c => c.Subject)
-            }).FirstOrDefault();
+            }).Where(c => c.Catalogue.SchoolId == schoolId).FirstOrDefault(c => c.Catalogue.Id == catalogueId);
 
             Course courseModel = _mapper.Map<Course>(catalogueCourse.Course);
-            courseModel.Documents = (List<Document>)_mapper
-                .Map<IEnumerable<Document>>(catalogueCourse.Documents);
             courseModel.Subject = _mapper.Map<Subject>(catalogueCourse.Subject);
 
             return courseModel;
         }
+
         public Course AddCatalogueCourse(Course course, int schoolId, int catalogueId)
         {
-            throw new NotImplementedException();
+            Domain.CourseCatalogue newCourseCatalogue = new Domain.CourseCatalogue()
+            {
+                CourseId = course.Id,
+                CatalogueId = catalogueId
+            };
+
+            Domain.Catalogue catalogue = _context.Catalogues.Where(c => c.SchoolId == schoolId)
+            .FirstOrDefault(c => c.Id == catalogueId);
+
+            catalogue.CourseCatalogues.Add(newCourseCatalogue);
+            _context.SaveChanges();
+
+            return course;
         }
 
 

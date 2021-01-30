@@ -228,7 +228,7 @@ namespace E_LearningSite.API.Controllers
                     return Conflict(course.Name);
                 }
             }
-            catalogue.Courses.Add(course);
+            _schoolRepository.AddCatalogueCourse(course, schoolId, catalogueId);
             return CreatedAtRoute("GetCatalogueCourse", new { schoolId, catalogueId, courseId = course.Id }, course);
         }
 
