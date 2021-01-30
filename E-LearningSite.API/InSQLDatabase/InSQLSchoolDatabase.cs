@@ -139,6 +139,7 @@ namespace E_LearningSite.API.SQLDatabase
             _context.SaveChanges();
         }
 
+
         // Mentors
         public ICollection<Mentor> GetAllMentors(int schoolId)
         {
@@ -245,6 +246,7 @@ namespace E_LearningSite.API.SQLDatabase
             _context.SaveChanges();
         }
 
+
         // Courses
         public ICollection<Course> GetAllCourses(int schoolId)
         {
@@ -294,6 +296,7 @@ namespace E_LearningSite.API.SQLDatabase
             _context.SaveChanges();
         }
 
+
         // Course Documents
         public ICollection<Document> GetAllDocuments(int schoolId, int courseId)
         {
@@ -301,12 +304,14 @@ namespace E_LearningSite.API.SQLDatabase
 
             return (ICollection<Document>)_mapper.Map<IEnumerable<Document>>(documents);
         }
+
         public Document GetDocument(int id, int schoolId, int courseId)
         {
             Domain.Document document = _context.Documents.FirstOrDefault(d => d.Id == id);
 
             return _mapper.Map<Document>(document);
         }
+
         public Document AddDocument(Document document, int schoolId, int courseId)
         {
             Domain.Document newDocument = new Domain.Document()
@@ -330,6 +335,7 @@ namespace E_LearningSite.API.SQLDatabase
 
             _context.SaveChanges();
         }
+
         public void DeleteDocument(Document document, int schoolId, int courseId)
         {
             Domain.Document deleteDocument = _context.Documents.FirstOrDefault(d => d.Id == document.Id);
@@ -337,6 +343,7 @@ namespace E_LearningSite.API.SQLDatabase
             _context.Remove(deleteDocument);
             _context.SaveChanges();
         }
+
 
         // Catalogues
         public ICollection<Catalogue> GetAllCatalogues(int schoolId)
@@ -421,6 +428,7 @@ namespace E_LearningSite.API.SQLDatabase
             _context.SaveChanges();
         }
 
+
         // Catalogue Mentors
         public ICollection<Mentor> GetALLCatalogueMentors(int schoolId, int catalogueId)
         {
@@ -475,6 +483,7 @@ namespace E_LearningSite.API.SQLDatabase
             catalogue.MentorCatalogues.Remove(deleteCatalogueMentor);
             _context.SaveChanges();
         }
+
 
         // Catalogue Students
         public ICollection<Student> GetAllCatalogueStudents(int schoolId, int catalogueId)
@@ -588,7 +597,9 @@ namespace E_LearningSite.API.SQLDatabase
         // Catalogue Grades
         public ICollection<Grade> GetAllCatalogueGrades(int schoolId, int catalogueId)
         {
-            throw new NotImplementedException();
+            List<Domain.Grade> grades = _context.Grades.Where(g => g.CatalogueId == catalogueId).ToList();
+
+            return (ICollection<Grade>)_mapper.Map<IEnumerable<Grade>>(grades);
         }
         public Grade GetCatalogueGrade(int id, int schoolId, int catalogueId)
         {
