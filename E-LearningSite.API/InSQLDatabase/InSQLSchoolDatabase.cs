@@ -426,6 +426,20 @@ namespace E_LearningSite.API.SQLDatabase
         {
             Domain.Catalogue deleteCatalogue = _context.Catalogues.Include(c => c.CourseCatalogues)
                 .Include(c => c.MentorCatalogues).FirstOrDefault(c => c.Id == catalogue.Id);
+
+            //A. delete catalogue grades
+            List<Domain.Grade> deleteGrades = _context.Grades.Where(g => g.CatalogueId == catalogue.Id).ToList();
+            _context.Grades.RemoveRange(deleteGrades);
+            _context.SaveChanges();
+
+            //B. delete catalogues students
+            List<Domain.Student> deleteStudents = _context.Students.Where(s => s.CatalogueId == catalogue.Id).ToList();
+            foreach (Domain.Student student in deleteStudents)
+            {
+                student.CatalogueId = null;
+            }
+            _context.SaveChanges();
+
             _context.Catalogues.Remove(deleteCatalogue);
             _context.SaveChanges();
         }
