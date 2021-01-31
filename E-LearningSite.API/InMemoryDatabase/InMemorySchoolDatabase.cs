@@ -674,6 +674,12 @@ namespace E_LearningSite.API.Models
             grade.Mentor = mentor;
             grade.Date = gradeDTO.Date;
         }
+        public void DeleteCatalogueGrade(Grade grade, int schoolId, int catalogueId)
+        {
+            School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
+            Catalogue catalogue = school.Catalogues.FirstOrDefault(c => c.Id == catalogueId);
+            catalogue.Grades.Remove(grade);
+        }
 
         // School Subjects
         public Subject AddSubject(Subject subject, int schoolId)

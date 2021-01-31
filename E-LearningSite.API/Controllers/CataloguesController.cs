@@ -319,7 +319,7 @@ namespace E_LearningSite.API.Controllers
             {
                 return NotFound();
             }
-            _schoolRepository.GetAllCatalogueGrades(schoolId, catalogueId).Remove(grade);
+            _schoolRepository.DeleteCatalogueGrade(grade, schoolId, catalogueId);
             return NoContent();
         }
     }

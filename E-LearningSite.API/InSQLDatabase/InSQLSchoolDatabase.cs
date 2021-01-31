@@ -644,6 +644,13 @@ namespace E_LearningSite.API.SQLDatabase
             _context.SaveChanges();
         }
 
+        public void DeleteCatalogueGrade(Grade grade, int schoolId, int catalogueId)
+        {
+            Domain.Grade deleteGrade = _context.Grades.FirstOrDefault(g => g.Id == grade.Id);
+            _context.Grades.Remove(deleteGrade);
+            _context.SaveChanges();
+        }
+
         // Subjects
         public ICollection<Subject> GetAllSubjects(int schoolId)
         {
