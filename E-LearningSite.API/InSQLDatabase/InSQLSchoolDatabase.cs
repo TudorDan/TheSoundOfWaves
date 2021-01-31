@@ -632,6 +632,17 @@ namespace E_LearningSite.API.SQLDatabase
 
             return grade;
         }
+        public void UpdateCatalogueGrade(Grade grade, GradeDTO gradeDTO, int schoolId)
+        {
+            Domain.Grade updateGrade = _context.Grades.FirstOrDefault(g => g.Id == grade.Id);
+            updateGrade.StudentId = gradeDTO.StudentId;
+            updateGrade.Mark = gradeDTO.Mark;
+            updateGrade.CourseId = gradeDTO.CourseId;
+            updateGrade.MentorId = gradeDTO.MentorId;
+            updateGrade.Date = gradeDTO.Date;
+
+            _context.SaveChanges();
+        }
 
         // Subjects
         public ICollection<Subject> GetAllSubjects(int schoolId)

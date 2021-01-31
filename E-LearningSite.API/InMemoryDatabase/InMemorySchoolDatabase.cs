@@ -661,6 +661,19 @@ namespace E_LearningSite.API.Models
             Catalogue catalogue = school.Catalogues.FirstOrDefault(c => c.Id == catalogueId);
             return catalogue.Grades;
         }
+        public void UpdateCatalogueGrade(Grade grade, GradeDTO gradeDTO, int schoolId)
+        {
+            School school = _schoolDatabase.FirstOrDefault(s => s.Id == schoolId);
+            Student student = school.Students.FirstOrDefault(s => s.Id == gradeDTO.StudentId);
+            Course course = school.Courses.FirstOrDefault(c => c.Id == gradeDTO.CourseId);
+            Mentor mentor = school.Mentors.FirstOrDefault(m => m.Id == gradeDTO.MentorId);
+
+            grade.Student = student;
+            grade.Mark = gradeDTO.Mark;
+            grade.Course = course;
+            grade.Mentor = mentor;
+            grade.Date = gradeDTO.Date;
+        }
 
         // School Subjects
         public Subject AddSubject(Subject subject, int schoolId)

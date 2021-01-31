@@ -302,15 +302,7 @@ namespace E_LearningSite.API.Controllers
             {
                 return NotFound();
             }
-            Student student = _schoolRepository.GetStudent(gradeDTO.StudentId, schoolId);
-            Course course = _schoolRepository.GetCourse(gradeDTO.CourseId, schoolId);
-            Mentor mentor = _schoolRepository.GetMentor(gradeDTO.MentorId, schoolId);
-
-            grade.Student = student;
-            grade.Mark = gradeDTO.Mark;
-            grade.Course = course;
-            grade.Mentor = mentor;
-            grade.Date = gradeDTO.Date;
+            _schoolRepository.UpdateCatalogueGrade(grade, gradeDTO, schoolId);
 
             return NoContent();
         }

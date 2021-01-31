@@ -72,6 +72,7 @@ namespace E_LearningSite.API.Models
         Grade AddCatalogueGrade(Grade grade, int schoolId, int catalogueId);
         Grade GetCatalogueGrade(int id, int schoolId, int catalogueId);
         ICollection<Grade> GetAllCatalogueGrades(int schoolId, int catalogueId);
+        void UpdateCatalogueGrade(Grade grade, GradeDTO gradeDTO, int schoolId);
 
         // subjects
         Subject AddSubject(Subject subject, int schoolId);
