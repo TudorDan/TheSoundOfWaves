@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using E_LearningSite.API.Models;
 using Microsoft.AspNetCore.Cors;
@@ -166,14 +167,17 @@ namespace E_LearningSite.API.Controllers
                 return BadRequest(ModelState);
             }
             Student student = _schoolRepository.GetStudent(cataloguePersonDTO.Id, schoolId);
-            Catalogue catalogue = _schoolRepository.GetCatalogue(catalogueId, schoolId);
-            foreach (Student stud in catalogue.Students)
+            List<Catalogue> catalogues = (List<Catalogue>)_schoolRepository.GetAllCatalogues(schoolId);
+            foreach (Catalogue catalogue in catalogues)
             {
-                if (stud.Id == student.Id)
+                foreach (Student stud in catalogue.Students)
                 {
-                    return Conflict(student.Name);
+                    if (stud.Id == student.Id)
+                    {
+                        return Conflict(student.Name);
+                    }
                 }
-            }
+            }            
             _schoolRepository.AddCatalogueStudent(student, schoolId, catalogueId);
             return CreatedAtRoute("GetCatalogueStudent", new { schoolId, catalogueId, studentId = student.Id }, student);
         }
