@@ -10,6 +10,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using E_LearningSite.API.SQLDatabase;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace E_LearningSite.API
 {
@@ -33,6 +37,29 @@ namespace E_LearningSite.API
                 }
             );
 
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<LearningContext>().AddDefaultTokenProviders();
+
+            services.AddAuthentication(options =>
+           {
+               options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+               options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+               options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+           })
+
+           .AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidAudience = _config["JWT:ValidAudience"],
+                    ValidIssuer = _config["JWT:ValidIssuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:Secret"]))
+                };
+            });
+
             services.AddCors(options =>
             {
                 options.AddPolicy("ReactApp",
@@ -43,8 +70,8 @@ namespace E_LearningSite.API
             });
             services.AddMvc(option => option.EnableEndpointRouting = false);
 
-            //services.AddSingleton<ISchoolRepository, InMemorySchoolDatabase>();
-            services.AddScoped<ISchoolRepository, InSQLSchoolDatabase>();
+            services.AddSingleton<ISchoolRepository, InMemorySchoolDatabase>();
+            //services.AddScoped<ISchoolRepository, InSQLSchoolDatabase>();
 
             services.AddSwaggerGen(setupAction =>
             {
@@ -86,6 +113,9 @@ namespace E_LearningSite.API
 
             app.UseMvc();
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

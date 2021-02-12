@@ -1,11 +1,10 @@
 ﻿using E_LearningSite.Domain;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace E_LearningSite.Data
 {
-    public class LearningContext : DbContext
+    public class LearningContext : IdentityDbContext<ApplicationUser>
     {
         public LearningContext(DbContextOptions<LearningContext> options) : base(options)
         {
