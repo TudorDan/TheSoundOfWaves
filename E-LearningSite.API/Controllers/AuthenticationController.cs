@@ -74,9 +74,9 @@ namespace E_LearningSite.API.Controllers
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] Register register)
         {
-            var userExists = await userManager.FindByNameAsync(register.Username);
+            var userExists = await userManager.FindByEmailAsync(register.Email);
             if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User Already exists !" });
+                return StatusCode(StatusCodes.Status409Conflict, new Response { Status = "Error", Message = "Wrong email !" });
 
             ApplicationUser user = new ApplicationUser()
             {
@@ -86,18 +86,18 @@ namespace E_LearningSite.API.Controllers
             };
             var result = await userManager.CreateAsync(user, register.Password);
             if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation Failed! Please check user details and try again. " });
+                return StatusCode(StatusCodes.Status409Conflict, new Response { Status = "Error", Message = "Wrong password" });
 
-            return Ok(new Response { Status = "Succes", Message = "User created successfully!" });
+            return StatusCode(StatusCodes.Status200OK, new Response { Status = "Succes", Message = "User created successfully!" });
         }
 
         [HttpPost]
         [Route("register-admin")]
         public async Task<IActionResult> RegisterAdmin ([FromBody] Register register)
         {
-            var userExists = await userManager.FindByNameAsync(register.Username);
+            var userExists = await userManager.FindByNameAsync(register.Email);
             if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
+                return StatusCode(StatusCodes.Status409Conflict, new Response { Status = "Error", Message = "User already exists!" });
 
             ApplicationUser user = new ApplicationUser()
             {

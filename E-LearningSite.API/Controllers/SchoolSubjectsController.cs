@@ -1,6 +1,7 @@
 ﻿using E_LearningSite.API.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
 
 namespace E_LearningSite.API.Controllers
@@ -17,12 +18,14 @@ namespace E_LearningSite.API.Controllers
         }
 
         // Subjects
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult GetSubjects(int schoolId)
         {
             return Ok(_schoolRepository.GetAllSubjects(schoolId));
         }
 
+        [AllowAnonymous]
         [HttpGet("{subjectId}", Name = "GetSubject")]
         public IActionResult GetSubject(int schoolId, int subjectId)
         {
@@ -34,6 +37,7 @@ namespace E_LearningSite.API.Controllers
             return Ok(subject);
         }
 
+        [Authorize(Roles =("Admin, Principle"))]
         [HttpPost]
         public IActionResult CreateSubject(int schoolId, [FromBody] SubjectDTO subjectDTO)
         {
@@ -57,6 +61,7 @@ namespace E_LearningSite.API.Controllers
             return CreatedAtRoute("GetSubject", new { schoolId, subjectId = subject.Id }, subject);
         }
 
+        [Authorize(Roles = ("Admin, Principle"))]
         [HttpPut("{subjectId}")]
         public IActionResult UpdateSubject(int schoolId, [FromBody] SubjectDTO subjectDTO, int subjectId)
         {
@@ -73,6 +78,7 @@ namespace E_LearningSite.API.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = ("Admin, Principle"))]
         [HttpDelete("{subjectId}")]
         public IActionResult DeleteSubject(int schoolId, int subjectId)
         {

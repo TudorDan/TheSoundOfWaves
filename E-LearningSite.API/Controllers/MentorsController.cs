@@ -1,4 +1,5 @@
 ﻿using E_LearningSite.API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -17,12 +18,14 @@ namespace E_LearningSite.API.Controllers
         }
 
         // Mentors
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult GetMentors(int schoolId)
         {
             return Ok(_schoolRepository.GetAllMentors(schoolId));
         }
 
+        [AllowAnonymous]
         [HttpGet("{mentorId}", Name = "GetMentor")]
         public IActionResult GetMentor(int schoolId, int mentorId)
         {
@@ -34,6 +37,7 @@ namespace E_LearningSite.API.Controllers
             return Ok(mentor);
         }
 
+        [Authorize(Roles = ("Admin, Principle"))]
         [HttpPost]
         public IActionResult CreateMentor(int schoolId, [FromBody] PersonDTO personDTO)
         {
@@ -52,6 +56,7 @@ namespace E_LearningSite.API.Controllers
             return CreatedAtRoute("GetMentor", new { schoolId, mentorId = mentor.Id }, mentor);
         }
 
+        [Authorize(Roles = ("Admin, Principle"))]
         [HttpPut("{mentorId}")]
         public IActionResult UpdateMentor(int schoolId, [FromBody] PersonDTO personDTO, int mentorId)
         {
@@ -68,6 +73,7 @@ namespace E_LearningSite.API.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = ("Admin, Principle"))]
         [HttpDelete("{mentorId}")]
         public IActionResult DeleteMentor(int schoolId, int mentorId)
         {

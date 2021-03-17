@@ -1,4 +1,5 @@
 ﻿using E_LearningSite.API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -17,12 +18,14 @@ namespace E_LearningSite.API.Controllers
             _schoolRepository = schoolRepository;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult GetSchools()
         {
             return Ok(_schoolRepository.GetAllSchools());
         }
 
+        [AllowAnonymous]
         [HttpGet("{schoolId}", Name = "GetSchool")]
         public IActionResult GetSchool(int schoolId)
         {
@@ -34,6 +37,7 @@ namespace E_LearningSite.API.Controllers
             return Ok(schoolToReturn);
         }
 
+        [Authorize(Roles = "Admin, Principle")]
         [HttpPost]
         public IActionResult CreateSchool([FromBody] SchoolDTO schoolDTO)
         {
@@ -56,6 +60,7 @@ namespace E_LearningSite.API.Controllers
             return CreatedAtRoute("GetSchool", new { schoolId = school.Id }, school);
         }
 
+        [Authorize(Roles = "Admin, Principle")]
         [HttpPut("{schoolId}")]
         public IActionResult UpdateSchool(int schoolId, [FromBody] SchoolDTO schoolDTO)
         {
@@ -72,6 +77,7 @@ namespace E_LearningSite.API.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "Admin, Principle")]
         [HttpDelete("{schoolId}")]
         public IActionResult DeleteSchool(int schoolId)
         {
