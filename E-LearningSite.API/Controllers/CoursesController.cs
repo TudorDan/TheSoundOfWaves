@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using E_LearningSite.API.Models;
-using Microsoft.AspNetCore.Authorization;
+//using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,14 +19,14 @@ namespace E_LearningSite.API.Controllers
         }
 
         // Courses
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpGet]
         public IActionResult GetCourses(int schoolId)
         {
             return Ok(_schoolRepository.GetAllCourses(schoolId));
         }
 
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpGet("{courseId}", Name = "GetCourse")]
         public IActionResult GetCourse(int schoolId, int courseId)
         {
@@ -38,7 +38,7 @@ namespace E_LearningSite.API.Controllers
             return Ok(course);
         }
 
-        [Authorize(Roles = ("Admin, Principle"))]
+        //[Authorize(Roles = ("Admin, Principle"))]
         [HttpPost]
         public IActionResult CreateCourse(int schoolId, [FromBody] CourseDTO courseDTO)
         {
@@ -60,7 +60,7 @@ namespace E_LearningSite.API.Controllers
             return CreatedAtRoute("GetCourse", new { schoolId, courseId = course.Id }, course);
         }
 
-        [Authorize(Roles = ("Admin, Principle"))]
+        //[Authorize(Roles = ("Admin, Principle"))]
         [HttpPut("{courseId}")]
         public IActionResult UpdateCourse(int schoolId, [FromBody] CourseDTO courseDTO, int courseId)
         {
@@ -77,7 +77,7 @@ namespace E_LearningSite.API.Controllers
             return NoContent();
         }
 
-        [Authorize(Roles = ("Admin, Principle"))]
+        //[Authorize(Roles = ("Admin, Principle"))]
         [HttpDelete("{courseId}")]
         public IActionResult DeleteCourse(int schoolId, int courseId)
         {
@@ -95,14 +95,14 @@ namespace E_LearningSite.API.Controllers
         }
 
         // Course Documents
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpGet("{courseId}/documents")]
         public IActionResult GetDocuments(int schoolId, int courseId)
         {
             return Ok(_schoolRepository.GetAllDocuments(schoolId, courseId));
         }
 
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpGet("{courseId}/documents/{documentId}", Name = "GetDocument")]
         public IActionResult GetDocument(int schoolId, int courseId, int documentId)
         {
@@ -114,7 +114,7 @@ namespace E_LearningSite.API.Controllers
             return Ok(document);
         }
 
-        [Authorize(Roles = ("Admin, Mentor"))]
+        //[Authorize(Roles = ("Admin, Mentor"))]
         [HttpPost("{courseId}/documents")]
         public IActionResult CreateDocument(int schoolId, int courseId,
             [FromBody] DocumentDTO documentDTO)
@@ -132,7 +132,7 @@ namespace E_LearningSite.API.Controllers
             return CreatedAtRoute("GetDocument", new { schoolId, courseId, documentId = document.Id }, document);
         }
 
-        [Authorize(Roles = ("Admin, Mentor"))]
+        //[Authorize(Roles = ("Admin, Mentor"))]
         [HttpPut("{courseId}/documents/{documentId}")]
         public IActionResult UpdateDocument(int schoolId, int courseId, int documentId,
             [FromBody] DocumentDTO documentDTO)
@@ -150,7 +150,7 @@ namespace E_LearningSite.API.Controllers
             return NoContent();
         }
 
-        [Authorize(Roles = ("Admin, Mentor"))]
+        //[Authorize(Roles = ("Admin, Mentor"))]
         [HttpDelete("{courseId}/documents/{documentId}")]
         public IActionResult DeleteDocument(int schoolId, int courseId, int documentId)
         {

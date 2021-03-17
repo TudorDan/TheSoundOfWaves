@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using E_LearningSite.API.Models;
-using Microsoft.AspNetCore.Authorization;
+//using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,14 +18,14 @@ namespace E_LearningSite.API.Controllers
         }
 
         // Students
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpGet]
         public IActionResult GetStudents(int schoolId)
         {
             return Ok(_schoolRepository.GetAllStudents(schoolId));
         }
 
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpGet("{studentId}", Name = "GetStudent")]
         public IActionResult GetStudent(int schoolId, int studentId)
         {
@@ -37,7 +37,7 @@ namespace E_LearningSite.API.Controllers
             return Ok(student);
         }
 
-        [Authorize(Roles = ("Admin, Principle"))]
+        //[Authorize(Roles = ("Admin, Principle"))]
         [HttpPost]
         public IActionResult CreateStudent(int schoolId, [FromBody] PersonDTO personDTO)
         {
@@ -56,7 +56,7 @@ namespace E_LearningSite.API.Controllers
             return CreatedAtRoute("GetStudent", new { schoolId, studentId = student.Id }, student);
         }
 
-        [Authorize(Roles = ("Admin, Principle"))]
+        //[Authorize(Roles = ("Admin, Principle"))]
         [HttpPut("{studentId}")]
         public IActionResult UpdateStudent(int schoolId, [FromBody] PersonDTO personDTO, int studentId)
         {
@@ -73,7 +73,7 @@ namespace E_LearningSite.API.Controllers
             return NoContent();
         }
 
-        [Authorize(Roles = ("Admin, Principle"))]
+        //[Authorize(Roles = ("Admin, Principle"))]
         [HttpDelete("{studentId}")]
         public IActionResult DeleteStudent(int schoolId, int studentId)
         {
