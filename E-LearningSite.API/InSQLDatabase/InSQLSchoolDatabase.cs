@@ -30,10 +30,13 @@ namespace E_LearningSite.API.SQLDatabase
 
         public School GetSchool(int id)
         {
-            Domain.School school = _context.Schools.FirstOrDefault(s => s.Id == id);
-            Domain.Principal principal = _context.Principals.FirstOrDefault(p => p.SchoolId == school.Id);
+            
+            Domain.School school = _context.Schools.Include(s => s.Principal).FirstOrDefault(s => s.Id == id);
 
-            school.Principal = principal;
+            // alternative solution:
+            /*Domain.Principal principal = _context.Principals.FirstOrDefault(p => p.SchoolId == school.Id);
+
+            school.Principal = principal;*/
 
             return _mapper.Map<School>(school);
         }
