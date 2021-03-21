@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using E_LearningSite.API.Models;
+using System;
 
-namespace E_LearningSite.API.DTOs
+namespace E_LearningSite.API.Models
 {
-    public enum Subject
+    public class Subject
     {
-        HISTORY,
-        IT,
-        ASTRONOMY
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

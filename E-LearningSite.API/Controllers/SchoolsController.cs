@@ -1,12 +1,12 @@
-﻿using E_LearningSite.API.DTOs;
+﻿using E_LearningSite.API.Models;
+//using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace E_LearningSite.API.Controllers
 {
+    [EnableCors("ReactApp")]
     [Route("api/[controller]")]
     [ApiController]
     public class SchoolsController : ControllerBase
@@ -18,12 +18,14 @@ namespace E_LearningSite.API.Controllers
             _schoolRepository = schoolRepository;
         }
 
+        //[AllowAnonymous]
         [HttpGet]
         public IActionResult GetSchools()
         {
             return Ok(_schoolRepository.GetAllSchools());
         }
 
+        //[AllowAnonymous]
         [HttpGet("{schoolId}", Name = "GetSchool")]
         public IActionResult GetSchool(int schoolId)
         {
@@ -35,6 +37,7 @@ namespace E_LearningSite.API.Controllers
             return Ok(schoolToReturn);
         }
 
+        //[Authorize(Roles = "Admin, Principle")]
         [HttpPost]
         public IActionResult CreateSchool([FromBody] SchoolDTO schoolDTO)
         {
@@ -42,21 +45,22 @@ namespace E_LearningSite.API.Controllers
             {
                 return BadRequest(ModelState);
             }
-            int maxSchoolId = _schoolRepository.GetAllSchools().Max(s => s.Id);
             School school = new School()
             {
-                Id = ++maxSchoolId,
                 Name = schoolDTO.Name,
                 Principal = schoolDTO.Principal,
-                MentorsList = schoolDTO.MentorsList,
-                StudentsList = schoolDTO.StudentsList,
-                CoursesList = schoolDTO.CoursesList,
-                CataloguesList = schoolDTO.CataloguesList
+                Photo = schoolDTO.Photo,
+                Mentors = schoolDTO.Mentors,
+                Students = schoolDTO.Students,
+                Courses = schoolDTO.Courses,
+                Catalogues = schoolDTO.Catalogues,
+                Subjects = schoolDTO.Subjects
             };
             _schoolRepository.AddSchool(school);
             return CreatedAtRoute("GetSchool", new { schoolId = school.Id }, school);
         }
 
+        //[Authorize(Roles = "Admin, Principle")]
         [HttpPut("{schoolId}")]
         public IActionResult UpdateSchool(int schoolId, [FromBody] SchoolDTO schoolDTO)
         {
@@ -69,15 +73,11 @@ namespace E_LearningSite.API.Controllers
             {
                 return NotFound();
             }
-            school.Name = schoolDTO.Name;
-            school.Principal = schoolDTO.Principal;
-            school.MentorsList = schoolDTO.MentorsList;
-            school.StudentsList = schoolDTO.StudentsList;
-            school.CoursesList = schoolDTO.CoursesList;
-            school.CataloguesList = schoolDTO.CataloguesList;
+            _schoolRepository.UpdateSchool(school, schoolDTO);
             return NoContent();
         }
 
+        //[Authorize(Roles = "Admin, Principle")]
         [HttpDelete("{schoolId}")]
         public IActionResult DeleteSchool(int schoolId)
         {
@@ -86,298 +86,9 @@ namespace E_LearningSite.API.Controllers
             {
                 return NotFound();
             }
-            _schoolRepository.GetAllSchools().Remove(school);
+            _schoolRepository.DeleteSchool(school);
             return NoContent();
-        }
+        }            
 
-        // Mentors
-        [HttpGet("{schoolId}/mentors")]
-        public IActionResult GetMentors(int schoolId)
-        {
-            return Ok(_schoolRepository.GetAllMentors(schoolId));
-        }
-
-        [HttpGet("{schoolId}/mentors/{mentorId}", Name = "GetMentor")]
-        public IActionResult GetMentor(int schoolId, int mentorId)
-        {
-            Mentor mentor = _schoolRepository.GetMentor(mentorId, schoolId);
-            if (mentor == null)
-            {
-                return NotFound();
-            }
-            return Ok(mentor);
-        }
-
-        [HttpPost("{schoolId}/mentors")]
-        public IActionResult CreateMentor(int schoolId, [FromBody] PersonDTO personDTO)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            int maxMentorId = _schoolRepository.GetSchool(schoolId).MentorsList.Max(m => m.Id);
-            Mentor mentor = new Mentor()
-            {
-                Id = ++maxMentorId,
-                Name = personDTO.Name,
-                BirthDate = personDTO.BirthDate,
-                AccessRights = personDTO.AccessRights
-            };
-            _schoolRepository.AddMentor(mentor, schoolId);
-            return CreatedAtRoute("GetMentor", new { schoolId, mentorId = mentor.Id }, mentor);
-        }
-
-        [HttpPut("{schoolId}/mentors/{mentorId}")]
-        public IActionResult UpdateMentor(int schoolId, [FromBody] PersonDTO personDTO, int mentorId)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            Mentor mentor = _schoolRepository.GetMentor(mentorId, schoolId);
-            if (mentor == null)
-            {
-                return NotFound();
-            }
-            mentor.Name = personDTO.Name;
-            mentor.BirthDate = personDTO.BirthDate;
-            mentor.AccessRights = personDTO.AccessRights;
-            return NoContent();
-        }
-
-        [HttpDelete("{schoolId}/mentors/{mentorId}")]
-        public IActionResult DeleteMentor(int schoolId, int mentorId)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            Mentor mentor = _schoolRepository.GetMentor(mentorId, schoolId);
-            if (mentor == null)
-            {
-                return NotFound();
-            }
-            _schoolRepository.GetAllMentors(schoolId).Remove(mentor);
-            return NoContent();
-        }
-
-        // Students
-        [HttpGet("{schoolId}/students")]
-        public IActionResult GetStudents(int schoolId)
-        {
-            return Ok(_schoolRepository.GetAllStudents(schoolId));
-        }
-
-        [HttpGet("{schoolId}/students/{studentId}", Name = "GetStudent")]
-        public IActionResult GetStudent(int schoolId, int studentId)
-        {
-            Student student = _schoolRepository.GetStudent(studentId, schoolId);
-            if (student == null)
-            {
-                return NotFound();
-            }
-            return Ok(student);
-        }
-
-        [HttpPost("{schoolId}/students")]
-        public IActionResult CreateStudent(int schoolId, [FromBody] PersonDTO personDTO)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            int maxStudentId = _schoolRepository.GetSchool(schoolId).StudentsList.Max(s => s.Id);
-            Student student = new Student()
-            {
-                Id = ++maxStudentId,
-                Name = personDTO.Name,
-                BirthDate = personDTO.BirthDate,
-                AccessRights = personDTO.AccessRights
-            };
-            _schoolRepository.AddStudent(student, schoolId);
-            return CreatedAtRoute("GetStudent", new { schoolId, studentId = student.Id }, student);
-        }
-
-        [HttpPut("{schoolId}/students/{studentId}")]
-        public IActionResult UpdateStudent(int schoolId, [FromBody] PersonDTO personDTO, int studentId)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            Student student = _schoolRepository.GetStudent(studentId, schoolId);
-            if (student == null)
-            {
-                return NotFound();
-            }
-            student.Name = personDTO.Name;
-            student.BirthDate = personDTO.BirthDate;
-            student.AccessRights = personDTO.AccessRights;
-            return NoContent();
-        }
-
-        [HttpDelete("{schoolId}/students/{studentId}")]
-        public IActionResult DeleteStudent(int schoolId, int studentId)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            Student student = _schoolRepository.GetStudent(studentId, schoolId);
-            if (student == null)
-            {
-                return NotFound();
-            }
-            _schoolRepository.GetAllStudents(schoolId).Remove(student);
-            return NoContent();
-        }
-
-        // Courses
-        [HttpGet("{schoolId}/courses")]
-        public IActionResult GetCourses(int schoolId)
-        {
-            return Ok(_schoolRepository.GetAllCourses(schoolId));
-        }
-
-        [HttpGet("{schoolId}/courses/{courseId}", Name = "GetCourse")]
-        public IActionResult GetCourse(int schoolId, int courseId)
-        {
-            Course course = _schoolRepository.GetCourse(courseId, schoolId);
-            if (course == null)
-            {
-                return NotFound();
-            }
-            return Ok(course);
-        }
-
-        [HttpPost("{schoolId}/courses")]
-        public IActionResult CreateCourse(int schoolId, [FromBody] CourseDTO courseDTO)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            int maxCourseId = _schoolRepository.GetSchool(schoolId).CoursesList.Max(c => c.Id);
-            Course course = new Course()
-            {
-                Id = ++maxCourseId,
-                Name = courseDTO.Name,
-                Subject = courseDTO.Subject,
-                Description = courseDTO.Description,
-                CourseMaterials = courseDTO.CourseMaterials
-            };
-            _schoolRepository.AddCourse(course, schoolId);
-            return CreatedAtRoute("GetCourse", new { schoolId, courseId = course.Id }, course);
-        }
-
-        [HttpPut("{schoolId}/courses/{courseId}")]
-        public IActionResult UpdateCourse(int schoolId, [FromBody] CourseDTO courseDTO, int courseId)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            Course course = _schoolRepository.GetCourse(courseId, schoolId);
-            if (course == null)
-            {
-                return NotFound();
-            }
-            course.Name = courseDTO.Name;
-            course.Subject = courseDTO.Subject;
-            course.Description = courseDTO.Description;
-            course.CourseMaterials = courseDTO.CourseMaterials;
-            return NoContent();
-        }
-
-        [HttpDelete("{schoolId}/courses/{courseId}")]
-        public IActionResult DeleteCourse(int schoolId, int courseId)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            Course course = _schoolRepository.GetCourse(courseId, schoolId);
-            if (course == null)
-            {
-                return NotFound();
-            }
-            _schoolRepository.GetAllCourses(schoolId).Remove(course);
-            return NoContent();
-        }
-
-        // Catalogues
-        [HttpGet("{schoolId}/catalogues")]
-        public IActionResult GetCatalogues(int schoolId)
-        {
-            return Ok(_schoolRepository.GetAllCatalogues(schoolId));
-        }
-
-        [HttpGet("{schoolId}/catalogues/{catalogueId}", Name = "GetCatalogue")]
-        public IActionResult GetCatalogue(int schoolId, int catalogueId)
-        {
-            Catalogue catalogue = _schoolRepository.GetCatalogue(catalogueId, schoolId);
-            if (catalogue == null)
-            {
-                return NotFound();
-            }
-            return Ok(catalogue);
-        }
-
-        [HttpPost("{schoolId}/catalogues")]
-        public IActionResult CreateCatalogue(int schoolId, [FromBody] CatalogueDTO catalogueDTO)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            int maxCatalogueId = _schoolRepository.GetSchool(schoolId).CataloguesList.Max(c => c.Id);
-            Catalogue catalogue = new Catalogue()
-            {
-                Id = ++maxCatalogueId,
-                ClassName = catalogueDTO.ClassName,
-                ClassMentors = catalogueDTO.ClassMentors,
-                ClassStudents = catalogueDTO.ClassStudents,
-                ClassCourses = catalogueDTO.ClassCourses,
-                ClassGrades = catalogueDTO.ClassGrades
-            };
-            _schoolRepository.AddCatalogue(catalogue, schoolId);
-            return CreatedAtRoute("GetCatalogue", new { schoolId, catalogueId = catalogue.Id }, catalogue);
-        }
-
-        [HttpPut("{schoolId}/catalogues/{catalogueId}")]
-        public IActionResult UpdateCatalogue(int schoolId, [FromBody] CatalogueDTO catalogueDTO, int catalogueId)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            Catalogue catalogue = _schoolRepository.GetCatalogue(catalogueId, schoolId);
-            if (catalogue == null)
-            {
-                return NotFound();
-            }
-            catalogue.ClassName = catalogueDTO.ClassName;
-            catalogue.ClassMentors = catalogueDTO.ClassMentors;
-            catalogue.ClassStudents = catalogueDTO.ClassStudents;
-            catalogue.ClassCourses = catalogueDTO.ClassCourses;
-            catalogue.ClassGrades = catalogueDTO.ClassGrades;
-            return NoContent();
-        }
-
-        [HttpDelete("{schoolId}/catalogues/{catalogueId}")]
-        public IActionResult DeleteCatalogue(int schoolId, int catalogueId)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            Catalogue catalogue = _schoolRepository.GetCatalogue(catalogueId, schoolId);
-            if (catalogue == null)
-            {
-                return NotFound();
-            }
-            _schoolRepository.GetAllCatalogues(schoolId).Remove(catalogue);
-            return NoContent();
-        }
     }
 }

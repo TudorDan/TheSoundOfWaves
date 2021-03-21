@@ -4,13 +4,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace E_LearningSite.API.DTOs
+namespace E_LearningSite.API.Models
 {
-    public struct Document
+    public class Document
     {
         public int Id { get; set; }
         [Required]
-        public string Documentation { get; set; }
+        public string Name { get; set; }
         public string Link { get; set; }
     }
 }

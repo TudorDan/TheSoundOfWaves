@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace E_LearningSite.API.DTOs
+namespace E_LearningSite.API.Models
 {
     public class CourseDTO
     {
@@ -12,10 +12,11 @@ namespace E_LearningSite.API.DTOs
         [MaxLength(50, ErrorMessage = "Name cannot exceed 50 characters")]
         public string Name { get; set; }
         [Required]
-        public Subject? Subject { get; set; }
+        public int SubjectId { get; set; }
         [Required]
         public string Description { get; set; }
-        [Required]
-        public List<Document> CourseMaterials { get; set; }
+#nullable enable
+        public List<Document>? Documents { get; set; }
+#nullable disable
     }
 }
