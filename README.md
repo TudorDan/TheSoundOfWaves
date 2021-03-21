@@ -34,5 +34,5 @@ Set "E-LearningSite.API" as StartUp Project.
 
 ## Implementation
 
-Home page:
+Swagger:
 ![Swagger](swagger.png)
